@@ -30,9 +30,11 @@ namespace Petstaurant.Models
             [Required]
             public string Password { get; set; }
             [Required]
-            public Gender Gender { get; set; } = Gender.DontWishToSpecify;
+            public Gender Gender { get; set; }
             [Required]
-            public string Name { get; set; }
+            [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
+            "Name should only contain word characters, hyphens, spaces and apostrophes")]
+             public string Name { get; set; }
             [DataType(DataType.Date)]
             [Required]
             [DisplayName("Birth Date")]
@@ -41,7 +43,7 @@ namespace Petstaurant.Models
             public DateTime Registered { get; set; }
             public List<Order> Orders { get; set; }
             public Cart Cart { get; set; }
-            public UserType UserType { get; set; } = UserType.Customer;
+            public UserType UserType { get; set; }
         
     }
 }

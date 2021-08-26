@@ -11,6 +11,8 @@ namespace Petstaurant.Models
     {
         public int Id { get; set; }
         [Required]
+        [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
+            "Name should only contain word characters, hyphens, spaces and apostrophes")]
         public string Name { get; set; }
         public FoodGroup FoodGroup { get; set; }
         [Required]
