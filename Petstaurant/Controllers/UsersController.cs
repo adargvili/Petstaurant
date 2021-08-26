@@ -44,7 +44,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public IActionResult Register()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,Password,Gender,Name,BirthDate,Registered,UserType")] User user)
+        public async Task<IActionResult> Register([Bind("Id,Username,Password,Gender,Name,BirthDate")] User user)
         {
             if (ModelState.IsValid)
             {
