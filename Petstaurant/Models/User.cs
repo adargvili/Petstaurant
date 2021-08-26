@@ -23,15 +23,18 @@ namespace Petstaurant.Models
             [Required]
             [DisplayName("Email Adress")]
             [EmailAddress]
+            [StringLength(30, MinimumLength = 5)]
             public string Username { get; set; }
             [DataType(DataType.Password)]
             [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage =
             "Password must contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
             [Required]
+            [MaxLength(30)]
             public string Password { get; set; }
-            [Required]
-            public Gender Gender { get; set; }
-            [Required]
+        [Required]
+        public Gender Gender { get; set; } = Gender.DontWishToSpecify;
+        [Required]
+            [StringLength(30, MinimumLength = 2)]
             [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
             "Name should only contain word characters, hyphens, spaces and apostrophes")]
              public string Name { get; set; }
@@ -43,7 +46,8 @@ namespace Petstaurant.Models
             public DateTime Registered { get; set; }
             public List<Order> Orders { get; set; }
             public Cart Cart { get; set; }
-            public UserType UserType { get; set; }
-        
+        public UserType UserType { get; set; } = UserType.Customer;
+
+
     }
 }
