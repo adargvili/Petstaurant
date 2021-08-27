@@ -33,7 +33,6 @@ namespace Petstaurant.Models
         public string Password { get; set; }
         [Required]
         public Gender Gender { get; set; } = Gender.DontWishToSpecify;
-        [Required]
         [StringLength(30, MinimumLength = 2)]
         [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
             "Name should only contain word characters, hyphens, spaces and apostrophes")]
