@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Petstaurant.Models;
 using System;
@@ -18,12 +19,28 @@ namespace Petstaurant.Controllers
             _logger = logger;
         }
 
+
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Customer")]
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult AboutPetstaurant()
+        {
+            return View();
+        }
+        public IActionResult Careers()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        public IActionResult TheCrew()
         {
             return View();
         }
