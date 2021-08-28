@@ -22,7 +22,7 @@ namespace Petstaurant.Models
         [Required]
         public int Price { get; set; }
         public List<CartItem> CartItems { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.Today;
         [DisplayName("Image URL")]
         [DataType(DataType.ImageUrl)]
         [MaxLength(50)]
