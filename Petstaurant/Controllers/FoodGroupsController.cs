@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FoodGroupsController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -58,9 +60,17 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(foodGroup);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var q = _context.FoodGroup.FirstOrDefault(u => u.Name == foodGroup.Name);
+                if (q == null)
+                {
+                    _context.Add(foodGroup);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewData["Error"] = "Unable to comply; cannot create the FoodGroup.";
+                }
             }
             return View(foodGroup);
         }

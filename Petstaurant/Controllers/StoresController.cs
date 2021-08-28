@@ -54,16 +54,26 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,Address")] Store store)
+        public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode")] Store store)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(store);
+                var q = _context.Store.FirstOrDefault(u => store.Country == store.Country && store.Address == store.Address);
+                if (q == null)
+                {
+                    _context.Add(store);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                }
+
+                else
+                {
+                    ViewData["Error"] = "Unable to comply; cannot create the Store.";
+                }
             }
             return View(store);
         }
+
 
         // GET: Stores/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -86,7 +96,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,Address")] Store store)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,Address,PostalCode")] Store store)
         {
             if (id != store.Id)
             {

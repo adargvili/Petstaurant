@@ -10,8 +10,8 @@ using Petstaurant.Data;
 namespace Petstaurant.Migrations
 {
     [DbContext(typeof(PetstaurantContext))]
-    [Migration("20210826135513_Init1")]
-    partial class Init1
+    [Migration("20210828164251_Relations")]
+    partial class Relations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,7 +69,7 @@ namespace Petstaurant.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CartId")
+                    b.Property<int>("CartId")
                         .HasColumnType("int");
 
                     b.Property<int?>("DishId")
@@ -137,7 +137,7 @@ namespace Petstaurant.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("FoodGroupId")
+                    b.Property<int>("FoodGroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
@@ -217,7 +217,7 @@ namespace Petstaurant.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -237,7 +237,7 @@ namespace Petstaurant.Migrations
                     b.Property<int?>("DishId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -270,6 +270,11 @@ namespace Petstaurant.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Store");
@@ -289,7 +294,6 @@ namespace Petstaurant.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -350,7 +354,9 @@ namespace Petstaurant.Migrations
                 {
                     b.HasOne("Petstaurant.Models.Cart", "Cart")
                         .WithMany("CartItems")
-                        .HasForeignKey("CartId");
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Petstaurant.Models.Dish", "Dish")
                         .WithMany("CartItems")
@@ -365,7 +371,9 @@ namespace Petstaurant.Migrations
                 {
                     b.HasOne("Petstaurant.Models.FoodGroup", "FoodGroup")
                         .WithMany("Dishes")
-                        .HasForeignKey("FoodGroupId");
+                        .HasForeignKey("FoodGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FoodGroup");
                 });
@@ -374,7 +382,9 @@ namespace Petstaurant.Migrations
                 {
                     b.HasOne("Petstaurant.Models.User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -387,7 +397,9 @@ namespace Petstaurant.Migrations
 
                     b.HasOne("Petstaurant.Models.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Dish");
 

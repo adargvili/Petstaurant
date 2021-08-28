@@ -21,7 +21,7 @@ namespace Petstaurant.Models
     {
         public int Id { get; set; }
         [Required]
-        [DisplayName("Email Adress")]
+        [DisplayName("Email Address")]
         [EmailAddress]
         [StringLength(30, MinimumLength = 5)]
         public string Username { get; set; }

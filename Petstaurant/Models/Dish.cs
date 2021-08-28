@@ -15,12 +15,15 @@ namespace Petstaurant.Models
         [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
             "Name should only contain word characters, hyphens, spaces and apostrophes")]
         public string Name { get; set; }
+        [DisplayName("Food Group")]
+        public int FoodGroupId { get; set; }
         public FoodGroup FoodGroup { get; set; }
         [Required]
         [MaxLength(200)]
         public string Description { get; set; }
         [Required]
         public int Price { get; set; }
+        [DisplayName("Cart Items")]
         public List<CartItem> CartItems { get; set; }
         public DateTime Created { get; set; } = DateTime.Today;
         [DisplayName("Image URL")]

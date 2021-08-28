@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DishesController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -22,7 +24,8 @@ namespace Petstaurant.Controllers
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dish.ToListAsync());
+            var petstaurantContext = _context.Dish.Include(d => d.FoodGroup);
+            return View(await petstaurantContext.ToListAsync());
         }
 
         // GET: Dishes/Details/5
@@ -34,6 +37,7 @@ namespace Petstaurant.Controllers
             }
 
             var dish = await _context.Dish
+                .Include(d => d.FoodGroup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dish == null)
             {
@@ -46,6 +50,7 @@ namespace Petstaurant.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
+            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name));
             return View();
         }
 
@@ -54,15 +59,27 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Created,Image")] Dish dish)
+        public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId,Description,Price,Image")] Dish dish)
         {
+
+
             if (ModelState.IsValid)
             {
-                _context.Add(dish);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
+                if (q == null)
+                {
+                    _context.Add(dish);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewData["Error"] = "Unable to comply; cannot create the Dish.";
+                }
             }
+            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
+            
         }
 
         // GET: Dishes/Edit/5
@@ -78,6 +95,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
         }
 
@@ -86,7 +104,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Created,Image")] Dish dish)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,Image")] Dish dish)
         {
             if (id != dish.Id)
             {
@@ -113,6 +131,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
         }
 
@@ -125,6 +144,7 @@ namespace Petstaurant.Controllers
             }
 
             var dish = await _context.Dish
+                .Include(d => d.FoodGroup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (dish == null)
             {

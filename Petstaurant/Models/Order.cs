@@ -29,8 +29,8 @@ namespace Petstaurant.Models
         public string City { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 5)]
-        [RegularExpression(@"\d{1,3}.?\d{0,3}\s[a-zA-Z]{2,30}\s[a-zA-Z]{2,15}", ErrorMessage =
-           "Please enter a real address")]
+        [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$", ErrorMessage =
+           "Please do not use specialized sybmols in the address")]
         public string Address { get; set; }
         [Required]
         [DisplayName("Postal Code")]
@@ -42,10 +42,13 @@ namespace Petstaurant.Models
         [DisplayName("Phone Number")]
         [StringLength(12, MinimumLength = 9)]
         public string PhoneNumber { get; set; }
-        [DisplayName("Total Pay")]
+        [DisplayName("Total Price")]
         public double TotalPrice { get; set; }
-        public Delivery Delivery { get; set; }
+        public Delivery Delivery { get; set; } = Delivery.Standart;
+        [DisplayName("User")]
+        public int UserId { get; set; }
         public User User { get; set; }
+        [DisplayName("Order Items")]
         public List<OrderItem> OrderItems { get; set; }
 
         [DataType(DataType.DateTime)]

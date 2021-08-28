@@ -9,6 +9,8 @@ namespace Petstaurant.Models
     public class OrderItem
     {
         public int Id { get; set; }
+        [DisplayName("Order")]
+        public int OrderId { get; set; }
         public Order Order { get; set; }
         [DefaultValue(1)]
         public int Quantity { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CartsController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -48,7 +50,7 @@ namespace Petstaurant.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password");
             return View();
         }
 
@@ -65,7 +67,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password", cart.UserId);
             return View(cart);
         }
 
@@ -82,7 +84,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password", cart.UserId);
             return View(cart);
         }
 
@@ -118,7 +120,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Name", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password", cart.UserId);
             return View(cart);
         }
 

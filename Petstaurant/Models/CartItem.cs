@@ -9,6 +9,8 @@ namespace Petstaurant.Models
     public class CartItem
     {
         public int Id { get; set; }
+        [DisplayName("Cart")]
+        public int CartId { get; set; }
         public Cart Cart { get; set; }
         [DefaultValue(1)]
         public int Quantity { get; set; }

@@ -11,10 +11,12 @@ namespace Petstaurant.Models
     public class Cart
     {
         public int Id { get; set; }
+        [DisplayName("Cart Items")]
         public List<CartItem> CartItems { get; set; }
         [DisplayName("Total Price")]
         public double TotalPrice { get; set; }
         [ForeignKey("User")]
+        [DisplayName("User")]
         public int UserId { get; set; }
         public User User { get; set; }
         public Order Order { get; set; }
