@@ -50,7 +50,7 @@ namespace Petstaurant.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName");
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
             return View(cart);
         }
 
@@ -84,7 +84,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
             return View(cart);
         }
 
@@ -120,7 +120,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "UserName", cart.UserId);
+            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
             return View(cart);
         }
 
