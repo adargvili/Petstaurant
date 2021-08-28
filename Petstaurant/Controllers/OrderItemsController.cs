@@ -48,7 +48,7 @@ namespace Petstaurant.Controllers
         // GET: OrderItems/Create
         public IActionResult Create()
         {
-            ViewData["OrderId"] = new SelectList(_context.Order, "Id", "Address");
+            ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address));
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Order, "Id", "Address", orderItem.OrderId);
+            ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address), orderItem.OrderId);
             return View(orderItem);
         }
 
@@ -82,7 +82,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrderId"] = new SelectList(_context.Order, "Id", "Address", orderItem.OrderId);
+            ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address), orderItem.OrderId);
             return View(orderItem);
         }
 
@@ -118,7 +118,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Order, "Id", "Address", orderItem.OrderId);
+            ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address), orderItem.OrderId);
             return View(orderItem);
         }
 
