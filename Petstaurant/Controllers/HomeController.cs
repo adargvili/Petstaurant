@@ -25,7 +25,7 @@ namespace Petstaurant.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Admin")]
         public IActionResult Privacy()
         {
             return View();
