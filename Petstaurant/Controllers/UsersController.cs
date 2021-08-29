@@ -79,6 +79,7 @@ namespace Petstaurant.Controllers
 
                 if (q == null)
                 {
+                    user.Cart = new Cart();
                     _context.Add(user);
                     await _context.SaveChangesAsync();
 
