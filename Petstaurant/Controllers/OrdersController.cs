@@ -51,8 +51,8 @@ namespace Petstaurant.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id");
-            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName");
+            ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id));
+            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName));
             return View();
         }
 
@@ -69,8 +69,8 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id", order.CartId);
-            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", order.UserName);
+            ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id), order.CartId);
+            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
 
@@ -87,8 +87,8 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id", order.CartId);
-            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", order.UserName);
+            ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id), order.CartId);
+            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
 
@@ -124,8 +124,8 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id", order.CartId);
-            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", order.UserName);
+            ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id), order.CartId);
+            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
 

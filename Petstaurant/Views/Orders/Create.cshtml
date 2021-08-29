@@ -38,12 +38,9 @@
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Delivery"><i class="fas fa-venus-mars"></i></label>
-                &nbsp;  &nbsp;  &nbsp;
-                <select asp-for="Delivery" name="delivery" id="" placeholder="Choose a delivery">
-                    <option value="" selected disabled hidden>---Delivery---</option>
-                    <option value="Standard">Standard</option>
-                    <option value="Express">Express</option>
+                <select asp-for="Delivery" name="delivery" id="delivery" placeholder="Your delivery">
+                    <option value="Standard" selected>Standard Delivery</option>
+                    <option value="Express">Express Delivery</option>
                 </select>
                 <span asp-validation-for="Delivery" class="text-danger"></span>
             </div>
@@ -55,11 +52,6 @@
                 <label asp-for="CartId" class="control-label"></label>
                 <select asp-for="CartId" class="form-control" asp-items="ViewBag.CartId"></select>
             </div>
-            @*<div class="form-group">
-                <label asp-for="OrderTime" class="control-label"></label>
-                <input asp-for="OrderTime" class="form-control" />
-                <span asp-validation-for="OrderTime" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
