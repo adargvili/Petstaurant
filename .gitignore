@@ -6,6 +6,7 @@
 #Configurations Files:
 Startup.cs
 *.sln
+*.json
 
 # User-specific files
 *.rsuser
