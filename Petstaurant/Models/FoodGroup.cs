@@ -13,7 +13,7 @@ namespace Petstaurant.Models
         [Required]
         [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
             "Name should only contain word characters, hyphens, spaces and apostrophes")]
-        [StringLength(30, MinimumLength = 2)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "You are allowed to use only 2-30 characters")]
         public string Name { get; set; }
         public List<Dish> Dishes { get; set; }
     }

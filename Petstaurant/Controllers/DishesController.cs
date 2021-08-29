@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class DishesController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -61,8 +59,6 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId,Description,Price,Image")] Dish dish)
         {
-
-
             if (ModelState.IsValid)
             {
                 var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
@@ -79,7 +75,6 @@ namespace Petstaurant.Controllers
             }
             ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
-            
         }
 
         // GET: Dishes/Edit/5

@@ -50,7 +50,7 @@ namespace Petstaurant.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username");
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TotalPrice,UserId")] Cart cart)
+        public async Task<IActionResult> Create([Bind("Id,TotalPrice,UserName")] Cart cart)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", cart.UserName);
             return View(cart);
         }
 
@@ -84,7 +84,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", cart.UserName);
             return View(cart);
         }
 
@@ -93,7 +93,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,UserId")] Cart cart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,UserName")] Cart cart)
         {
             if (id != cart.Id)
             {
@@ -120,7 +120,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Username", cart.UserId);
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", cart.UserName);
             return View(cart);
         }
 

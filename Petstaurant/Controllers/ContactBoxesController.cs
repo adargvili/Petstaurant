@@ -11,7 +11,7 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
-    [Authorize(Roles = "Customer,Admin")]
+    [Authorize(Roles = "Admin")]
     public class ContactBoxesController : Controller
     {
         private readonly PetstaurantContext _context;

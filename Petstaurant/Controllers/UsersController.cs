@@ -23,7 +23,6 @@ namespace Petstaurant.Controllers
         {
             _context = context;
         }
-
         public async Task<IActionResult> Logout()
         {
 
@@ -32,25 +31,19 @@ namespace Petstaurant.Controllers
             return RedirectToAction("Login");
         }
 
-        // GET: Users/Login
-        public IActionResult Login()
-        {
-            return View();
-        }
 
         public IActionResult AccessDenied()
         {
             return View();
         }
-
-        //// GET: Users
+        // GET: Users
         //public async Task<IActionResult> Index()
         //{
         //    return View(await _context.User.ToListAsync());
         //}
 
         //// GET: Users/Details/5
-        //public async Task<IActionResult> Details(int? id)
+        //public async Task<IActionResult> Details(string id)
         //{
         //    if (id == null)
         //    {
@@ -58,7 +51,7 @@ namespace Petstaurant.Controllers
         //    }
 
         //    var user = await _context.User
-        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //        .FirstOrDefaultAsync(m => m.UserName == id);
         //    if (user == null)
         //    {
         //        return NotFound();
@@ -78,18 +71,18 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("Id,Username,Password,Gender,Name,BirthDate")] User user)
+        public async Task<IActionResult> Register([Bind("UserName,Password,Gender,Name,BirthDate")] User user)
         {
             if (ModelState.IsValid)
             {
-                var q = _context.User.FirstOrDefault(u => u.Username == user.Username);
+                var q = _context.User.FirstOrDefault(u => u.UserName == user.UserName);
 
                 if (q == null)
                 {
                     _context.Add(user);
                     await _context.SaveChangesAsync();
 
-                    var u = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
+                    var u = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
 
                     Signin(u);
 
@@ -102,10 +95,12 @@ namespace Petstaurant.Controllers
             }
             return View(user);
         }
+        // GET: Users/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
 
-        // POST: Users/Login
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id,Username,Password")] User user)
@@ -113,7 +108,7 @@ namespace Petstaurant.Controllers
             if (ModelState.IsValid)
             {
                 var q = from u in _context.User
-                        where u.Username == user.Username && u.Password == user.Password
+                        where u.UserName == user.UserName && u.Password == user.Password
                         select u;
 
                 // var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
@@ -138,7 +133,7 @@ namespace Petstaurant.Controllers
         {
             var claims = new List<Claim>
                 {
-                new Claim(ClaimTypes.Email, account.Username),
+                new Claim(ClaimTypes.Email, account.UserName),
                 new Claim(ClaimTypes.Role, account.UserType.ToString()),
                 };
 
@@ -158,7 +153,7 @@ namespace Petstaurant.Controllers
 
         // GET: Users/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -174,14 +169,14 @@ namespace Petstaurant.Controllers
         }
 
         // POST: Users/Edit/5
-        [Authorize(Roles = "Admin")]
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Gender,Name,BirthDate,Registered,UserType")] User user)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,Gender,Name,BirthDate")] User user)
         {
-            if (id != user.Id)
+            if (id != user.UserName)
             {
                 return NotFound();
             }
@@ -195,7 +190,7 @@ namespace Petstaurant.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!UserExists(user.UserName))
                     {
                         return NotFound();
                     }
@@ -211,7 +206,7 @@ namespace Petstaurant.Controllers
 
         // GET: Users/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -219,7 +214,7 @@ namespace Petstaurant.Controllers
             }
 
             var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.UserName == id);
             if (user == null)
             {
                 return NotFound();
@@ -232,7 +227,7 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _context.User.FindAsync(id);
             _context.User.Remove(user);
@@ -241,9 +236,9 @@ namespace Petstaurant.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        private bool UserExists(int id)
+        private bool UserExists(string id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.User.Any(e => e.UserName == id);
         }
     }
 }

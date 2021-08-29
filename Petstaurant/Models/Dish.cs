@@ -11,7 +11,7 @@ namespace Petstaurant.Models
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(30, MinimumLength = 2)]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "You are allowed to use only 2-30 characters")]
         [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
             "Name should only contain word characters, hyphens, spaces and apostrophes")]
         public string Name { get; set; }
@@ -19,16 +19,18 @@ namespace Petstaurant.Models
         public int FoodGroupId { get; set; }
         public FoodGroup FoodGroup { get; set; }
         [Required]
-        [MaxLength(200)]
+        [StringLength(200, MinimumLength = 5, ErrorMessage = "You are allowed to use 5-200 characters")]
         public string Description { get; set; }
         [Required]
-        public int Price { get; set; }
+        [DataType(DataType.Currency)]
+        [Range(0, 1000, ErrorMessage = "Choose a postive price")]
+        public double Price { get; set; }
         [DisplayName("Cart Items")]
         public List<CartItem> CartItems { get; set; }
+        [DataType(DataType.Date)]
         public DateTime Created { get; set; } = DateTime.Today;
         [DisplayName("Image URL")]
         [DataType(DataType.ImageUrl)]
-        [MaxLength(50)]
         public String Image { get; set; }
         public List<Store> Store { get; set; }
     }

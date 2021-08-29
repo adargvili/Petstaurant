@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -14,10 +15,11 @@ namespace Petstaurant.Models
         [DisplayName("Cart Items")]
         public List<CartItem> CartItems { get; set; }
         [DisplayName("Total Price")]
+        [DataType(DataType.Currency)]
+        [Range(0, 10000, ErrorMessage = "Choose a postive price")]
         public double TotalPrice { get; set; }
         [ForeignKey("User")]
-        [DisplayName("User")]
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public User User { get; set; }
         public Order Order { get; set; }
     }

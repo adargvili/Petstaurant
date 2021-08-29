@@ -64,8 +64,8 @@ namespace Petstaurant.Controllers
                 if (q == null)
                 {
                     _context.Add(store);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
 
                 else
@@ -75,7 +75,6 @@ namespace Petstaurant.Controllers
             }
             return View(store);
         }
-
 
         // GET: Stores/Edit/5
         public async Task<IActionResult> Edit(int? id)

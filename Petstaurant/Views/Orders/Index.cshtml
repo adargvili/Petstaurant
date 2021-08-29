@@ -16,9 +16,6 @@
                 @Html.DisplayNameFor(model => model.Country)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
             <th>
@@ -37,6 +34,9 @@
                 @Html.DisplayNameFor(model => model.User)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Cart)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.OrderTime)
             </th>
             <th></th>
@@ -47,9 +47,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
@@ -67,7 +64,10 @@
                 @Html.DisplayFor(modelItem => item.Delivery)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Password)
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cart.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderTime)

@@ -24,7 +24,7 @@ namespace Petstaurant.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var petstaurantContext = _context.Order.Include(o => o.User);
+            var petstaurantContext = _context.Order.Include(o => o.Cart).Include(o => o.User);
             return View(await petstaurantContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace Petstaurant.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Cart)
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
@@ -50,7 +51,8 @@ namespace Petstaurant.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password");
+            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id");
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName");
             return View();
         }
 
@@ -59,7 +61,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,City,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserId,OrderTime")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserName,CartId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +69,8 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password", order.UserId);
+            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id", order.CartId);
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", order.UserName);
             return View(order);
         }
 
@@ -84,7 +87,8 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password", order.UserId);
+            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id", order.CartId);
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", order.UserName);
             return View(order);
         }
 
@@ -93,7 +97,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,City,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserId,OrderTime")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserName,CartId,OrderTime")] Order order)
         {
             if (id != order.Id)
             {
@@ -120,7 +124,8 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.User, "Id", "Password", order.UserId);
+            ViewData["CartId"] = new SelectList(_context.Cart, "Id", "Id", order.CartId);
+            ViewData["UserName"] = new SelectList(_context.User, "UserName", "UserName", order.UserName);
             return View(order);
         }
 
@@ -133,6 +138,7 @@ namespace Petstaurant.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Cart)
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)

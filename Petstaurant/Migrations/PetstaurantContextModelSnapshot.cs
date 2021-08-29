@@ -41,21 +41,17 @@ namespace Petstaurant.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserName")
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL");
 
                     b.ToTable("Cart");
                 });
@@ -139,16 +135,15 @@ namespace Petstaurant.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -186,10 +181,8 @@ namespace Petstaurant.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -215,12 +208,15 @@ namespace Petstaurant.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CartId")
+                        .IsUnique();
+
+                    b.HasIndex("UserName");
 
                     b.ToTable("Order");
                 });
@@ -280,10 +276,9 @@ namespace Petstaurant.Migrations
 
             modelBuilder.Entity("Petstaurant.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("UserName")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -306,12 +301,7 @@ namespace Petstaurant.Migrations
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserName");
 
                     b.ToTable("User");
                 });
@@ -333,17 +323,9 @@ namespace Petstaurant.Migrations
 
             modelBuilder.Entity("Petstaurant.Models.Cart", b =>
                 {
-                    b.HasOne("Petstaurant.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("Petstaurant.Models.User", "User")
                         .WithOne("Cart")
-                        .HasForeignKey("Petstaurant.Models.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
+                        .HasForeignKey("Petstaurant.Models.Cart", "UserName");
 
                     b.Navigation("User");
                 });
@@ -378,11 +360,17 @@ namespace Petstaurant.Migrations
 
             modelBuilder.Entity("Petstaurant.Models.Order", b =>
                 {
-                    b.HasOne("Petstaurant.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
+                    b.HasOne("Petstaurant.Models.Cart", "Cart")
+                        .WithOne("Order")
+                        .HasForeignKey("Petstaurant.Models.Order", "CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Petstaurant.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserName");
+
+                    b.Navigation("Cart");
 
                     b.Navigation("User");
                 });
@@ -407,6 +395,8 @@ namespace Petstaurant.Migrations
             modelBuilder.Entity("Petstaurant.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Petstaurant.Models.Dish", b =>
