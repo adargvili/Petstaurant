@@ -75,6 +75,11 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (user.BirthDate.Year < DateTime.Now.Year-100 || user.BirthDate.Year > DateTime.Now.Year-14){
+                    ViewData["Error"] = "You must be 14 years or above to register for this website";
+                    return View(user);
+                }
+
                 var q = _context.User.FirstOrDefault(u => u.UserName == user.UserName);
 
                 if (q == null)

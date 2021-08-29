@@ -1,16 +1,16 @@
 ﻿@model Petstaurant.Models.User
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Register</h1>
+<h1>Create</h1>
 
 <h4>User</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Register">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
@@ -23,11 +23,8 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <select asp-for="Gender" name="gender" id="gender" placeholder="Your gender">
-                    <option value="DontWishToSpecify" selected>Don't wish to specify</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" class="form-control"></select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,18 +38,24 @@
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary" />
+                <label asp-for="Registered" class="control-label"></label>
+                <input asp-for="Registered" class="form-control" />
+                <span asp-validation-for="Registered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserType" class="control-label"></label>
+                <select asp-for="UserType" class="form-control"></select>
+                <span asp-validation-for="UserType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-        @if (ViewBag.Error != null)
-        {
-            <div class="text-danger">@ViewBag.Error</div>
-        }
     </div>
 </div>
 
 <div>
-    <a asp-action="Login" class="signup-image-link">I am already a member</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
