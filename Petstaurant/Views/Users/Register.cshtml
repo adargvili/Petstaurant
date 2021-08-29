@@ -44,7 +44,8 @@
         </form>
         @if (ViewBag.Error != null)
         {
-<div class="text-danger">@ViewBag.Error</div>}
+            <div class="text-danger">@ViewBag.Error</div>
+        }
     </div>
 </div>
 
@@ -54,4 +55,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/register.js"></script>
 }
