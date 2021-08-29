@@ -7,7 +7,7 @@
 Startup.cs
 *.sln
 *.json
-/Migrations
+Migrations/
 
 # User-specific files
 *.rsuser
