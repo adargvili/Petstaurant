@@ -10,8 +10,8 @@ using Petstaurant.Data;
 namespace Petstaurant.Migrations
 {
     [DbContext(typeof(PetstaurantContext))]
-    [Migration("20210829102118_init1")]
-    partial class init1
+    [Migration("20210829123554_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
