@@ -103,7 +103,7 @@ namespace Petstaurant.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id,Username,Password")] User user)
+        public async Task<IActionResult> Login([Bind("UserName,Password")] User user)
         {
             if (ModelState.IsValid)
             {
