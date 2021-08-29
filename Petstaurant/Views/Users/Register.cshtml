@@ -12,8 +12,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" autocomplete="off" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <input id="email" asp-for="UserName" class="form-control" autocomplete="off" />
+                <span id="emailError" asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
@@ -36,13 +36,12 @@
             <div class="form-group">
                 <label asp-for="BirthDate" class="control-label"></label>
                 <input id="bDate" asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                <span id="bDateMsg" asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>
         </form>
-        <div id="error_message" class="text-danger"></div>
         @if (ViewBag.Error != null)
         {
     <div class="text-danger">@ViewBag.Error</div>}
