@@ -11,7 +11,6 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class OrdersController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -22,6 +21,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var petstaurantContext = _context.Order.Include(o => o.Cart).Include(o => o.User);
@@ -29,6 +29,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -49,6 +50,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Create
+        [Authorize(Roles = "Admin, Customer")]
         public IActionResult Create()
         {
             ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id));
@@ -61,6 +63,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserName,CartId")] Order order)
         {
             if (ModelState.IsValid)
@@ -75,6 +78,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,6 +101,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Country,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserName,CartId,OrderTime")] Order order)
         {
             if (id != order.Id)
@@ -130,6 +135,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,6 +158,7 @@ namespace Petstaurant.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -160,6 +167,7 @@ namespace Petstaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         private bool OrderExists(int id)
         {
             return _context.Order.Any(e => e.Id == id);

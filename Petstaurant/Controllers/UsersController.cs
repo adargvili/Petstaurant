@@ -23,6 +23,8 @@ namespace Petstaurant.Controllers
         {
             _context = context;
         }
+
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Logout()
         {
 
