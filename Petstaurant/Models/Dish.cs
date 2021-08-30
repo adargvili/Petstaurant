@@ -21,7 +21,6 @@ namespace Petstaurant.Models
         [Required]
         [StringLength(200, MinimumLength = 5, ErrorMessage = "You are allowed to use 5-200 characters")]
         public string Description { get; set; }
-        [Required]
         [DataType(DataType.Currency)]
         [Range(0, 1000, ErrorMessage = "Choose a postive price")]
         public double Price { get; set; }
