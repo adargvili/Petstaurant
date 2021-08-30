@@ -39,28 +39,36 @@ namespace Petstaurant.Controllers
             return View();
         }
         // GET: Users
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.User.ToListAsync());
-        //}
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.User.ToListAsync());
+        }
 
-        //// GET: Users/Details/5
-        //public async Task<IActionResult> Details(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: Users/Details/5
+        [Authorize(Roles = "Admin, Customer")]
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var user = await _context.User
-        //        .FirstOrDefaultAsync(m => m.UserName == id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.UserName == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var u = GetCurrentUserName();
+            var t = GetCurrentUserType();
+            if ((u != user.UserName) && t != "Admin")
+            {
+                return NotFound();
+            }
 
-        //    return View(user);
-        //}
+            return View(user);
+        }
 
         // GET: Users/Create
         public IActionResult Register()
@@ -242,6 +250,23 @@ namespace Petstaurant.Controllers
         private bool UserExists(string id)
         {
             return _context.User.Any(e => e.UserName == id);
+        }
+        [Authorize(Roles = "Admin, Customer")]
+
+        private string GetCurrentUserName()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.First().Value;
+            return u;
+        }
+        [Authorize(Roles = "Admin, Customer")]
+        private string GetCurrentUserType()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.Skip(1).First().Value;
+            return u;
         }
     }
 }

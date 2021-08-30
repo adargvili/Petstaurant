@@ -46,9 +46,9 @@ namespace Petstaurant.Controllers
                 return NotFound();
             }
 
-            var identity = (ClaimsIdentity)User.Identity;
-            IEnumerable<Claim> claims = identity.Claims;
-            if ((claims.First().Value != cart.UserName) && claims.Skip(1).First().Value != "Admin")
+            var u = GetCurrentUserName();
+            var t = GetCurrentUserType();
+            if ((u != cart.UserName) && t != "Admin")
             {
                 return NotFound();
             }
@@ -97,9 +97,9 @@ namespace Petstaurant.Controllers
                 return NotFound();
             }
 
-            var identity = (ClaimsIdentity)User.Identity;
-            IEnumerable<Claim> claims = identity.Claims;
-            if((claims.First().Value != cart.UserName) && claims.Skip(1).First().Value != "Admin")
+            var u = GetCurrentUserName();
+            var t = GetCurrentUserType();
+            if ((u != cart.UserName) && t != "Admin")
             {
                 return NotFound();
             }
@@ -177,9 +177,37 @@ namespace Petstaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
         [Authorize(Roles = "Admin, Customer")]
+        public async Task AddToTotalPrice(double price)
+        {
+            var user = GetCurrentUserName();
+            var cart = await _context.Cart.FirstOrDefaultAsync(s => s.UserName == user);
+            cart.TotalPrice += price;
+            await _context.SaveChangesAsync();
+        }
+
+
+        [Authorize(Roles = "Admin, Customer")]
         private bool CartExists(int id)
         {
             return _context.Cart.Any(e => e.Id == id);
         }
+        [Authorize(Roles = "Admin, Customer")]
+        private string GetCurrentUserName()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.First().Value;
+            return u;
+        }
+        [Authorize(Roles = "Admin, Customer")]
+        private string GetCurrentUserType()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.Skip(1).First().Value;
+            return u;
+        }
+
+
     }
 }

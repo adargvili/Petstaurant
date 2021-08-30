@@ -46,9 +46,9 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            var identity = (ClaimsIdentity)User.Identity;
-            IEnumerable<Claim> claims = identity.Claims;
-            if ((claims.First().Value != order.UserName) && claims.Skip(1).First().Value != "Admin")
+            var u = GetCurrentUserName();
+            var t = GetCurrentUserType();
+            if ((u != order.UserName) && t != "Admin")
             {
                 return NotFound();
             }
@@ -172,6 +172,22 @@ namespace Petstaurant.Controllers
             _context.Order.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        [Authorize(Roles = "Admin, Customer")]
+        private string GetCurrentUserName()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.First().Value;
+            return u;
+        }
+        [Authorize(Roles = "Admin, Customer")]
+        private string GetCurrentUserType()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.Skip(1).First().Value;
+            return u;
         }
 
         [Authorize(Roles = "Admin")]
