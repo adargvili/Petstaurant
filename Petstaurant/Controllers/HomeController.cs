@@ -19,7 +19,7 @@ namespace Petstaurant.Controllers
             _logger = logger;
         }
 
-
+        [Authorize(Roles = "Customer, Admin")]
         public IActionResult Index()
         {
             return View();
@@ -39,7 +39,7 @@ namespace Petstaurant.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Customer, Admin")]
         public IActionResult TheCrew()
         {
             return View();
