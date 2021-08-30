@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Details/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,6 +43,12 @@ namespace Petstaurant.Controllers
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
+            {
+                return NotFound();
+            }
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            if ((claims.First().Value != order.UserName) && claims.Skip(1).First().Value != "Admin")
             {
                 return NotFound();
             }
