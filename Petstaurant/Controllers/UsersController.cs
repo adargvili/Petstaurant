@@ -85,11 +85,12 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 if (user.BirthDate.Year > DateTime.Now.Year - 14 ||
                     user.BirthDate.Year < DateTime.Now.Year - 120 ||
-                    !user.UserName.EndsWith(".com") ||
-                    !user.UserName.EndsWith(".co.il") ||
-                    !user.UserName.EndsWith(".jp")) { return NotFound(); }
+                    !(user.UserName.EndsWith(".com") ||
+                    user.UserName.EndsWith(".co.il") ||
+                    user.UserName.EndsWith(".jp"))) { return NotFound(); }
 
                 var q = _context.User.FirstOrDefault(u => u.UserName == user.UserName);
 
