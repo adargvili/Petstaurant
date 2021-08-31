@@ -8,7 +8,9 @@ namespace Petstaurant.Models
 
     public enum UserType
     {
+        [Description("Admin")]
         Admin,
+        [Description("Customer")]
         Customer
     }
     public enum Gender
@@ -45,6 +47,7 @@ namespace Petstaurant.Models
         public DateTime Registered { get; set; } = DateTime.Today;
         public List<Order> Orders { get; set; }
         public Cart Cart { get; set; }
+        [DisplayName("User Type")]
         public UserType UserType { get; set; } = UserType.Customer;
 
 

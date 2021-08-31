@@ -38,6 +38,7 @@ namespace Petstaurant.Controllers
         {
             return View();
         }
+
         // GET: Users
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
@@ -254,12 +255,11 @@ namespace Petstaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Admin")]
         private bool UserExists(string id)
         {
             return _context.User.Any(e => e.UserName == id);
         }
-        [Authorize(Roles = "Admin, Customer")]
+
 
         private string GetCurrentUserName()
         {
@@ -268,13 +268,35 @@ namespace Petstaurant.Controllers
             var u = claims.First().Value;
             return u;
         }
-        [Authorize(Roles = "Admin, Customer")]
+    
         private string GetCurrentUserType()
         {
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
             var u = claims.Skip(1).First().Value;
             return u;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Search(string queryTitle, string selectType)
+        {
+            var userTypeAdmin = UserType.Admin.ToString();
+            var userTypeCustomer = UserType.Customer.ToString();
+            UserType choice;
+            if (userTypeAdmin.Equals(selectType))
+            {
+                choice = UserType.Admin;
+            }
+            else  {
+                choice = UserType.Customer;
+            }
+
+            var q = from a in _context.User
+                    where (a.UserType == choice && (a.UserName.Contains(queryTitle) || a.Name.Contains(queryTitle)))
+                    orderby a.Name ascending
+                    select a;
+            
+            return View("Index", await q.ToListAsync());
         }
     }
 }
