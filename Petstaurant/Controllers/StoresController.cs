@@ -48,7 +48,7 @@ namespace Petstaurant.Controllers
         // GET: Stores/Create
         public IActionResult Create()
         {
-            ViewData["dishes"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
+            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode")] Store store, int[] Dishes)
+        public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode")] Store store, int[] Dish)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Petstaurant.Controllers
                 if (q == null)
                 {
                     store.Dish = new List<Dish>();
-                    store.Dish.AddRange(_context.Dish.Where(x => Dishes.Contains(x.Id)));
+                    store.Dish.AddRange(_context.Dish.Where(x => Dish.Contains(x.Id)));
                     _context.Add(store);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
