@@ -172,7 +172,6 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Users/Edit/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -185,6 +184,18 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+
+            var u = GetCurrentUserName();
+            var t = GetCurrentUserType();
+            if ((u != user.UserName) && t != "Admin")
+            {
+                return NotFound();
+            }
+
+            if (t == "Admin") {
+                ViewData["UserAdmin"] = UserType.Admin;
+            }
+            ViewData["Password"] = user.Password;
             return View(user);
         }
 
@@ -193,8 +204,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,Gender,Name,BirthDate")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,Gender,Name,BirthDate,UserType")] User user)
         {
             if (id != user.UserName)
             {
