@@ -11,7 +11,7 @@
 
         var em = $('#email').val();
         var emE = $('#emailError');
-        if (!em.endsWith(".com")) {
+        if (!em.endsWith(".com") || !em.endsWith(".co.il") || !em.endsWith(".jp")) {
             e.preventDefault();
             emE.text('Email Address must belong to .com')
         }

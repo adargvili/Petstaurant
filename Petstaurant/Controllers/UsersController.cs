@@ -118,6 +118,12 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (user.BirthDate.Year > DateTime.Now.Year - 14 ||
+                    user.BirthDate.Year < DateTime.Now.Year - 120 ||
+                    !user.UserName.EndsWith(".com") ||
+                    !user.UserName.EndsWith(".co.il") ||
+                    !user.UserName.EndsWith(".jp")) { return NotFound(); }
+
                 var q = from u in _context.User
                         where u.UserName == user.UserName && u.Password == user.Password
                         select u;
