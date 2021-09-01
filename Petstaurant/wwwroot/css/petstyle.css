@@ -1,0 +1,114 @@
+﻿body {
+    background-image: url(../pics/backdog.jpg);
+    background-repeat: no-repeat;
+    background-size: 110%;
+    background-color: black;
+    position: absolute;
+    top: 25%;
+    left: 5%;
+}
+
+
+
+.btn-outline-warning{
+    font-weight: bold;
+    
+}
+
+#topbar {
+    height: 40px;
+    font-size: 14px;
+    transition: all 0.5s;
+    z-index: 996;
+}
+
+
+#header {
+    background: rgba(12, 11, 9, 0.6);
+    border-bottom: 1px solid rgba(12, 11, 9, 0.6);
+    transition: all 0.5s;
+    z-index: 997;
+    padding: 15px 0;
+    top: 40px;
+    font-weight:bold;
+}
+
+
+
+
+
+.navbar-light .navbar-brand {
+    color: #FFC107;
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+}
+
+/*Dropdown*/
+.dropdown-toggle {
+    color: black;
+    
+    font-weight:bold;
+    margin-top:8px;
+    display: inline-block;
+    border: 1px solid #000;
+    text-align: center;
+    background: #FFC107;
+ 
+}
+
+
+
+/*Footer*/
+#footer {
+    position:fixed;
+    left:0;
+    bottom:0;
+    width:100%;
+    overflow: hidden;
+    background: #262626;
+    color: #627482 !important;
+
+}
+
+.contact{
+    margin-left:80px;
+    margin-top: 20px;
+}
+
+.contact-info{
+    color:white;
+    margin-top:20px;
+
+}
+ a{
+     color:white;
+     text-decoration:none;
+ }
+
+
+/* Social */
+.fa {
+    margin-left: 100px;
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+    .fa:hover {
+        opacity: 0.7;
+    }
+
+.fa-facebook {
+    background: none;
+    color: white;
+}
+

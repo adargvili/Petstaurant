@@ -1,0 +1,174 @@
+﻿body {
+    font-family: "Open Sans", sans-serif;
+    /*background-image: url("../pics/backdog.jpg");*/
+    background-color: white;
+    height: 500px;
+    background-size: cover;
+}
+
+
+a {
+    color: #cda45e;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #d9ba85;
+        text-decoration: none;
+    }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+}
+
+/*Top*/
+
+#topbar {
+    height: 40px;
+    font-size: 14px;
+    transition: all 0.5s;
+    z-index: 996;
+}
+
+/*Back*/
+
+
+
+/*Header and Nav*/
+#header {
+    background: rgba(12, 11, 9, 0.6);
+    border-bottom: 3px solid rgba(12, 11, 9, 0.6);
+    transition: all 0.5s;
+    padding: 0;
+    top: 40px;
+}
+
+    #header .logo {
+        font-size: 32px;
+        margin: 0;
+        padding-left: 20px;
+        letter-spacing: 1px;
+        font-family: "Poppins", sans-serif;
+    }
+
+
+
+
+
+
+
+
+
+.navbar {
+    padding: 0;
+}
+
+
+
+
+    .navbar ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        align-items: center;
+    }
+
+    .navbar li {
+        position: relative;
+    }
+
+    .navbar a, .navbar a:focus {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0 10px 30px;
+        color: #fff;
+        white-space: nowrap;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+
+
+        .navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover > a {
+            color: #d9ba85;
+        }
+
+    .navbar .dropdown ul {
+        display: block;
+        position: absolute;
+        left: 14px;
+        top: calc(100% + 30px);
+        margin: 0;
+        padding: 10px 0;
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        background: #fff;
+        box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+        transition: 0.3s;
+        border-radius: 4px;
+    }
+
+        .navbar .dropdown ul li {
+            min-width: 200px;
+        }
+
+        .navbar .dropdown ul a {
+            padding: 10px 20px;
+            color: #444444;
+        }
+
+            .navbar .dropdown ul a i {
+                font-size: 12px;
+            }
+
+            .navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
+                color: #cda45e;
+            }
+
+    .navbar .dropdown:hover > ul {
+        opacity: 1;
+        top: 100%;
+        visibility: visible;
+    }
+
+
+
+
+
+
+
+
+/*Footer*/
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+}
+
+
+ /*   #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: black;
+    padding: 0 0 20px 0;
+    color: white;
+    font-size: 14px;*/
+
+
+    
+

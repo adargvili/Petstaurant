@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Petstaurant</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/lib/aos/aos.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/lib/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/lib/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/lib/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+
+
+    <!-- Template Main CSS File -->
+
+    <link rel="stylesheet" href="~/css/outstyle.css" />
+
+</head>
+<body>
+    <div id="topbar" class="d-flex align-items-center fixed-top">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+
+            <div class="contact-info d-flex align-items-center">
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <!--Header and nav-->
+    <header id="header" class="fixed-top d-flex align-items-cente">
+        <ul class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+            <h1 class="logo me-auto me-lg-0"><a href="index.html">Petstaurant</a></h1>
+
+
+            <nav id="navbar" class="navbar navbar-nav order-last order-lg-0">
+
+                <ul>
+                    <li><a class="active" asp-controller="Home" asp-action="Index">Home</a> </li>
+                    <li><a class="active" asp-controller="Home" asp-action="AboutPetstaurant">About</a> </li>
+                    <li><a class="active" asp-controller="Home" asp-action="Index">Menu</a> </li>
+                    <li><a class="active" asp-controller="Home" asp-action="The Crew">Our Crew</a> </li>
+                    <li><a class="active" asp-controller="Users" asp-action="Index">Contact</a> </li>
+
+
+
+                    <!--Dropdown-->
+
+                    <li class="dropdown">
+                        <a href="#"><span>Out Locations</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="#">Tel Aviv</a></li>
+                            <li><a href="#">Tokyo</a></li>
+                            <li><a href="#">New York</a></li>
+                            <li><a href="#">Paris</a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li><a asp-controller="Users" asp-action="Index">Sign Up</a> </li>
+                    <li><a asp-controller="Users" asp-action="Index">Login</a> </li>
+
+                </ul>
+
+
+
+            </nav><!-- .navbar -->
+        </ul>
+
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--Footter-->
+
+    <div class="footer">
+       <p>Our mail</p>
+        <p>Talk With Us</p>
+
+
+    </div>
+
+    
+
+
+     
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
