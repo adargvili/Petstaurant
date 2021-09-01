@@ -3,6 +3,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-color: black;
+    color:white;
     position: absolute;
     top: 25%;
     left: 5%;
@@ -52,7 +53,6 @@
 /*Dropdown*/
 .dropdown-toggle {
     color: black;
-    
     font-weight:bold;
     margin-top:8px;
     display: inline-block;
