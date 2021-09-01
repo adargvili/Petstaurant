@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
-    [Authorize(Roles = "Customer,Admin")]
     public class CartItemsController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -24,7 +22,7 @@ namespace Petstaurant.Controllers
         // GET: CartItems
         public async Task<IActionResult> Index()
         {
-            var petstaurantContext = _context.CartItem.Include(c => c.Cart);
+            var petstaurantContext = _context.CartItem.Include(c => c.Cart).Include(c => c.Dish);
             return View(await petstaurantContext.ToListAsync());
         }
 
@@ -38,6 +36,7 @@ namespace Petstaurant.Controllers
 
             var cartItem = await _context.CartItem
                 .Include(c => c.Cart)
+                .Include(c => c.Dish)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cartItem == null)
             {
@@ -51,6 +50,7 @@ namespace Petstaurant.Controllers
         public IActionResult Create()
         {
             ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id));
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CartId,Quantity,Price")] CartItem cartItem)
+        public async Task<IActionResult> Create([Bind("Id,CartId,Quantity,Price,DishId")] CartItem cartItem)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +68,7 @@ namespace Petstaurant.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id), cartItem.CartId);
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name), cartItem.DishId);
             return View(cartItem);
         }
 
@@ -85,6 +86,7 @@ namespace Petstaurant.Controllers
                 return NotFound();
             }
             ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id), cartItem.CartId);
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name), cartItem.DishId);
             return View(cartItem);
         }
 
@@ -93,7 +95,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CartId,Quantity,Price")] CartItem cartItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CartId,Quantity,Price,DishId")] CartItem cartItem)
         {
             if (id != cartItem.Id)
             {
@@ -121,6 +123,7 @@ namespace Petstaurant.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id), cartItem.CartId);
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name), cartItem.DishId);
             return View(cartItem);
         }
 
@@ -134,6 +137,7 @@ namespace Petstaurant.Controllers
 
             var cartItem = await _context.CartItem
                 .Include(c => c.Cart)
+                .Include(c => c.Dish)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cartItem == null)
             {

@@ -19,6 +19,8 @@ namespace Petstaurant.Models
         [DataType(DataType.Currency)]
         [Range(0, 1000, ErrorMessage = "Choose a postive price")]
         public double Price { get; set; }
+        [DisplayName("Dish")]
+        public int DishId { get; set; }
         public Dish Dish { get; set; }
 
     }
