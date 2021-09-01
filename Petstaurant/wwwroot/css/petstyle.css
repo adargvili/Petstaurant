@@ -1,7 +1,7 @@
 ﻿body {
     background-image: url(../pics/backdog.jpg);
     background-repeat: no-repeat;
-    background-size: 110%;
+    background-size: cover;
     background-color: black;
     position: absolute;
     top: 25%;
