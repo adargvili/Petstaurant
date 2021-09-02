@@ -31,22 +31,23 @@ namespace Petstaurant.Controllers
 
         // GET: Carts/Details/5
         [Authorize(Roles = "Admin, Customer")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details()
         {
+            var u = GetCurrentUserName();
+            var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
+            var id = c.Id;
             if (id == null)
             {
                 return NotFound();
             }
 
             var cart = await _context.Cart
-                .Include(c => c.User)
+                .Include(c => c.User).Include(ci => ci.CartItems).ThenInclude(d => d.Dish)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cart == null)
             {
                 return NotFound();
             }
-
-            var u = GetCurrentUserName();
             var t = GetCurrentUserType();
             if ((u != cart.UserName) && t != "Admin")
             {
@@ -57,141 +58,134 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Carts/Create
-        [Authorize(Roles = "Admin")]
-        public IActionResult Create()
-        {
-            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName));
-            return View();
-        }
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult Create()
+        //{
+        //    ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName));
+        //    return View();
+        //}
 
         // POST: Carts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([Bind("Id,TotalPrice,UserName")] Cart cart)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(cart);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), cart.UserName);
-            return View(cart);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Create([Bind("Id,TotalPrice,UserName")] Cart cart)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(cart);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), cart.UserName);
+        //    return View(cart);
+        //}
 
-        // GET: Carts/Edit/5
-        [Authorize(Roles = "Admin, Customer")]
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Carts/Edit/5
+        //[Authorize(Roles = "Admin, Customer")]
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var cart = await _context.Cart.FindAsync(id);
-            if (cart == null)
-            {
-                return NotFound();
-            }
+        //    var cart = await _context.Cart.FindAsync(id);
+        //    if (cart == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var u = GetCurrentUserName();
-            var t = GetCurrentUserType();
-            if ((u != cart.UserName) && t != "Admin")
-            {
-                return NotFound();
-            }
+        //    var u = GetCurrentUserName();
+        //    var t = GetCurrentUserType();
+        //    if ((u != cart.UserName) && t != "Admin")
+        //    {
+        //        return NotFound();
+        //    }
 
-            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), cart.UserName);
-            return View(cart);
-        }
+        //    ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), cart.UserName);
+        //    return View(cart);
+        //}
 
-        // POST: Carts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Customer")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,UserName")] Cart cart)
-        {
-            if (id != cart.Id)
-            {
-                return NotFound();
-            }
+        //// POST: Carts/Edit/5
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin, Customer")]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,TotalPrice,UserName")] Cart cart)
+        //{
+        //    if (id != cart.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(cart);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CartExists(cart.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), cart.UserName);
-            return View(cart);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(cart);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!CartExists(cart.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), cart.UserName);
+        //    return View(cart);
+        //}
 
-        // GET: Carts/Delete/5
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Carts/Delete/5
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var cart = await _context.Cart
-                .Include(c => c.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (cart == null)
-            {
-                return NotFound();
-            }
-
-            return View(cart);
-        }
-
-        // POST: Carts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var cart = await _context.Cart.FindAsync(id);
-            _context.Cart.Remove(cart);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        [Authorize(Roles = "Admin, Customer")]
-        public async Task AddToTotalPrice(double price)
-        {
-            var user = GetCurrentUserName();
-            var cart = await _context.Cart.FirstOrDefaultAsync(s => s.UserName == user);
-            cart.TotalPrice += price;
-            await _context.SaveChangesAsync();
-        }
+        //    var cart = await _context.Cart
+        //        .Include(c => c.User)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (cart == null)
+        //    {
+        //        return NotFound();
+        //    }
 
 
-        [Authorize(Roles = "Admin, Customer")]
+        //    return View(cart);
+        //}
+
+        //// POST: Carts/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var cart = await _context.Cart.FindAsync(id);
+        //    _context.Cart.Remove(cart);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+
         private bool CartExists(int id)
         {
             return _context.Cart.Any(e => e.Id == id);
         }
-        [Authorize(Roles = "Admin, Customer")]
+
+
         private string GetCurrentUserName()
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -199,7 +193,8 @@ namespace Petstaurant.Controllers
             var u = claims.First().Value;
             return u;
         }
-        [Authorize(Roles = "Admin, Customer")]
+
+
         private string GetCurrentUserType()
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -207,6 +202,8 @@ namespace Petstaurant.Controllers
             var u = claims.Skip(1).First().Value;
             return u;
         }
+
+
 
 
     }

@@ -82,15 +82,13 @@ namespace Petstaurant.Controllers
                     _context.Add(cartItem);
                     c.CartItems.Add(cartItem);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Carts", cartItem.Cart);
-
-                    //     return RedirectToAction("AboutPetstaurant", "Home");
+                    return RedirectToAction("Details", "Carts");
                 }
                 else
                 {
                     q.Quantity += cartItem.Quantity;
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details","Carts", cartItem.Cart);
+                    return RedirectToAction("Details","Carts");
                 }
             }
 
