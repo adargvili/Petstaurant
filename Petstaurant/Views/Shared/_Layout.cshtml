@@ -70,8 +70,18 @@
 
                         </ul>
                         <div class="d-grid gap-2 d-md-flex">
-                            <button type="button"class="btn btn-outline-warning">Sign In</button>
-                            <button herf="Users/Login" class="btn btn-outline-warning">Login</button>
+                            <form method="post">
+                                @if (Context.User != null && Context.User.Claims != null && Context.User.Claims.Count() > 0)
+                                {
+                                    <button  asp-controller="Carts" asp-action="Details" class="btn btn-outline-warning">Shopping Cart</button>
+                                    <button asp-controller="Users" asp-action="LogOut" class="btn btn-outline-warning">Logout</button>
+                                }
+                                else
+                                {
+                                    <button asp-controller="Users" asp-action="Login" class="btn btn-outline-warning">Login</button>
+                                    <button asp-controller="Users" asp-action="Register" class="btn btn-outline-warning">Sign Up</button>
+                                }
+                            </form>
                         </div>
                     </div>
                 </div>
