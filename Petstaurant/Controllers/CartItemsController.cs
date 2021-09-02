@@ -30,24 +30,24 @@ namespace Petstaurant.Controllers
         }
 
         // GET: CartItems/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var cartItem = await _context.CartItem
-        //        .Include(c => c.Cart)
-        //        .Include(c => c.Dish)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (cartItem == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var cartItem = await _context.CartItem
+                .Include(c => c.Cart)
+                .Include(c => c.Dish)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(cartItem);
-        //}
+            return View(cartItem);
+        }
 
         // GET: CartItems/Create
         [Authorize(Roles = "Admin, Customer")]
@@ -76,18 +76,21 @@ namespace Petstaurant.Controllers
                 }
                 cartItem.CartId = c.Id;
 
-                var q = _context.CartItem.FirstOrDefault(u => u.DishId == cartItem.DishId);
+                var q = _context.CartItem.FirstOrDefault(u => u.DishId == cartItem.DishId && u.CartId ==cartItem.CartId);
                 if (q == null)
                 {
                     _context.Add(cartItem);
+                    c.CartItems.Add(cartItem);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Details", "Carts", cartItem.Cart);
+
+                    //     return RedirectToAction("AboutPetstaurant", "Home");
                 }
                 else
                 {
                     q.Quantity += cartItem.Quantity;
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Details","Carts", cartItem.Cart);
                 }
             }
 
