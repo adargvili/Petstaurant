@@ -50,7 +50,7 @@ namespace Petstaurant.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
-            ViewData["Store"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Country));
+            ViewData["Store"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address));
             ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name));
             return View();
         }
