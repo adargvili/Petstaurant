@@ -37,9 +37,9 @@
                             <td class="quy-col col-2">
                                 <div class="quantity">
                                     <div class="pro-qty row">
-                                        <a class="dec quantity-btn col-3">-</a>
-                                        <input type="text" disabled class="qu-col col-4" value="@ci.Quantity" onfocus="this.oldvalue = this.value;" oninput="onChangefun(this, @ci.Id);this.oldvalue = this.value;">
-                                        <a class="inc quantity-btn col-2">+</a>
+                                        <a asp-action="AddOne" asp-controller="Carts" asp-route-id="@ci.Id" class="site-btn col-3">+</a>
+                                        <input type="text" disabled class="qu-col col-4" value="@ci.Quantity"/>
+                                        <a asp-action="SubtractOne" asp-controller="Carts" asp-route-id="@ci.Id" class="site-btn col-2">-</a>
                                     </div>
                                 </div>
                             </td>
@@ -65,5 +65,4 @@
 <div>
     <a asp-action="Create" asp-controller="CartItems" class="site-btn">Add another item to cart</a>
     <a asp-action="Create" asp-controller="Orders" class="site-btn">Order now</a>
-    <a asp-action="Index">Back to List</a>
 </div>

@@ -81,6 +81,7 @@ namespace Petstaurant.Controllers
                 if (q == null)
                 {
                     cartItem.Price += d.Price*cartItem.Quantity;
+                    c.TotalPrice += d.Price * cartItem.Quantity;
                     _context.Add(cartItem);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details", "Carts");
@@ -89,6 +90,7 @@ namespace Petstaurant.Controllers
                 {
                     q.Quantity += cartItem.Quantity;
                     q.Price += d.Price * cartItem.Quantity;
+                    c.TotalPrice += d.Price * cartItem.Quantity;
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details","Carts");
                 }
