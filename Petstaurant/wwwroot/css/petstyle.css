@@ -1,15 +1,14 @@
 ﻿body {
-    background-image: url(../pics/backdog.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: black;
+    
     color: white;
     font-weight: bold;
-    position: absolute;
+    position: fixed;
     top: 25%;
     left: 5%;
-    right:0;
+    right: 0;
 }
+
+
 
 .table {
     color: white;
