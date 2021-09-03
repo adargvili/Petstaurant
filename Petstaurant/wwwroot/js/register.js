@@ -1,12 +1,12 @@
 ﻿$(function () {
-    $('form').submit(function (e) {
+    $('#regValidation').on("submit",function (e) {
         var f = $('#bDate').val();
         var currentYear = new Date().getFullYear();
         var msg = $('#bDateMsg');
         var year = f.split('-');
         if (currentYear-14 < year[0] || year[0] < currentYear - 120) {
             e.preventDefault();
-            msg.text('You must be older than 14 or you enter invalid year');
+            msg.text('You must be older than 14 or you entered invalid year');
         }
 
         var em = $('#email').val();
