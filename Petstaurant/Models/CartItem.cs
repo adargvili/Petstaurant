@@ -21,6 +21,7 @@ namespace Petstaurant.Models
         public double Price { get; set; }
         [DisplayName("Dish")]
         public int DishId { get; set; }
+        //TODO:  ADD RQUIRED TO DISH
         public Dish Dish { get; set; }
 
     }

@@ -77,16 +77,18 @@ namespace Petstaurant.Controllers
                 cartItem.CartId = c.Id;
 
                 var q = _context.CartItem.FirstOrDefault(u => u.DishId == cartItem.DishId && u.CartId ==cartItem.CartId);
+                var d = _context.Dish.FirstOrDefault(u => u.Id == cartItem.DishId );
                 if (q == null)
                 {
+                    cartItem.Price += d.Price*cartItem.Quantity;
                     _context.Add(cartItem);
-                    c.CartItems.Add(cartItem);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details", "Carts");
                 }
                 else
                 {
                     q.Quantity += cartItem.Quantity;
+                    q.Price += d.Price * cartItem.Quantity;
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details","Carts");
                 }
