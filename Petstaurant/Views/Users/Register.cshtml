@@ -1,6 +1,9 @@
 ﻿@model Petstaurant.Models.User
 
-@{ ViewData["Title"] = "Register"; }
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_LayoutLogin";
+}
 
 <h1>Sign Up</h1>
 
@@ -20,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                <select name="gender" id="gender" placeholder="Your gender">
+                <select asp-for="Gender" class="form-control">
                     <option value="DontWishToSpecify" selected>Don't wish to specify</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>

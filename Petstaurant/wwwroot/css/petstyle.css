@@ -11,7 +11,9 @@
     right:0;
 }
 
-
+.table {
+    color: white;
+}
 
 .btn-outline-warning{
     font-weight: bold;
