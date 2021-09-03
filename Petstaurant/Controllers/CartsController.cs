@@ -209,6 +209,10 @@ namespace Petstaurant.Controllers
             var user = GetCurrentUserName();
             var cart = await _context.Cart.FirstOrDefaultAsync(s => s.UserName == user);
             cart.TotalPrice += price;
+            if (cart.TotalPrice < 0)
+            {
+                cart.TotalPrice = 0;
+            }
             await _context.SaveChangesAsync();
         }
 
@@ -216,13 +220,20 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> AddOne(int id)
         {
             var cartitem = await _context.CartItem.Include(d => d.Dish).FirstOrDefaultAsync(s => s.Id == id);
+            var u = GetCurrentUserName();
+            var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
             if (cartitem != null)
             {
+                if (cartitem.CartId != c.Id)
+                {
+                    return NotFound();
+                }
                 cartitem.Quantity += 1;
                 cartitem.Price = cartitem.Dish.Price * cartitem.Quantity;
-                await _context.SaveChangesAsync();
                 await AddToTotalPrice(cartitem.Dish.Price);
+                await _context.SaveChangesAsync();
             }
+
             return RedirectToAction("Details");
         }
 
@@ -230,14 +241,26 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> SubtractOne(int id)
         {
             var cartitem = await _context.CartItem.Include(p => p.Dish).FirstOrDefaultAsync(s => s.Id == id);
+            var u = GetCurrentUserName();
+            var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
             if (cartitem != null)
             {
+                if (cartitem.CartId != c.Id)
+                {
+                    return NotFound();
+                }
                 cartitem.Quantity -= 1;
+                if (cartitem.Quantity == 0)
+                {
+                    await AddToTotalPrice(-cartitem.Dish.Price);
+                    _context.CartItem.Remove(cartitem);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details");
+                }
                 cartitem.Price = cartitem.Dish.Price * cartitem.Quantity;
-                await _context.SaveChangesAsync();
                 await AddToTotalPrice(-cartitem.Dish.Price);
+                await _context.SaveChangesAsync();
             }
-            double[] arr = { cartitem.Price, cartitem.Cart.TotalPrice }; 
             return RedirectToAction("Details");
         }
 
