@@ -82,7 +82,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([Bind("UserName,Password,Gender,Name,BirthDate")] User user)
+        public async Task<IActionResult> Register([Bind("UserName,Password,ConfirmPassword,Gender,Name,BirthDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -196,6 +196,7 @@ namespace Petstaurant.Controllers
                 ViewData["UserAdmin"] = UserType.Admin;
             }
             ViewData["Password"] = user.Password;
+            ViewData["ConfirmPassword"] = user.ConfirmPassword;
             return View(user);
         }
 
@@ -204,7 +205,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,Gender,Name,BirthDate,UserType")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,ConfirmPassword,Gender,Name,BirthDate,UserType")] User user)
         {
             if (id != user.UserName)
             {
