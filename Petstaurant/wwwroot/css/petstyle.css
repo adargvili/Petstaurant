@@ -78,16 +78,8 @@
 
 }
 
-.contact{
-    margin-left:80px;
-    margin-top: 20px;
-}
 
-.contact-info{
-    color:white;
-    margin-top:20px;
 
-}
  a{
      color:white;
      text-decoration:none;
@@ -96,12 +88,13 @@
 
 /* Social */
 .fa {
-    margin-left: 100px;
-    padding: 20px;
+    margin-left:30px;
+    padding: 15px;
     font-size: 30px;
     width: 50px;
-    text-align: center;
+
     text-decoration: none;
+    color:white;
 }
 
 
