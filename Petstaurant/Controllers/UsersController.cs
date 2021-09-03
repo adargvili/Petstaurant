@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Petstaurant.Controllers
 {
@@ -71,13 +72,13 @@ namespace Petstaurant.Controllers
             return View(user);
         }
 
-        // GET: Users/Create
+        // GET: Users/Register
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Users/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -124,6 +125,8 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("UserName,Password")] User user)
         {
+            ModelState.Remove("ConfirmPassword");
+
             if (ModelState.IsValid)
             {
                
@@ -131,11 +134,8 @@ namespace Petstaurant.Controllers
                         where u.UserName == user.UserName && u.Password == user.Password
                         select u;
 
-                // var q = _context.User.FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
-
                 if (q.Count() > 0)
                 {
-                    // HttpContext.Session.SetString("username", q.First().Username);
 
                     Signin(q.First());
 
@@ -171,7 +171,7 @@ namespace Petstaurant.Controllers
                 authProperties);
         }
 
-        // GET: Users/Edit/5
+        // GET: Users/Edit/X
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -200,7 +200,7 @@ namespace Petstaurant.Controllers
             return View(user);
         }
 
-        // POST: Users/Edit/5
+        // POST: Users/Edit/X
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
