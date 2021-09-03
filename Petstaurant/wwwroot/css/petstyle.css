@@ -1,12 +1,19 @@
 ﻿body {
+
+    overflow:scroll;
+    overflow-y:auto;
     
     color: white;
     font-weight: bold;
-    position: fixed;
+    position: absolute;
     top: 25%;
     left: 5%;
     right: 0;
+    
+
 }
+
+
 
 
 
@@ -73,7 +80,7 @@
     left:0;
     bottom:0;
     width:100%;
-    overflow: hidden;
+
     background: #262626;
     color: #627482 !important;
 

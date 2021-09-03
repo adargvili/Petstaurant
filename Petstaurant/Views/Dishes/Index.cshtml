@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Petstaurant.Models.Dish>
+﻿<link rel="stylesheet" href="~/css/menu.css" />
+@model IEnumerable<Petstaurant.Models.Dish>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,6 +10,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+
+
+
 <table class="table">
     <thead>
         <tr>
@@ -34,32 +39,47 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoodGroup.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        @*<div class="row">*@
+            @foreach (var item in Model)
+            {
+
+                @*<div class="col-sm-6">
+                    <div class="card mb-3" style="max-width: 18rem;">
+                        <img src="https://www.jessicagavin.com/wp-content/uploads/2021/01/baked-chicken-breast-12-600x900.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        </div>
+                    </div>
+                </div>*@
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodGroup.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        @*</div>*@
+            
+        </tbody>
+    </table>
