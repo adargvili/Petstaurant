@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -61,10 +62,15 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId,Description,Price,Image")] Dish dish, int[] Store)
+        public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId,Description,Price,ImageFile")] Dish dish, int[] Store)
         {
             if (ModelState.IsValid)
             {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    dish.ImageFile.CopyTo(ms);
+                    dish.Image = ms.ToArray();
+                }
                 var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
                 if (q == null)
                 {
