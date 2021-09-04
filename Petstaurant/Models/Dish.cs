@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,9 +30,9 @@ namespace Petstaurant.Models
         public List<CartItem> CartItems { get; set; }
         [DataType(DataType.Date)]
         public DateTime Created { get; set; } = DateTime.Today;
-        [DisplayName("Image URL")]
-        [DataType(DataType.ImageUrl)]
-        public String Image { get; set; }
+        public byte[] Image { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
         public List<Store> Store { get; set; }
     }
 }

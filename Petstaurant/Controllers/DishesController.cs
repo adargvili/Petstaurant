@@ -11,7 +11,6 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class DishesController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -22,32 +21,34 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Dishes
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Index()
         {
             var petstaurantContext = _context.Dish.Include(d => d.FoodGroup);
             return View(await petstaurantContext.ToListAsync());
         }
 
-        // GET: Dishes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Dishes/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var dish = await _context.Dish
-                .Include(d => d.FoodGroup)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dish == null)
-            {
-                return NotFound();
-            }
+        //    var dish = await _context.Dish
+        //        .Include(d => d.FoodGroup)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (dish == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(dish);
-        }
+        //    return View(dish);
+        //}
 
         // GET: Dishes/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["Store"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address));
@@ -83,6 +84,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Dishes/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -104,6 +106,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,Image")] Dish dish)
         {
             if (id != dish.Id)
@@ -136,6 +139,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Dishes/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +161,7 @@ namespace Petstaurant.Controllers
         // POST: Dishes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dish = await _context.Dish.FindAsync(id);
