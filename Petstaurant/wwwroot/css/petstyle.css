@@ -1,24 +1,20 @@
 ﻿body {
-
-    overflow:scroll;
-    overflow-y:auto;
+    overflow: scroll;
+    overflow-y: auto;
     
     color: white;
     font-weight: bold;
-    position: absolute;
     top: 25%;
     left: 5%;
     right: 0;
-    
-
 }
-
-
-
 
 
 .table {
     color: white;
+
+    
+    
 }
 
 .btn-outline-warning{
