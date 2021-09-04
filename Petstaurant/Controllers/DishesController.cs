@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,14 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Index()
         {
-            var petstaurantContext = _context.Dish.Include(d => d.FoodGroup);
+            var petstaurantContext = _context.Dish.Include(d => d.FoodGroup).Include(u=>u.Store);
+
+            var t = GetCurrentUserType();
+            if (t == "Admin")
+            {
+                ViewData["UserAdmin"] = UserType.Admin;
+            }
+
             return View(await petstaurantContext.ToListAsync());
         }
 
@@ -183,6 +191,23 @@ namespace Petstaurant.Controllers
         private bool DishExists(int id)
         {
             return _context.Dish.Any(e => e.Id == id);
+        }
+
+        private string GetCurrentUserName()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.First().Value;
+            return u;
+        }
+
+
+        private string GetCurrentUserType()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var u = claims.Skip(1).First().Value;
+            return u;
         }
     }
 }
