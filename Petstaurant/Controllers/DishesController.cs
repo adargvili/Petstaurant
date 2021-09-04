@@ -103,6 +103,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            ViewData["Store"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address));
             ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
         }
@@ -113,7 +114,7 @@ namespace Petstaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,Image")] Dish dish)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,Image")] Dish dish, int[] Store)
         {
             if (id != dish.Id)
             {
@@ -124,6 +125,9 @@ namespace Petstaurant.Controllers
             {
                 try
                 {
+                    //TODO: Edit stores and not only adding 
+                    dish.Store = new List<Store>();
+                    dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
                     _context.Update(dish);
                     await _context.SaveChangesAsync();
                 }
