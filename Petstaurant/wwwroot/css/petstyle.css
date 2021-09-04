@@ -9,12 +9,14 @@
     right: 0;
 }
 
+.container {
+    padding-top:10%;
+    padding-left:5%;
+}
 
 .table {
     color: white;
-
-    
-    
+    background: rgba(12, 11, 9, 0.6);
 }
 
 .btn-outline-warning{
