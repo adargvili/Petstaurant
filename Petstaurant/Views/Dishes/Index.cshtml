@@ -70,6 +70,13 @@
                                 @Html.DisplayFor(modelItem => item.Created)
                             </td>
                             <td>
+                                @if (item.Image != null)
+                                {
+                                    string img = Convert.ToBase64String(item.Image);
+                                    <img src="data:image/png;base64,@img" width="50" height="50" />
+
+                                }
+
                                 @Html.DisplayFor(modelItem => item.Image)
                             </td>
                             <td>
