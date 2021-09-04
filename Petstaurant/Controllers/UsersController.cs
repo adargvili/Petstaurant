@@ -96,7 +96,7 @@ namespace Petstaurant.Controllers
             if (ModelState.IsValid)
             {
 
-                if (user.BirthDate.Year > DateTime.Now.Year - 14 ||
+                if (user.BirthDate.Year > DateTime.Now.Year - 15 ||
                     user.BirthDate.Year < DateTime.Now.Year - 120 ||
                     !(user.UserName.EndsWith(".com") ||
                     user.UserName.EndsWith(".co.il") ||
@@ -219,9 +219,16 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("UserName,Password,ConfirmPassword,Gender,Name,BirthDate,UserType")] User user)
         {
+            
             if (id != user.UserName)
             {
                 return NotFound();
+            }
+
+            bool flag = false;
+            if (GetCurrentUserType() == "Admin")
+            {
+                flag = true;
             }
 
             if (ModelState.IsValid)
@@ -241,6 +248,9 @@ namespace Petstaurant.Controllers
                     {
                         throw;
                     }
+                }
+                if (flag&&user.UserType == UserType.Customer) {
+                    return RedirectToAction(nameof(Logout));
                 }
                 return RedirectToAction(nameof(Details), new { @id=user.UserName});
             }
