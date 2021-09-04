@@ -75,6 +75,9 @@ namespace Petstaurant.Controllers
         // GET: Users/Register
         public IActionResult Register()
         {
+            if (User.Identity.IsAuthenticated) {
+                return View("AlreadyLoggedIn");
+            }
             return View();
         }
 
@@ -118,6 +121,10 @@ namespace Petstaurant.Controllers
         // GET: Users/Login
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View("AlreadyLoggedIn");
+            }
             return View();
         }
 
