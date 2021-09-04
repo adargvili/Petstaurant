@@ -268,6 +268,7 @@ namespace Petstaurant.Controllers
 
             var user = await _context.User
                 .FirstOrDefaultAsync(m => m.UserName == id);
+
             if (user == null)
             {
                 return NotFound();

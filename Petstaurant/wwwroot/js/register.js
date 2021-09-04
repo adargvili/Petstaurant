@@ -13,7 +13,7 @@
         var emE = $('#emailError');
         if (!(em.endsWith(".com") || em.endsWith(".co.il") || em.endsWith(".jp"))) {
             e.preventDefault();
-            emE.text('Email Address must belong to .com/.co.il/.jp domains')
+            emE.text('Email Address must belong to .com/.co.il/.jp domains');
         }
     });
 });
