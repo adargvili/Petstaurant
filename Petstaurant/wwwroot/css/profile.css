@@ -1,0 +1,76 @@
+﻿body {
+    background-color: #f9f9fa;
+}
+
+a {
+    color: #919aa3;
+}
+
+.card {
+    border-radius: 5px;
+    border: none;
+}
+
+.user-card .user-profile {
+    border-radius: 5px 0 0 5px;
+}
+
+.iconBackground {
+    background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+}
+
+.user-profile {
+    padding: 20px;
+}
+
+.card-block {
+    padding: 25px;
+}
+
+.iconMargin {
+    margin-bottom: 25px;
+}
+
+.img-radius {
+    border-radius: 5px;
+}
+
+h6 {
+    font-size: 14px;
+}
+
+.card .card-block p {
+    line-height: 25px;
+}
+
+p {
+    font-size: 14px;
+    color: black;
+}
+
+
+.bottomLine {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.marginB20px {
+    margin-bottom: 20px
+}
+
+.userName {
+    padding-bottom: 5px !important;
+    color: black;
+}
+
+.card .card-block p {
+    line-height: 25px;
+}
+
+text-Bottom-Margin {
+    margin-bottom: 10px;
+}
+
+.text-color {
+    color: #919aa3 !important;
+}
+

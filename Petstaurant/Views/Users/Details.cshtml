@@ -4,47 +4,62 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>@Model.Name Profile</h1>
+<div>
+    <div>
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card">
+                    <div class="row">
+                        <div class="col-sm-4 iconBackground user-profile">
+                            <div class="card-block text-center">
+                                <div class="iconMargin"> <img src="https://img.icons8.com/office/100/000000/dog.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                <h6>@Html.DisplayFor(model => model.Name)</h6>
+                                @if (ViewBag.UserAdmin == UserType.Admin)
+                                {
+                                    <p>@Html.DisplayFor(model => model.UserType)</p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class=".marginB20px userName bottomLine">Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="text-Bottom-Margin">Email</p>
+                                        <h6 class="text-color">@Html.DisplayFor(model => model.UserName)</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="text-Bottom-Margin">Birth Date</p>
+                                        <h6 class="text-color">@Html.DisplayFor(model => model.BirthDate)</h6>
+                                    </div>
+                                </div>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Registered)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Registered)
-        </dd>
-        @if (ViewBag.UserAdmin == UserType.Admin)
-        {
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.UserType)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.UserType)
-            </dd>
-        }
-    </dl>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="text-Bottom-Margin">Gender</p>
+                                        <h6 class="text-color">@Html.DisplayFor(model => model.Gender)</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="text-Bottom-Margin">Registered</p>
+                                        <h6 class="text-color">@Html.DisplayFor(model => model.Registered)</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <a class="text-info" asp-action="Edit" asp-route-id="@Model.UserName">Edit My Profile</a>
+                                    @if (ViewBag.UserAdmin == UserType.Admin)
+                                    {
+                                        <a class="text-info" asp-action="Index">Petstaurant Users List</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.UserName">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/css/profile.css" />
+}
