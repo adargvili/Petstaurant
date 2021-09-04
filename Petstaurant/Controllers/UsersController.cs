@@ -311,7 +311,7 @@ namespace Petstaurant.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Search(string queryTitle, string selectType)
+        public async Task<IActionResult> Search(string queryUserName,string queryName, string selectType)
         {
             var userTypeAdmin = UserType.Admin.ToString();
             var userTypeCustomer = UserType.Customer.ToString();
@@ -320,12 +320,14 @@ namespace Petstaurant.Controllers
             {
                 choice = UserType.Admin;
             }
-            else  {
+            else
+            {
                 choice = UserType.Customer;
             }
 
             var q = from a in _context.User
-                    where (a.UserType == choice && (a.UserName.Contains(queryTitle) || a.Name.Contains(queryTitle)))
+                    where ((a.UserType == choice || selectType==null) && (a.UserName.Contains(queryUserName) || queryUserName==null) &&
+                            (a.Name.Contains(queryName) || queryName == null))
                     orderby a.Name ascending
                     select a;
             

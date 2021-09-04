@@ -4,15 +4,38 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Account's List</h1>
+<h1 class="text-warning">Account's List</h1>
 <br />
 <form asp-action="Search">
-    <input id="queryTitle " name="queryTitle" placeholder="Search for a User" />
-    <select name="selectType">
-        <option value="Customer" selected>Customer</option>
-        <option value="Admin">Admin</option>
-    </select>
-    <input type="submit" value="Search" class="btn btn-primary" />
+
+        <div class="row">
+            <div class="col-3">
+                <div class="p-1 input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">User Name</span>
+                    <input id="queryUserName" name="queryUserName" placeholder="Enter User Name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-1 input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+                    <input id="queryName" name="queryName" placeholder="Enter Name" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-1">
+                    <select class="form-select" name="selectType" aria-label=".form-select-sm example">
+                        <option value=@null selected>Select User Type</option>
+                        <option value="Customer">Customer</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="p-1">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
 </form>
 <br />
 <table class="table table-dark table-striped table-hover">
