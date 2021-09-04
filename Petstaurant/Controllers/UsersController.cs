@@ -69,6 +69,11 @@ namespace Petstaurant.Controllers
                 return NotFound();
             }
 
+            if (t == "Admin")
+            {
+                ViewData["UserAdmin"] = UserType.Admin;
+            }
+
             return View(user);
         }
 
@@ -237,7 +242,7 @@ namespace Petstaurant.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { @id=user.UserName});
             }
             return View(user);
         }
