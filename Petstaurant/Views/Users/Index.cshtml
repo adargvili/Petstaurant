@@ -6,7 +6,7 @@
 
 <h1 class="text-warning">Account's List</h1>
 <br />
-<form asp-action="Search">
+<form id="search-form" asp-action="Search">
 
         <div class="row">
             <div class="col-3">
@@ -23,7 +23,7 @@
             </div>
             <div class="col-3">
                 <div class="p-1">
-                    <select class="form-select" name="selectType" aria-label=".form-select-sm example">
+                    <select class="form-select" id="selectType" name="selectType" aria-label=".form-select-sm example">
                         <option value=@null selected>Select User Type</option>
                         <option value="Customer">Customer</option>
                         <option value="Admin">Admin</option>
@@ -99,3 +99,7 @@
         }
     </tbody>
 </table>
+
+@section Scripts{ 
+<script src="~/js/searchUser.js"></script >
+}

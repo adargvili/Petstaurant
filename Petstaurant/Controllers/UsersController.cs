@@ -335,7 +335,7 @@ namespace Petstaurant.Controllers
                     orderby a.Name ascending
                     select a;
             
-            return View("Index", await q.ToListAsync());
+            return PartialView("Search", await q.ToListAsync());
         }
     }
 }
