@@ -284,6 +284,9 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _context.User.FindAsync(id);
+            var cartToDelete = _context.Cart.FirstOrDefault(c => c.UserName == user.UserName);
+
+            _context.Cart.Remove(cartToDelete);
             _context.User.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
