@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Tweetinvi;
 
 namespace Petstaurant.Controllers
 {
@@ -336,6 +337,15 @@ namespace Petstaurant.Controllers
                     select a;
             
             return PartialView("Search", await q.ToListAsync());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Tweet(string tweetData)
+        {
+            var petStaurantUser = new TwitterClient("OAHEhNknOQlBIwdEOIdaDMuZp", "Kz4nVWGWL1XHhwCD7DSDt6kmtPBuCiPPSMHJCI4aVcfuhwOb93", "865798995041505281-4j9YnKsVx8CPiJc77s2iBRU8bbVVEb3", "Ap5b8HluV6slMDTnKAF4JVkY6xcBjEfTH7RqpQV0fvxqC");
+            await petStaurantUser.Tweets.PublishTweetAsync(tweetData);
+            var u = GetCurrentUserName();
+            return RedirectToAction(nameof(Details), new { @id = u });
         }
     }
 }

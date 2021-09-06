@@ -14,6 +14,7 @@ using Petstaurant.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 
 namespace Petstaurant
 {
