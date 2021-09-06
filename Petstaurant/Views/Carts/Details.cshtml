@@ -43,7 +43,7 @@
                                     <h4 class="ciPrice text-warning">@ci.Price$</h4>
                                 </td>
                                 <td class="remove col-3">
-                                    <a asp-action="RemoveCartItem" asp-controller="Carts" asp-route-id="@ci.Id" class="remove text-warning">Remove</a>
+                                    <a asp-action="RemoveCartItem" asp-controller="Carts" asp-route-id="@ci.Id" class="remove btn btn-warning job">Remove</a>
                                 </td>
                             </tr>
                         }
@@ -58,8 +58,9 @@
 </form>
 
 <div>
-    <a asp-action="Create" asp-controller="CartItems" class="site-btn text-info">Add another item to cart</a>
+    <a asp-action="Index" asp-controller="Dishes" class="site-btn text-info">Back to menu</a>
     <a asp-action="Create" asp-controller="Orders" class="site-btn text-info">Order now</a>
+    <a asp-action="Create" asp-controller="CartItems" class="site-btn text-info">Add another item to cart</a>
 </div>
 
 
