@@ -1,0 +1,39 @@
+﻿body {
+}
+
+
+.card {
+    width: 260px;
+    height:530px;
+    box-shadow: rgba(12, 11, 9, 0.9) 0px 5px 5px;
+
+
+}
+
+
+.card-title
+{
+    color:black;
+}
+
+img {
+    border-radius: 50%;
+    height: 230px;
+    box-shadow: rgba(12, 11, 9, 0.9) 0px 5px 5px;
+}
+
+.falin {
+    color: #f0ad4e;
+    font-size: 30px;
+
+}
+
+.card-body{
+    padding-right:60px;
+    height:100px
+}
+
+.card-title{
+    padding-left:50px;
+    height:100px;
+}

@@ -4,18 +4,20 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+
+<h1 class="text-warning">My Cart</h1>
+
 <form id="cart">
     <div>
-        <h4>Cart</h4>
         <hr />
         <dl class="row">
             <table class="table table-dark table-striped table-hover">
                 <thead>
                     <tr class="row">
-                        <th class="col-1">Dish</th>
-                        <th class="col-2">Quantity</th>
-                        <th class="col-3">Price</th>
+                        <th class="col-1 text-warning">Dish</th>
+                        <th class="col-2 text-warning">Quantity</th>
+                        <th class="col-3 text-warning">Price</th>
+                        <th class="col-4 text-warning">Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,19 +28,22 @@
                             <tr id="@ci.Id" class="row mt-3">
                                 <td class="dish col-1">
                                     <div class="row">
-                                        <h5 class="dishName">@ci.Dish.Name</h5>
-                                        <h6 class="dishPrice">@ci.Dish.Price$</h6>
+                                        <h5 class="dishName text-warning">@ci.Dish.Name</h5>
+                                        <h6 class="dishPrice text-warning">@ci.Dish.Price$</h6>
                                     </div>
                                 </td>
                                 <td class="quy-col col-2">
                                     <div class="quantity">
-                                        <a asp-action="SubtractOne" asp-controller="Carts" asp-route-id="@ci.Id" class="sub quantity-btn col-1">-</a>
-                                        <input id="ciQuantity" type="text" disabled class="qu-col col-2" value="@ci.Quantity" />
-                                        <a asp-action="AddOne" asp-controller="Carts" asp-route-id="@ci.Id" class="add quantity-btn col-3">+</a>
+                                        <a asp-action="SubtractOne" asp-controller="Carts" asp-route-id="@ci.Id" class="sub quantity-btn col-1 text-warning">-</a>
+                                        <input id="ciQuantity" type="text" disabled class="qu-col col-2 " value="@ci.Quantity" />
+                                        <a asp-action="AddOne" asp-controller="Carts" asp-route-id="@ci.Id" class="add quantity-btn col-3 text-warning">+</a>
                                     </div>
                                 </td>
                                 <td class="total-col col-3">
-                                    <h4 class="ciPrice">@ci.Price$</h4>
+                                    <h4 class="ciPrice text-warning">@ci.Price$</h4>
+                                </td>
+                                <td class="remove col-3">
+                                    <a asp-action="RemoveCartItem" asp-controller="Carts" asp-route-id="@ci.Id" class="remove btn btn-warning job">Remove</a>
                                 </td>
                             </tr>
                         }
@@ -46,15 +51,16 @@
                 </tbody>
             </table>
             <td class="totalCart-col col-4">
-                <h4 id="toPrice">Total Price: @Model.TotalPrice$</h4>
+                <h4 id="toPrice" class="text-warning">Total Price: @Model.TotalPrice$</h4>
             </td>
         </dl>
     </div>
 </form>
 
 <div>
-    <a asp-action="Create" asp-controller="CartItems" class="site-btn">Add another item to cart</a>
-    <a asp-action="Create" asp-controller="Orders" class="site-btn">Order now</a>
+    <a asp-action="Index" asp-controller="Dishes" class="site-btn text-info">Back to menu</a>
+    <a asp-action="Create" asp-controller="Orders" class="site-btn text-info">Order now</a>
+    <a asp-action="Create" asp-controller="CartItems" class="site-btn text-info">Add another item to cart</a>
 </div>
 
 
