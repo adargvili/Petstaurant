@@ -215,6 +215,28 @@ namespace Petstaurant.Controllers
             }
         }
 
+        public async Task<double[]> RemoveCartItem(int id)
+        {
+            var cartitem = await _context.CartItem.Include(d => d.Dish).FirstOrDefaultAsync(s => s.Id == id);
+            var u = GetCurrentUserName();
+            var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
+            if (cartitem != null)
+            {
+                if (cartitem.CartId != c.Id)
+                {
+                    double[] arrF = { 0, c.TotalPrice };
+                    return arrF;
+                }
+                await AddToTotalPrice(-cartitem.Price);
+                _context.CartItem.Remove(cartitem);
+                await _context.SaveChangesAsync();
+                double[] arrT = { 1, cartitem.Cart.TotalPrice };
+                return arrT;
+            }
+            double[] arrF2 = { 0, cartitem.Cart.TotalPrice };
+            return arrF2;
+        }
+
         [Authorize(Roles = "Admin, Customer")]
         public async Task<double[]> AddOne(int id)
         {
@@ -225,28 +247,20 @@ namespace Petstaurant.Controllers
             {
                 if (cartitem.CartId != c.Id)
                 {
-                    double[] arrT = {-1,-1,-1 };
-                    return arrT;
+                    double[] arrF = {-1,-1,-1 };
+                    return arrF;
                 }
                 cartitem.Quantity += 1;
                 cartitem.Price = cartitem.Dish.Price * cartitem.Quantity;
                
-                try
-                {
-                    await AddToTotalPrice(cartitem.Dish.Price);
-                }
-                
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    await _context.SaveChangesAsync();
-                }
+                await AddToTotalPrice(cartitem.Dish.Price);
                 await _context.SaveChangesAsync();
 
-                double[] arr = { cartitem.Price, cartitem.Cart.TotalPrice, cartitem.Quantity };
-                return arr;
+                double[] arrT = { cartitem.Price, cartitem.Cart.TotalPrice, cartitem.Quantity };
+                return arrT;
             }
-            double[] arrF = {-1,-1,-1 };
-            return arrF;
+            double[] arrF2 = {-1,-1,-1 };
+            return arrF2;
 
 
         }
@@ -261,8 +275,8 @@ namespace Petstaurant.Controllers
             {
                 if (cartitem.CartId != c.Id)
                 {
-                    double[] arrT = {-1,-1,-1 };
-                    return arrT;
+                    double[] arrF = {-1,-1,-1 };
+                    return arrF;
                 }
                 cartitem.Quantity -= 1;
                 if (cartitem.Quantity == 0)
@@ -274,21 +288,13 @@ namespace Petstaurant.Controllers
                     return arrT2;
                 }
                 cartitem.Price = cartitem.Dish.Price * cartitem.Quantity;
-                try
-                {
-                    await AddToTotalPrice(-cartitem.Dish.Price);
-                }
-
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    await _context.SaveChangesAsync();
-                }
+                await AddToTotalPrice(-cartitem.Dish.Price);
                 await _context.SaveChangesAsync();
-                double[] arr = { cartitem.Price, cartitem.Cart.TotalPrice, cartitem.Quantity };
-                return arr;
+                double[] arrT = { cartitem.Price, cartitem.Cart.TotalPrice, cartitem.Quantity };
+                return arrT;
             }
-            double[] arrT3 = {-1,-1,-1 };
-            return arrT3;
+            double[] arrF2 = {-1,-1,-1 };
+            return arrF2;
         }
 
     }
