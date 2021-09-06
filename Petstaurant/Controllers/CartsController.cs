@@ -203,6 +203,39 @@ namespace Petstaurant.Controllers
             return u;
         }
 
+        public async Task<IActionResult> AddItemToCart(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Dishes");
+            }
+            var user = GetCurrentUserName();
+            var cart = await _context.Cart.FirstOrDefaultAsync(s => s.UserName == user);
+
+            var q = _context.CartItem.FirstOrDefault(u => u.DishId == id && u.CartId == cart.Id);
+            var d = _context.Dish.FirstOrDefault(u => u.Id == id);
+            if (q == null)
+            {
+                CartItem cartItem = new CartItem();
+                cartItem.CartId = cart.Id;
+                cartItem.Quantity = 1;
+                cartItem.DishId = id;
+                cartItem.Price = d.Price;
+                cart.TotalPrice += d.Price;
+                _context.Add(cartItem);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Dishes");
+            }
+            else
+            {
+                q.Quantity += 1;
+                q.Price += d.Price;
+                cart.TotalPrice += d.Price;
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Dishes");
+            }
+        }
+
 
         public async Task AddToTotalPrice(double price)
         {
