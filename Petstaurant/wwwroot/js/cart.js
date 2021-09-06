@@ -3,7 +3,6 @@
 $(document).ready(function () {
     $('.add').on("click", function (e) {
         e.preventDefault();
-        console.log(e);
         var dishId = parseInt($(this).closest('tr').prop('id'));
         //var ciQuantity = parseInt($(this).closest("tr").find('input').prop('value'));
         //var dishPrice = parseInt($(this).closest('tr').find('.dishPrice').text());
@@ -16,10 +15,8 @@ $(document).ready(function () {
                 id: dishId,
             },
             success: function (data) {
-                console.log(data);
                 if (parseInt(data[0]) == -1) {
                     alert("Can't add this dish to cart 1");
-                    console.log(data);
                     return false;
                 }
                 $(th).closest("tr").find('input').val(data[2].toString());
@@ -34,7 +31,6 @@ $(document).ready(function () {
                 return true;
             },
             error: function (data) {
-                console.log(data);
                 return false;
             },
             complete: function (data) {
@@ -48,7 +44,6 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.sub').on("click", function (e) {
         e.preventDefault();
-        console.log(e);
         var dishId = parseInt($(this).closest('tr').prop('id'));
         //var ciQuantity = parseInt($(this).closest("tr").find('input').prop('value'));
         //console.log(ciQuantity);
@@ -72,10 +67,8 @@ $(document).ready(function () {
                 id: dishId,
             },
             success: function (data) {
-                console.log(data);
                 if (parseInt(data[0]) == -1) {
                     alert("Can't add this dish to cart 3");
-                    console.log(data);
                     return false;
                 }
                 if (parseInt(data[0])==0) {
@@ -96,7 +89,6 @@ $(document).ready(function () {
                 return true;
             },
             error: function (data) {
-                console.log(data);
                 return false;
             },
             complete: function (data) {
