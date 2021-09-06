@@ -213,7 +213,6 @@ namespace Petstaurant.Controllers
             {
                 cart.TotalPrice = 0;
             }
-            await _context.SaveChangesAsync();
         }
 
         [Authorize(Roles = "Admin, Customer")]
@@ -231,8 +230,18 @@ namespace Petstaurant.Controllers
                 }
                 cartitem.Quantity += 1;
                 cartitem.Price = cartitem.Dish.Price * cartitem.Quantity;
-                await AddToTotalPrice(cartitem.Dish.Price);
+               
+                try
+                {
+                    await AddToTotalPrice(cartitem.Dish.Price);
+                }
+                
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    await _context.SaveChangesAsync();
+                }
                 await _context.SaveChangesAsync();
+
                 double[] arr = { cartitem.Price, cartitem.Cart.TotalPrice, cartitem.Quantity };
                 return arr;
             }
@@ -265,7 +274,15 @@ namespace Petstaurant.Controllers
                     return arrT2;
                 }
                 cartitem.Price = cartitem.Dish.Price * cartitem.Quantity;
-                await AddToTotalPrice(-cartitem.Dish.Price);
+                try
+                {
+                    await AddToTotalPrice(-cartitem.Dish.Price);
+                }
+
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    await _context.SaveChangesAsync();
+                }
                 await _context.SaveChangesAsync();
                 double[] arr = { cartitem.Price, cartitem.Cart.TotalPrice, cartitem.Quantity };
                 return arr;

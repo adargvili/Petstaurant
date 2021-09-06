@@ -18,6 +18,7 @@ namespace Petstaurant.Models
         public int Quantity { get; set; }
         [DataType(DataType.Currency)]
         [Range(0, 1000, ErrorMessage = "Choose a postive price")]
+        [ConcurrencyCheck]
         public double Price { get; set; }
         [DisplayName("Dish")]
         public int DishId { get; set; }

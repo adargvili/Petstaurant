@@ -17,6 +17,7 @@ namespace Petstaurant.Models
         [DisplayName("Total Price")]
         [DataType(DataType.Currency)]
         [Range(0, 10000, ErrorMessage = "Choose a postive price")]
+        [ConcurrencyCheck]
         public double TotalPrice { get; set; }
         [ForeignKey("User")]
         public string UserName { get; set; }

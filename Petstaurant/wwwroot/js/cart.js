@@ -18,7 +18,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data);
                 if (parseInt(data[0]) == -1) {
-                    alert("Can't add this dish to cart");
+                    alert("Can't add this dish to cart 1");
                     console.log(data);
                     return false;
                 }
@@ -34,7 +34,6 @@ $(document).ready(function () {
                 return true;
             },
             error: function (data) {
-                alert("Can't add this dish to cart");
                 console.log(data);
                 return false;
             },
@@ -75,7 +74,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data);
                 if (parseInt(data[0]) == -1) {
-                    alert("Can't add this dish to cart");
+                    alert("Can't add this dish to cart 3");
                     console.log(data);
                     return false;
                 }
@@ -97,7 +96,6 @@ $(document).ready(function () {
                 return true;
             },
             error: function (data) {
-                alert("Can't remove this dish from cart");
                 console.log(data);
                 return false;
             },
