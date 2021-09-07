@@ -8,6 +8,9 @@
     right: 0;
 }
 
+.navbar-brand:hover{
+    color:white !important;
+}
 .container {
     padding-top: 2%;
     padding-bottom: 2%;
@@ -116,6 +119,15 @@ a {
     float:left;
     padding-bottom:150px;
 }
+
+.mapdes {
+    margin-bottom: 150px;
+
+    
+}
+
+
+
 
 .title-page {
     font-family: "Poppins", sans-serif;
