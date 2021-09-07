@@ -105,23 +105,27 @@ $(document).ready(function () {
 });
 
 
-//AddItemToCart
+//AddDishToCart
 $(document).ready(function () {
     $('.addToCart').on("click", function (e) {
         e.preventDefault();
+        var diId = $(this).prop('id');
         var th = this;
         $.ajax({
             type: 'POST',
-            url: '/Carts/AddItemToCart',
+            url: '/Carts/AddDishToCart',
             data: {
-                id: ciId,
+                id: parseInt(diId),
             },
             success: function (data) {
-                if (parseInt(data) == 0) {
+                if (!data) {
                     alert("Can't add to cart");
                     return false;
                 }
-
+                document.getElementById(diId).textContent = "Added to cart!";
+                setTimeout(() => {
+                    document.getElementById(diId).textContent = "Add to cart";
+                }, 1500);
                 return true;
             },
             error: function (data) {

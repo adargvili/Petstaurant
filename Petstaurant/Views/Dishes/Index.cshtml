@@ -136,7 +136,7 @@
 
                         </ul>
                         <div class="card-body">
-                            <a asp-action="AddItemToCart" asp-controller="Carts" asp-route-id="@item.Id" class="addToCart btn btn-warning job" style="color:black; font-weight:bold;">Add To Cart</a>
+                            <a id="@item.Id" asp-action="AddDishToCart" asp-controller="Carts" asp-route-id="@item.Id" class="addToCart btn btn-warning job" style="color:black; font-weight:bold;">Add to cart</a>
                         </div>
                     </div>
                 </div>
@@ -146,5 +146,11 @@
     </div>
 
 </tbody>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/cart.js"></script>
+}
 
 
