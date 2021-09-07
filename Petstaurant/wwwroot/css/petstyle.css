@@ -112,4 +112,16 @@ a {
     color: white;
 }
 
+.twitter-page { 
+    float:left;
+}
+
+.title-page {
+    background: #FFFF00;
+    background: -webkit-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
+    background: -moz-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
+    background: linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
