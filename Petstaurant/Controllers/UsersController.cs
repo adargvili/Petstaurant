@@ -347,8 +347,7 @@ namespace Petstaurant.Controllers
             }
             var petStaurantUser = new TwitterClient("OAHEhNknOQlBIwdEOIdaDMuZp", "Kz4nVWGWL1XHhwCD7DSDt6kmtPBuCiPPSMHJCI4aVcfuhwOb93", "865798995041505281-4j9YnKsVx8CPiJc77s2iBRU8bbVVEb3", "Ap5b8HluV6slMDTnKAF4JVkY6xcBjEfTH7RqpQV0fvxqC");
             await petStaurantUser.Tweets.PublishTweetAsync(tweetData);
-            var u = GetCurrentUserName();
-            return RedirectToAction(nameof(Index),"Home");
+            return PartialView("Tweet");
         }
     }
 }
