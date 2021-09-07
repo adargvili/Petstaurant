@@ -1,13 +1,9 @@
 ﻿@model Petstaurant.Models.Dish
 
-@{
-    ViewData["Title"] = "Create";
-}
+@{ ViewData["Title"] = "Create"; }
 
-<h1>Create</h1>
+<h1>Add a new Dish</h1>
 
-<h4>Dish</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -18,8 +14,8 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label  asp-for="Store" class="control-label"></label>
-                <select asp-for="Store" class="form-control" asp-items="ViewBag.Store"></select>
+                <label asp-for="Store" class="control-label"></label>
+                <select asp-for="Store" class="form-control" asp-items="ViewBag.Store" multiple></select>
             </div>
             <div class="form-group">
                 <label asp-for="FoodGroupId" class="control-label"></label>
@@ -46,8 +42,7 @@
         </form>
         @if (ViewBag.Error != null)
         {
-            <div class="text-danger">@ViewBag.Error</div>
-        }
+<div class="text-danger">@ViewBag.Error</div>}
     </div>
 </div>
 
@@ -57,4 +52,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/multiselect.js"></script>
 }
