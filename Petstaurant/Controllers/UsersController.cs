@@ -342,6 +342,9 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Tweet(string tweetData)
         {
+            if (tweetData.Length > 280) {
+                return NotFound();
+            }
             var petStaurantUser = new TwitterClient("OAHEhNknOQlBIwdEOIdaDMuZp", "Kz4nVWGWL1XHhwCD7DSDt6kmtPBuCiPPSMHJCI4aVcfuhwOb93", "865798995041505281-4j9YnKsVx8CPiJc77s2iBRU8bbVVEb3", "Ap5b8HluV6slMDTnKAF4JVkY6xcBjEfTH7RqpQV0fvxqC");
             await petStaurantUser.Tweets.PublishTweetAsync(tweetData);
             var u = GetCurrentUserName();
