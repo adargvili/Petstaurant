@@ -24,7 +24,7 @@ namespace Petstaurant.Controllers
         // GET: OrderItems
         public async Task<IActionResult> Index()
         {
-            var petstaurantContext = _context.OrderItem.Include(o => o.Order);
+            var petstaurantContext = _context.OrderItem.Include(o => o.Dish).Include(o => o.Order);
             return View(await petstaurantContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace Petstaurant.Controllers
             }
 
             var orderItem = await _context.OrderItem
+                .Include(o => o.Dish)
                 .Include(o => o.Order)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderItem == null)
@@ -50,6 +51,7 @@ namespace Petstaurant.Controllers
         // GET: OrderItems/Create
         public IActionResult Create()
         {
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
             ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address));
             return View();
         }
@@ -59,7 +61,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderId,Quantity,Price")] OrderItem orderItem)
+        public async Task<IActionResult> Create([Bind("Id,OrderId,Quantity,Price,DishId")] OrderItem orderItem)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +69,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name), orderItem.DishId);
             ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address), orderItem.OrderId);
             return View(orderItem);
         }
@@ -84,6 +87,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name), orderItem.DishId);
             ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address), orderItem.OrderId);
             return View(orderItem);
         }
@@ -93,7 +97,7 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderId,Quantity,Price")] OrderItem orderItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderId,Quantity,Price,DishId")] OrderItem orderItem)
         {
             if (id != orderItem.Id)
             {
@@ -120,6 +124,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DishId"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name), orderItem.DishId);
             ViewData["OrderId"] = new SelectList(_context.Order, nameof(Order.Id), nameof(Order.Address), orderItem.OrderId);
             return View(orderItem);
         }
@@ -133,6 +138,7 @@ namespace Petstaurant.Controllers
             }
 
             var orderItem = await _context.OrderItem
+                .Include(o => o.Dish)
                 .Include(o => o.Order)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orderItem == null)
