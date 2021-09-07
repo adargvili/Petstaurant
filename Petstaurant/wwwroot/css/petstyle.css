@@ -114,9 +114,11 @@ a {
 
 .twitter-page { 
     float:left;
+    padding-bottom:150px;
 }
 
 .title-page {
+    font-family: "Poppins", sans-serif;
     background: #FFFF00;
     background: -webkit-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
     background: -moz-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);

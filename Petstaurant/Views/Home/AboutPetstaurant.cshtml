@@ -3,26 +3,29 @@
 }
 
 <style>
+    .aboutsyyle {
+        font-family: "Poppins", sans-serif;
+        -webkit-text-stroke: 1px #000000;
+    }
     
 
 
 </style>
 
-<div  class="container" >
-    <h2 >About Us...</h2>
-    <p>
-        There are an increase in dog-owners taking their pet's diets into their own hands.
-
-        Yes, it is true that making wholesome home-cooked food for our dogs is great because it gives us the control as to what goes into their diets.
-
-        But the problem is that you don't have time to make this dishes.
-
-        To help you with a diet that is not only delicious but also has enough nutrition for your pet, check out these healthy gourmet dishes that we have picked out for your best friend.<br /><br />
-
-        Bon Appétit.
+<div  class="container aboutsyyle">
+    <h1 class="display-5" style="font-weight:bold;">About Us...</h1>
+    <p class="fs-4">
+        There are an increase in dog-owners taking their pet's diets into their own hands.<br />
+        Yes, it is true that making wholesome home-cooked food for our dogs is great
+        because it gives us the control as to what goes into their diets.<br />
+        But the problem is that you don't have time to make this dishes.<br />
+        To help you with a diet that is not only delicious but also has enough nutrition for your pet,<br />
+        check out these healthy gourmet dishes that we have picked out for your best friend.<br /><br />
+        <br />
+        Bon Appétit.<br />
     </p>
 
-    <button asp-controller="Home" asp-action="TheCrew" class="btn btn-outline-dark btn-warning" style="font-weight:bold">Meet Our Crew !</button>
+    <button asp-controller="Home" asp-action="TheCrew" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke:0 !important;">Meet Our Crew !</button>
 
 
 </div>
