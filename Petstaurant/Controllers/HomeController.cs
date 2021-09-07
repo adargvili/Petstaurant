@@ -39,6 +39,10 @@ namespace Petstaurant.Controllers
         {
             return View();
         }
+        public IActionResult TLVcity()
+        {
+            return View();
+        }
         [Authorize(Roles = "Customer, Admin")]
         public IActionResult TheCrew()
         {

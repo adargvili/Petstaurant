@@ -49,8 +49,8 @@
                             </li>
                             <li class="nav-item d-grid gap-2 d-md-flex">
                                 <a class="nav-link text-warning" href="#">About</a>
-                                <a class="nav-link text-warning" asp-action="TheCrew">Our Crew</a>
-
+                                <a class="nav-link text-warning" asp-controller="Home" asp-action="TheCrew">Our Crew</a>
+                                
                             </li>
                             <li class="dropdown nav-item px-2">
                                 <a class="btn btn-secondary dropdown-toggle btn-sm" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +58,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="/Home/Index">Tel Aviv</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="TLVcity">Tel Aviv</a></li>
                                     <li><a class="dropdown-item" href="#">Beer-Sheva</a></li>
                                     <li><a class="dropdown-item" href="#">Jerusalem</a></li>
                                     <li><a class="dropdown-item" href="#">Kiryat-Malachi</a></li>
