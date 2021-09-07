@@ -35,11 +35,11 @@ namespace Petstaurant.Controllers
         {
             var u = GetCurrentUserName();
             var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
-            var id = c.Id;
-            if (id == null)
+            if (c == null)
             {
                 return NotFound();
             }
+            var id = c.Id;
 
             var cart = await _context.Cart
                 .Include(c => c.User).Include(ci => ci.CartItems).ThenInclude(d => d.Dish)
@@ -205,10 +205,6 @@ namespace Petstaurant.Controllers
 
         public async Task<bool> AddDishToCart(int id)
         {
-            if (id == null)
-            {
-                return false;
-            }
             var user = GetCurrentUserName();
             var cart = await _context.Cart.FirstOrDefaultAsync(s => s.UserName == user);
 
@@ -239,7 +235,7 @@ namespace Petstaurant.Controllers
                 return true;
             }
         }
-
+        [Authorize(Roles = "Admin, Customer")]
 
         public async Task AddToTotalPrice(double price)
         {
@@ -251,7 +247,7 @@ namespace Petstaurant.Controllers
                 cart.TotalPrice = 0;
             }
         }
-
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<double[]> RemoveCartItem(int id)
         {
             var cartitem = await _context.CartItem.Include(d => d.Dish).FirstOrDefaultAsync(s => s.Id == id);
@@ -273,6 +269,33 @@ namespace Petstaurant.Controllers
             double[] arrF2 = { 0, cartitem.Cart.TotalPrice };
             return arrF2;
         }
+        [Authorize(Roles = "Admin, Customer")]
+
+        public async Task<double[]> ClearCart()
+        {
+            var u = GetCurrentUserName();
+            var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
+            var cartitems = _context.CartItem.ToList().Where(p => p.CartId == c.Id);
+
+            if (cartitems.Count() == 0)
+            {
+                double[] arrF3 = { 0, c.TotalPrice };
+                return arrF3;
+            }
+
+            foreach (CartItem cartitem in cartitems)
+            {
+                if (cartitem != null)
+                {
+                    await AddToTotalPrice(-cartitem.Price);
+                }  
+            }
+            _context.CartItem.RemoveRange(cartitems);
+            await _context.SaveChangesAsync();
+            double[] arrT = { 1, c.TotalPrice };
+            return arrT;
+        }
+
 
         [Authorize(Roles = "Admin, Customer")]
         public async Task<double[]> AddOne(int id)

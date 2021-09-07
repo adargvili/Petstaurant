@@ -137,3 +137,33 @@ $(document).ready(function () {
 
     });
 });
+
+//ClearCart
+$(document).ready(function () {
+    $('.clearCart').on("click", function (e) {
+        e.preventDefault();
+        var th = this;
+        $.ajax({
+            type: 'POST',
+            url: '/Carts/ClearCart',
+            data: {
+            },
+            success: function (data) {
+                if (parseInt(data[0]) == 0) {
+                    alert("There are not items in the cart");
+                    return false;
+                }
+                var tbl = document.getElementById("tblId");
+                tbl.removeChild(tbl.getElementsByTagName("tbody")[0]);
+                document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "$";
+                return true;
+            },
+            error: function (data) {
+                return false;
+            },
+            complete: function (data) {
+            },
+        });
+
+    });
+});

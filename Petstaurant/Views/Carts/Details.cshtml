@@ -11,7 +11,7 @@
     <div>
         <hr />
         <dl class="row">
-            <table class="table table-dark table-striped table-hover">
+            <table id="tblId" class="table table-dark table-striped table-hover">
                 <thead>
                     <tr class="row">
                         <th class="col-1 text-warning">Dish</th>
@@ -58,6 +58,7 @@
 </form>
 
 <div>
+    <a asp-action="ClearCart" asp-controller="Carts" class="clearCart site-btn btn btn-warning job">Clear cart</a>
     <a asp-action="Index" asp-controller="Dishes" class="site-btn btn btn-warning job">Back to menu</a>
     <a asp-action="Create" asp-controller="Orders" class="site-btn btn btn-warning job">Order now</a>
     <a asp-action="Create" asp-controller="CartItems" class="site-btn text-info">Add another item to cart</a>
