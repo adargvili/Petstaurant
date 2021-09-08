@@ -129,12 +129,14 @@ a {
 
 .title-page {
     font-family: "Poppins", sans-serif;
-    background: #FFFF00;
-    background: -webkit-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
-    background: -moz-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
-    background: linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
+    font-weight: bold;
+    text-shadow: 5px 5px 8px #FFC107;
+    -webkit-text-stroke: 1px #000000;
+    /* background: -webkit-linear-gradient(to left, #FFFF00 0%, #05C1FF 50%, #FFFF00 100%);
+    background: -moz-linear-gradient(to left, #FFFF00 0%, white 50%, #FFC107 100%);
+    background: linear-gradient(to left, #FFFF00 0%, white 50%, #FFC107 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;*/
 }
 
 
