@@ -16,10 +16,10 @@ namespace Petstaurant.Models
         [StringLength(16, MinimumLength = 16, ErrorMessage = "You are allowed to use only 16 characters")]
         [RegularExpression(@"^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$", ErrorMessage =
            "Credit card format is required")]
+        [DataType(DataType.CreditCard)]
         public string CreditCard { get; set; }
-        [DisplayName("Store")]
+        [DisplayName("City")]
         public int StoreId { get; set; }
-        [Required]
         public Store Store { get; set; }
 
         [Required]
