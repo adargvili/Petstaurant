@@ -107,7 +107,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "PostalCode", order.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address), order.StoreId);
             ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
@@ -126,7 +126,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "PostalCode", order.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address), order.StoreId);
             ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
@@ -164,7 +164,7 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StoreId"] = new SelectList(_context.Store, "Id", "PostalCode", order.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address), order.StoreId);
             ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
