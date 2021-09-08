@@ -23,8 +23,9 @@ namespace Petstaurant.Models
         [StringLength(30, MinimumLength = 4, ErrorMessage = "You are allowed to use only 4-30 characters")]
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
-        [DisplayName("Stores")]
+        [DisplayName("Dishes")]
         public List<Dish> Dish { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }

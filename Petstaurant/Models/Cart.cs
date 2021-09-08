@@ -16,12 +16,11 @@ namespace Petstaurant.Models
         public List<CartItem> CartItems { get; set; }
         [DisplayName("Total Price")]
         [DataType(DataType.Currency)]
-        [Range(0, 10000, ErrorMessage = "Choose a postive price")]
+        [Range(0, 10000, ErrorMessage = "Choose a postive price, not more than 10000")]
         [ConcurrencyCheck]
         public double TotalPrice { get; set; }
         [ForeignKey("User")]
         public string UserName { get; set; }
         public User User { get; set; }
-        public Order Order { get; set; }
     }
 }

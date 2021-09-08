@@ -100,7 +100,7 @@ a {
     padding: 15px;
     font-size: 30px;
     width: 50px;
-
+    font-size:22px !important;
     text-decoration: none;
     color:white;
 }
