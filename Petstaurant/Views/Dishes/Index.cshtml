@@ -3,7 +3,7 @@
 
 @{ ViewData["Title"] = "Index"; }
 
-@if (ViewBag.UserAdmin == UserType.Admin)
+@if (Context.User.IsInRole("Admin"))
 {
 <h1>Menu</h1>
 <p>
@@ -26,25 +26,25 @@
         <div class="col-3">
             <div class="row row-cols-2">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="Tel-Aviv" value="TLV" id="TLV-Check">
+                    <input class="form-check-input" type="checkbox" name="cities" value="TLV" id="TLV-Check">
                     <label class="form-check-label search-texts" for="flexCheckDefault">
                         Tel-Aviv
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="Beer-Sheva" value="BS" id="BS-Check">
+                    <input class="form-check-input" type="checkbox" name="cities" value="BS" id="BS-Check">
                     <label class="form-check-label search-texts" for="flexCheckDefault">
                         Beer-Sheva
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="Jerusalem" value="Jer" id="Jer-Check">
+                    <input class="form-check-input" type="checkbox" name="cities" value="Jer" id="Jer-Check">
                     <label class="form-check-label search-texts" for="flexCheckDefault">
                         Jerusalem
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="Kiryat-Malachi" value="KM" id="KM-Check">
+                    <input class="form-check-input" type="checkbox" name="cities" value="KM" id="KM-Check">
                     <label class="form-check-label search-texts" for="flexCheckDefault">
                         Kiryat-Malachi
                     </label>
@@ -53,7 +53,7 @@
         </div>
         <div class="col-3">
             <div class="p-1">
-                <select class="form-select" id="selectType" name="selectType" aria-label=".form-select-sm example">
+                <select class="form-select" id="selectFoodType" name="selectFoodType" aria-label=".form-select-sm example">
                     <option value=@null selected>Select Food Group</option>
                     <option value="Poultry">Poultry</option>
                     <option value="Fish">Fish</option>
@@ -75,7 +75,7 @@
 
     <div class="row">
 
-        @if (ViewBag.UserAdmin == UserType.Admin)
+        @if (Context.User.IsInRole("Admin"))
         {
 <table class="table">
     <thead>

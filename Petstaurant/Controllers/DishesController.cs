@@ -189,9 +189,29 @@ namespace Petstaurant.Controllers
         }
 
         [Authorize(Roles = "Admin, Customer")]
-        public async Task<IActionResult> Search(string dishName, string queryName, string selectType)
+        public async Task<IActionResult> Search(string dishName, string[] cities, string selectFoodType)
         {
-            return View();
+            //var q = from d in _context.Dish.Include(a=>a.FoodGroup)
+            //        where ((d.Name.Contains(dishName) || dishName == null)
+            //        && ((d.Store.Any(s => s.Country.Equals(cities[0])) || (d.Store.Any(s => s.Country.Equals(cities[1])))) ||
+            //        (d.Store.Any(s => s.Country.Equals(cities[2]))) || (d.Store.Any(s => s.Country.Equals(cities[3]))))
+            //        && d.FoodGroup.Name.Equals(selectFoodType)|| selectFoodType==null)
+            //        orderby d.Name ascending
+            //        select d;
+
+
+
+            var q = from d in _context.Dish.Include(a => a.Store).Include(a=>a.FoodGroup)
+                    where ((d.Name.Contains(dishName) || dishName == null)
+                    && (d.FoodGroup.Name.Equals(selectFoodType) || selectFoodType == null)
+                    )
+                    
+                    orderby d.Name ascending
+                    select d;
+
+
+
+            return View("Index",await q.ToListAsync());
 
 
         }
