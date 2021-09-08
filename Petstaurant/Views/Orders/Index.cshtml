@@ -13,7 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
+                @Html.DisplayNameFor(model => model.CreditCard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Address)
@@ -28,13 +31,7 @@
                 @Html.DisplayNameFor(model => model.TotalPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Delivery)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cart)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrderTime)
@@ -46,7 +43,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Country)
+                @Html.DisplayFor(modelItem => item.CreditCard)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.PostalCode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
@@ -61,13 +61,7 @@
                 @Html.DisplayFor(modelItem => item.TotalPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Delivery)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cart.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderTime)
