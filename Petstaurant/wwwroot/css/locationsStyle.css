@@ -1,0 +1,23 @@
+﻿
+body {
+    background-image: url(/pics/jerusalem3.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.aboutsyyle {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    -webkit-text-stroke: 1px #000000;
+    line-height: 1.6;
+}
+
+.mapdes {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight:bold;
+    border-style: solid;
+    border-color: black;
+    background: rgba(0,0,0, 0.3);
+}

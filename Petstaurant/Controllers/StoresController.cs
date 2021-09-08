@@ -52,6 +52,16 @@ namespace Petstaurant.Controllers
             return View();
         }
 
+        public IActionResult TLVcity()
+        {
+            return View();
+        }
+
+        public IActionResult JerusalemCity()
+        {
+            return View();
+        }
+
         // POST: Stores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -94,6 +104,8 @@ namespace Petstaurant.Controllers
             }
             return View(store);
         }
+
+
 
         // POST: Stores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
