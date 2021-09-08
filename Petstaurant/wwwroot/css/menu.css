@@ -82,12 +82,7 @@ h4, .h4{
     float:inherit;
 }
 
-.search-texts {
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(69,70,6,1) 63%, rgba(236,255,0,1) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+
 
 
 
