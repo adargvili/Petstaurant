@@ -30,7 +30,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Carts/Details/5
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Details()
         {
             var u = GetCurrentUserName();
@@ -49,7 +49,7 @@ namespace Petstaurant.Controllers
                 return NotFound();
             }
             var t = GetCurrentUserType();
-            if ((u != cart.UserName) && t != "Admin")
+            if (u != cart.UserName)
             {
                 return NotFound();
             }
@@ -202,7 +202,7 @@ namespace Petstaurant.Controllers
             var u = claims.Skip(1).First().Value;
             return u;
         }
-
+        [Authorize(Roles = "Customer")]
         public async Task<bool> AddDishToCart(int id)
         {
             var user = GetCurrentUserName();
@@ -235,7 +235,7 @@ namespace Petstaurant.Controllers
                 return true;
             }
         }
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
 
         public async Task AddToTotalPrice(double price)
         {
@@ -247,7 +247,7 @@ namespace Petstaurant.Controllers
                 cart.TotalPrice = 0;
             }
         }
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<double[]> RemoveCartItem(int id)
         {
             var cartitem = await _context.CartItem.Include(d => d.Dish).FirstOrDefaultAsync(s => s.Id == id);
@@ -266,10 +266,10 @@ namespace Petstaurant.Controllers
                 double[] arrT = { 1, cartitem.Cart.TotalPrice };
                 return arrT;
             }
-            double[] arrF2 = { 0, cartitem.Cart.TotalPrice };
+            double[] arrF2 = { 0, c.TotalPrice };
             return arrF2;
         }
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
 
         public async Task<double[]> ClearCart()
         {
@@ -297,7 +297,7 @@ namespace Petstaurant.Controllers
         }
 
 
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<double[]> AddOne(int id)
         {
             var cartitem = await _context.CartItem.Include(d => d.Dish).FirstOrDefaultAsync(s => s.Id == id);
@@ -325,7 +325,7 @@ namespace Petstaurant.Controllers
 
         }
 
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<double[]> SubtractOne(int id)
         {
             var cartitem = await _context.CartItem.Include(p => p.Dish).FirstOrDefaultAsync(s => s.Id == id);
