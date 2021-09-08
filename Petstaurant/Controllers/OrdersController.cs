@@ -30,7 +30,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Details/5
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,7 +57,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders/Create
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public IActionResult Create()
         {
             ViewData["CartId"] = new SelectList(_context.Cart, nameof(Cart.Id), nameof(Cart.Id));
@@ -70,9 +70,10 @@ namespace Petstaurant.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode,PhoneNumber,TotalPrice,Delivery,UserName,CartId")] Order order)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(order);
@@ -173,7 +174,7 @@ namespace Petstaurant.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        [Authorize(Roles = "Admin, Customer")]
+
         private string GetCurrentUserName()
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -181,7 +182,7 @@ namespace Petstaurant.Controllers
             var u = claims.First().Value;
             return u;
         }
-        [Authorize(Roles = "Admin, Customer")]
+
         private string GetCurrentUserType()
         {
             var identity = (ClaimsIdentity)User.Identity;
