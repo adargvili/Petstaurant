@@ -139,4 +139,18 @@ a {
     -webkit-text-fill-color: transparent;*/
 }
 
+video{
+    border:solid;
+}
+
+.vidtit {
+    color: white;
+    font-weight:bold;
+    font-family: "Poppins", sans-serif;
+    -webkit-text-stroke: 1px #000000;
+}
+
+
+
+
 
