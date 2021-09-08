@@ -147,7 +147,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 if (parseInt(data[0]) == 0) {
-                    alert("There are not items in the cart");
+                    alert("There are no items in the cart");
                     return false;
                 }
                 var tbl = document.getElementById("tblId");
