@@ -9,9 +9,9 @@
 
 }
 
-.row > div[class*='col-'] {
-  display: flex;
-  flex:1 0 auto;
+.row > div[class*='col-lg-3'] {
+    display: flex;
+    flex: 1 0 auto;
 }
 
 .card-title{
@@ -42,6 +42,7 @@ h4, .h4{
 
 .card-img-top{
     background:black;
+    max-height:200px;
     
 
 }
