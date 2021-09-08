@@ -188,6 +188,14 @@ namespace Petstaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin, Customer")]
+        public async Task<IActionResult> Search(string dishName, string queryName, string selectType)
+        {
+            return View();
+
+
+        }
+
         private bool DishExists(int id)
         {
             return _context.Dish.Any(e => e.Id == id);
