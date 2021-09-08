@@ -15,7 +15,7 @@
 
 <form id="dish-filter-form" asp-action="Search">
 
-    <div class="row">
+    <div class="row d-flex">
         <div class="col-3">
             <div class="p-1 input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Dish Name</span>
@@ -93,6 +93,9 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
+                @Html.Label("Availability")
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Created)
             </th>
             <th>
@@ -105,36 +108,53 @@
 
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FoodGroup.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Created)
-    </td>
-    <td>
-        @if (item.Image != null)
-        {
-            string img = Convert.ToBase64String(item.Image);
-<img src="data:image/png;base64,@img" width="50" height="50" />}
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodGroup.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @for (int i = 0; i < item.Store.Count; i++)
+                {
 
 
-    </td>
-    <td>
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </td>
-</tr>}
+                    @Html.DisplayFor(modelItem => item.Store[i].Country);
+                    if (i != item.Store.Count - 1)
+                    {
+
+                        @Html.Label(",");
+
+                    }
+
+
+
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @if (item.Image != null)
+                {
+                    string img = Convert.ToBase64String(item.Image);
+                    <img src="data:image/png;base64,@img" width="50" height="50" />}
+
+
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>}
 </table> }
 
 else

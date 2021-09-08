@@ -9,7 +9,7 @@
 
 }
 
-.row > div[class*='col-'] {
+.row > div[class*='col-lg-'] {
   display: flex;
   flex:1 0 auto;
 }
@@ -42,6 +42,7 @@ h4, .h4{
 
 .card-img-top{
     background:black;
+    max-height:200px;
     
 
 }
