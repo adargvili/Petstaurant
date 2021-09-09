@@ -76,12 +76,13 @@
     @if (ViewBag.UserAdmin == UserType.Admin)
     {
 
-        <div class="container justify-content-center d-grid gap-2 d-md-flex" style="background: rgba(0,0,0, 0.3);">
-            <h3 style="-webkit-text-stroke: 1px #000000; font-weight: bold;">Admin Management: </h3>
-            <a asp-controller="Stores" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke:0 !important;">Stores</a>
-            <a asp-controller="FoodGroups" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke:0 !important;">Food Groups</a>
-            <a asp-controller="Dishes" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke:0 !important;">Dishes</a>
-        </div>
+<div class="container justify-content-center d-grid gap-2 d-md-flex" style="background: rgba(0,0,0, 0.3);">
+    <h3 style="-webkit-text-stroke: 1px #000000; font-weight: bold;">Admin Management: </h3>
+    <a asp-controller="Stores" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Stores</a>
+    <a asp-controller="FoodGroups" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Food Groups</a>
+    <a asp-controller="Dishes" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Dishes</a>
+    <a asp-controller="Users" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Users</a>
+</div>
     }
 
 </div>

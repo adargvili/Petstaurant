@@ -53,15 +53,25 @@
                 </div>
             }
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-warning" />
             </div>
         </form>
     </div>
 </div>
-<div>
-    <a asp-action="Details" asp-route-id="@Model.UserName">Back to Profile</a>
-</div>
+@if (ViewBag.UserAdmin == UserType.Admin)
+{
+    
+            <a style="background: rgba(0,0,0, 0.3);font-size: 32px !important;" asp-action="Index">Go to Users</a>
+            <a style="background: rgba(0,0,0, 0.3); color: #FFC107; font-size: 32px !important; font-weight: bold;" asp-action="Details" asp-route-id="@Model.UserName">Go to Profile</a>
+        
+}
+else
+{
   
+            <a style="background: rgba(0,0,0, 0.3); color: #FFC107; font-size: 32px !important; font-weight: bold;" asp-action="Details" asp-route-id="@Model.UserName">Back to Profile</a>
+        
+}
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/editUser.js"></script>

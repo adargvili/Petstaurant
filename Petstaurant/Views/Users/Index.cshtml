@@ -4,38 +4,46 @@
     ViewData["Title"] = "Index";
 }
 
+
+
+<style>
+    .table a {
+        color: #FFC107 !important;
+    }
+
+</style>
 <h1 class="text-warning">Account's List</h1>
 <br />
 <form id="search-form" asp-action="Search">
 
-        <div class="row">
-            <div class="col-3">
-                <div class="p-1 input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">User Name</span>
-                    <input id="queryUserName" name="queryUserName" placeholder="Enter User Name" type="text" class="form-control" aria-label="User Name Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="p-1 input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
-                    <input id="queryName" name="queryName" placeholder="Enter Name" type="text" class="form-control" aria-label="Name Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="p-1 input-group mb-3">
-                    <select class="form-select" id="selectType" name="selectType" aria-label="Select Type">
-                        <option value=@null selected>Select User Type</option>
-                        <option value="Customer">Customer</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="p-1">
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="p-1 input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">User Name</span>
+                <input id="queryUserName" name="queryUserName" placeholder="Enter User Name" type="text" class="form-control" aria-label="User Name Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
             </div>
         </div>
+        <div class="col-3">
+            <div class="p-1 input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+                <input id="queryName" name="queryName" placeholder="Enter Name" type="text" class="form-control" aria-label="Name Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="p-1 input-group mb-3">
+                <select class="form-select" id="selectType" name="selectType" aria-label="Select Type">
+                    <option value=@null selected>Select User Type</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="p-1">
+                <input type="submit" value="Search" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
 </form>
 <br />
 <table class="table table-dark table-striped table-hover">
@@ -91,15 +99,17 @@
                     @Html.DisplayFor(modelItem => item.UserType)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserName">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.UserName">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UserName">Delete</a>
+                    <div class="container justify-content-center d-grid gap-1 d-md-flex">
+                        <a class="fa bi bi-pen" asp-action="Edit" asp-route-id="@item.UserName"></a>
+                        <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.UserName"></a>
+                        <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.UserName"></a>
+                    </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-@section Scripts{ 
-<script src="~/js/searchUser.js"></script >
+@section Scripts{
+    <script src="~/js/searchUser.js"></script>
 }

@@ -121,9 +121,21 @@
         </tbody>
     </table>
 </div>
+
+@if (Context.User.IsInRole("Admin"))
+{
+    <div>
+        <a asp-action="Index" asp-controller="Orders" class="site-btn btn btn-warning job">Back</a>
+    </div>
+
+}
+else
+{
 <div>
-    <a asp-action="Index" asp-controller="Dishes" class="site-btn btn btn-warning job">Back to menu</a>
+    <a asp-action="Index" asp-controller="Orders" class="site-btn btn btn-warning job">Back</a>
+    <a asp-action="Index" asp-controller="Dishes" class="site-btn btn btn-warning job">Back to Menu</a>
 </div>
+}
 
 
 @section StyleSheets {

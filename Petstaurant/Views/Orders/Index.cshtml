@@ -4,6 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+    .table a {
+        color: #FFC107 !important;
+    }
+</style>
+
 <h1 class="text-warning">Orders List</h1>
 
 <br />
@@ -32,7 +38,7 @@
             </div>
             <div class="col-3">
                 <div class="p-1">
-                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <input type="submit" value="Search" class="btn btn-warning" />
                 </div>
             </div>
         </div>
@@ -120,15 +126,27 @@
                 </td>
                 @if (Context.User.IsInRole("Admin"))
                 {
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
-            </td>
+                    <td>
+                        <div class="container justify-content-center d-grid gap-1 d-md-flex">
+
+                            <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a>
+                            <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+                        </div>
+
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <div class="container justify-content-center d-grid gap-1 d-md-flex">
+                            <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a>
+                        </div>
+                    </td>
                 }
             </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
 
     @section Scripts{
