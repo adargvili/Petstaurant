@@ -194,11 +194,17 @@ namespace Petstaurant.Controllers
             var q = from d in _context.Dish.Include(a => a.Store).Include(a=>a.FoodGroup)
                     where ((d.Name.Contains(dishName) || dishName == null)
                     && (d.FoodGroup.Name.Equals(selectFoodType) || selectFoodType == null) 
-                    && (d.Store.Any(s=>cities.Contains(s.Country)) || cities.Length==0))
+                    && (d.Store.Any(s=>cities[0].Contains(s.Country))))
                     orderby d.Name ascending
                     select d;
+            if (GetCurrentUserType() == "Admin")
+            {
+                return PartialView("SearchAdmin", await q.ToListAsync());
+            }
+            else {
+                return PartialView("SearchCustomer", await q.ToListAsync());
+            }
 
-            return View("Index",await q.ToListAsync());
         }
 
         private bool DishExists(int id)
