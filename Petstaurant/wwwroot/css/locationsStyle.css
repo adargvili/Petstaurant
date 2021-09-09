@@ -15,10 +15,10 @@
     font-weight:bold;
    
     margin-top:20px;
-    max-height:310px;
+    max-height:270px;
 
 }
 
-.container {
+#city {
     background: rgba(0,0,0, 0.3);
 }

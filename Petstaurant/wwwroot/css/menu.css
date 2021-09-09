@@ -18,8 +18,8 @@
 
 .card {
     color: black;
-    width: 30rem;
-    max-width: 21rem;
+    width: 17rem;
+
     box-shadow: rgba(12, 11, 9, 0.9) 0px 5px 5px;
     border: 2px black;
     border-radius: initial 1px;
@@ -47,7 +47,8 @@ h4, .h4{
 
 .card-img-top{
     background:black;
-    max-height:200px;
+    height:180px;
+    max-height:180px;
     
 
 }
