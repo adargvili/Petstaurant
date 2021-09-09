@@ -50,7 +50,7 @@
                             <li class="nav-item d-grid gap-2 d-md-flex">
                                 <a class="nav-link text-warning" asp-controller="Home" asp-action="AboutPetstaurant">About</a>
                                 <a class="nav-link text-warning" asp-controller="Home" asp-action="TheCrew">Our Crew</a>
-                                
+
                             </li>
                             <li class="dropdown nav-item px-2">
                                 <a class="btn btn-secondary dropdown-toggle btn-sm" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -115,17 +115,37 @@
 
             <div class="social-links col-lg-12 col-md-12 text-center">
                 <span class="h3">Join Our Community</span>
-                <a class="fa bi bi-telephone"></a>
+                <a class="fa bi bi-telephone" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
                 <a href="mailto:emil@kollek.net" class="fa bi bi-envelope"></a>
                 <a href="https://www.facebook.com/Petstaurant-179681804167075/" target="_blank" class="fa fa-facebook"></a>
                 <a href="https://twitter.com/PetStaurant" target="_blank" class="fa fa-twitter"></a>
 
             </div>
             <div class="row text-center">
-                <div class="col-lg-12">© 2021 - Shimon Adar Emil</div>
+                <div class="col-lg-12">
+                    <p style="margin-bottom: 0;">© 2021 - Shimon Adar Emil</p>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!--Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Our Phone Number</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h5>+972 33-miau-waff-66783</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary-warning" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
