@@ -122,7 +122,7 @@ namespace Petstaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,Image")] Dish dish, int[] Store)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,ImageFile")] Dish dish, int[] Store)
         {
             if (id != dish.Id)
             {
@@ -133,6 +133,11 @@ namespace Petstaurant.Controllers
             {
                 try
                 {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        dish.ImageFile.CopyTo(ms);
+                        dish.Image = ms.ToArray();
+                    }
                     //TODO: Edit stores and not only adding 
                     dish.Store = new List<Store>();
                     dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
