@@ -4,13 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h2 class="text-warning">We're almost done!</h2>
 
-<h4>Order</h4>
+<h5 class="text-warning">Fill in your details</h5>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form id="orderValidation" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="CreditCard" class="control-label"></label>
@@ -23,13 +23,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <input id="address" asp-for="Address" class="form-control" />
+                <span id="addressError" asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PostalCode" class="control-label"></label>
-                <input asp-for="PostalCode" class="form-control" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
+                <input id="postalCode" asp-for="PostalCode" class="form-control" />
+                <span id="postalCodeError" asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
@@ -44,12 +44,13 @@
         </form>
         @if (ViewBag.Error != null)
         {
-    <div class="text-danger">@ViewBag.Error</div>
-    }
+            <div class="text-danger">@ViewBag.Error</div>
+        }
     </div>
 </div>
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+     <script src="~/js/createOrder.js"></script>
 }
