@@ -5,10 +5,10 @@
 
 @if (Context.User.IsInRole("Admin"))
 {
-<h1>Menu</h1>
-                <p>
-                    <a type="button" style="font-weight:bold;" class="btn btn-warning btn-sm" asp-action="Create">Create New Dish</a>
-                </p>}
+    <h1>Menu</h1>
+    <p>
+        <a type="button" style="font-weight:bold;" class="btn btn-warning btn-sm" asp-action="Create">Create New Dish</a>
+    </p>}
 
 
 
@@ -28,53 +28,56 @@
                         </div>
                     </div>
 
-        <div class="col-3">
-            <div class="row row-cols-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="cities[]" value="Tel-Aviv" id="TLV-Check" checked>
-                    <label class="form-check-label search-texts" for="flexCheckDefault">
-                        Tel-Aviv
-                    </label>
+                    <div class="col-3">
+                        <div class="row row-cols-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Tel-Aviv" id="TLV-Check" checked>
+                                <label class="form-check-label search-texts" for="flexCheckDefault">
+                                    Tel-Aviv
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Beer-Sheva" id="BS-Check" checked>
+                                <label class="form-check-label search-texts" for="flexCheckDefault">
+                                    Beer-Sheva
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Jerusalem" id="Jer-Check" checked>
+                                <label class="form-check-label search-texts" for="flexCheckDefault">
+                                    Jerusalem
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Kiryat-Malachi" id="KM-Check" checked>
+                                <label class="form-check-label search-texts" for="flexCheckDefault">
+                                    Kiryat-Malachi
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="p-1">
+                            <select class="form-select" id="selectFoodType" name="selectFoodType" aria-label=".form-select-sm example">
+                                <option value=@null selected>Select Food Group</option>
+                                <option value="Poultry">Poultry</option>
+                                <option value="Fish">Fish</option>
+                                <option value="Beef">Beef</option>
+                                <option value="Vegetarian">Vegetarian</option>
+                                <option value="Dessert">Dessert</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-1">
+                            <input type="submit" value="Search" class="btn btn-warning" />
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="cities[]" value="Beer-Sheva" id="BS-Check" checked>
-                    <label class="form-check-label search-texts" for="flexCheckDefault">
-                        Beer-Sheva
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="cities[]" value="Jerusalem" id="Jer-Check" checked>
-                    <label class="form-check-label search-texts" for="flexCheckDefault">
-                        Jerusalem
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="cities[]" value="Kiryat-Malachi" id="KM-Check" checked>
-                    <label class="form-check-label search-texts" for="flexCheckDefault">
-                        Kiryat-Malachi
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="p-1">
-                <select class="form-select" id="selectFoodType" name="selectFoodType" aria-label=".form-select-sm example">
-                    <option value=@null selected>Select Food Group</option>
-                    <option value="Poultry">Poultry</option>
-                    <option value="Fish">Fish</option>
-                    <option value="Beef">Beef</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Dessert">Dessert</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-1">
-            <div class="p-1">
-                <input type="submit" value="Search" class="btn btn-warning" />
-            </div>
+            </form>
         </div>
     </div>
-</form>
+</div>
 
 
 
@@ -82,128 +85,128 @@
 
     @if (Context.User.IsInRole("Admin"))
     {
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FoodGroup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.Label("Availability")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FoodGroup)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.Label("Availability")
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Created)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FoodGroup.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @for (int i = 0; i < item.Store.Count; i++)
+                            {
+                                @Html.DisplayFor(modelItem => item.Store[i].Country);
+                                if (i != item.Store.Count - 1)
+                                {
+                                    @Html.Label(",");
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @if (item.Image != null)
+                            {
+                                string img = Convert.ToBase64String(item.Image);
+                                <img src="data:image/png;base64,@img" width="50" height="50" />
+                            }
+
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+
+    else
+    {
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FoodGroup.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        @for (int i = 0; i < item.Store.Count; i++)
-         {
-            @Html.DisplayFor(modelItem => item.Store[i].Country);
-                if (i != item.Store.Count - 1)
-                {
-                    @Html.Label(",");
-                }
-         }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Created)
-    </td>
-    <td>
-        @if (item.Image != null)
-        {
-            string img = Convert.ToBase64String(item.Image);
-            <img src="data:image/png;base64,@img" width="50" height="50" />
-        }
 
-    </td>
-    <td>
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </td>
-</tr>
-         }
 
-</tbody>
-</table>
-}
-
-                    else
+            <div class="col-lg-3 d-flex justify-content-center">
+                <div class="card text-center mb-3">
+                    @if (item.Image != null)
                     {
-                        @foreach (var item in Model)
-                        {
+                        string img = Convert.ToBase64String(item.Image);
+                        <img src="data:image/png;base64,@img" class="card-img-top" alt="..." />}
+
+                    <div class="card-body">
+                        <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </div>
+                    <ul class="list-group list-group-flush card-items">
+                        <li class="list-group-item"><h4>Main ingredient</h4> @Html.DisplayFor(modelItem => item.FoodGroup.Name)</li>
+                        <li class="list-group-item"><h4>Price</h4> @Html.DisplayFor(modelItem => item.Price)</li>
+
+                        <li class="list-group-item st-ad">
+                            <h4>Availability</h4>
+                            @for (int i = 0; i < item.Store.Count; i++)
+                            {
 
 
-                            <div class="col-lg-3 d-flex justify-content-center">
-                                <div class="card text-center mb-3">
-                                    @if (item.Image != null)
-                                    {
-                                        string img = Convert.ToBase64String(item.Image);
-                                        <img src="data:image/png;base64,@img" class="card-img-top" alt="..." />}
+                                @Html.DisplayFor(modelItem => item.Store[i].Address);
+                                if (i != item.Store.Count - 1)
+                                {
 
-                                    <div class="card-body">
-                                        <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
-                                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                                    </div>
-                                    <ul class="list-group list-group-flush card-items">
-                                        <li class="list-group-item"><h4>Main ingredient</h4> @Html.DisplayFor(modelItem => item.FoodGroup.Name)</li>
-                                        <li class="list-group-item"><h4>Price</h4> @Html.DisplayFor(modelItem => item.Price)</li>
+                                    @Html.Label("||");
 
-                                        <li class="list-group-item st-ad">
-                                            <h4>Availability</h4>
-                                            @for (int i = 0; i < item.Store.Count; i++)
-                                            {
-
-
-                                                @Html.DisplayFor(modelItem => item.Store[i].Address);
-                                                if (i != item.Store.Count - 1)
-                                                {
-
-                                                    @Html.Label("||");
-
-                                                }
+                                }
 
 
 
-                                            }
-                                        </li>
+                            }
+                        </li>
 
-        </ul>
-        <div class="card-body">
-            <a id="@item.Id" asp-action="AddDishToCart" asp-controller="Carts" asp-route-id="@item.Id" class="addToCart btn btn-warning job" style="color:black; font-weight:bold;">Add to cart</a>
-        </div>
-    </div>
-</div>}}
+                    </ul>
+                    <div class="card-body">
+                        <a id="@item.Id" asp-action="AddDishToCart" asp-controller="Carts" asp-route-id="@item.Id" class="addToCart btn btn-warning job" style="color:black; font-weight:bold;">Add to cart</a>
+                    </div>
+                </div>
+            </div>}}
 </div>
 
 
@@ -212,6 +215,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/cart.js"></script>
+    <script src="~/js/searchMenu.js"></script>
 }
 
 
