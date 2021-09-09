@@ -197,7 +197,7 @@ namespace Petstaurant.Controllers
             var q = from d in _context.Dish.Include(a => a.Store).Include(a=>a.FoodGroup)
                     where ((d.Name.Contains(dishName) || dishName == null)
                     && (d.FoodGroup.Name.Equals(selectFoodType) || selectFoodType == null) 
-                    && (d.Store.Any(s=>cities[0].Contains(s.Country))))
+                    && (d.Store.Any(s=>cities[0].Contains(s.City))))
                     orderby d.Name ascending
                     select d;
             if (GetCurrentUserType() == "Admin")

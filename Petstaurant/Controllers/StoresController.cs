@@ -80,11 +80,11 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode")] Store store, int[] Dish)
+        public async Task<IActionResult> Create([Bind("Id,City,Address,PostalCode")] Store store, int[] Dish)
         {
             if (ModelState.IsValid)
             {
-                var q = _context.Store.FirstOrDefault(u => (store.Country == u.Country) && (store.Address == u.Address));
+                var q = _context.Store.FirstOrDefault(u => (store.City == u.City) && (store.Address == u.Address));
                 if (q == null)
                 {
                     store.Dish = new List<Dish>();
@@ -128,7 +128,7 @@ namespace Petstaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,Address,PostalCode")] Store store)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,City,Address,PostalCode")] Store store)
         {
             if (id != store.Id)
             {

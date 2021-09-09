@@ -131,7 +131,7 @@
                         <td>
                             @for (int i = 0; i < item.Store.Count; i++)
                             {
-                                @Html.DisplayFor(modelItem => item.Store[i].Country);
+                                @Html.DisplayFor(modelItem => item.Store[i].City);
                                 if (i != item.Store.Count - 1)
                                 {
                                     @Html.Label(",");
