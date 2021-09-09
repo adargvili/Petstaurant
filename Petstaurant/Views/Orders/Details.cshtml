@@ -3,11 +3,20 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1 class="text-warning">Your order has been received!</h1>
-<h3 class="text-warning">Your order number is #@Model.Id</h3>
+@if (Context.User.IsInRole("Customer"))
+{
+    <h1 class="text-warning">Your order has been received!</h1>
+    <h3 class="text-warning">Your order number is #@Model.Id</h3>
+}
+@if (Context.User.IsInRole("Admin"))
+{
+<h2 class="text-warning">Order number #@Model.Id</h2>
+}
 <div>
-    <h6 class="text-warning">Now, lets review your order</h6>
+    @if (Context.User.IsInRole("Customer"))
+    {
+        <h6 class="text-warning">Now, lets review your order</h6>
+    }
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -82,8 +91,8 @@
                     </tr>
                 }
             </tbody>
-            </table>
-   </dl>
+        </table>
+    </dl>
 </div>
 <div>
     <a asp-action="Index" asp-controller="Dishes" class="site-btn btn btn-warning job">Back to menu</a>

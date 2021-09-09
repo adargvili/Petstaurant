@@ -51,6 +51,7 @@ namespace Petstaurant.Models
         [DisplayName("Order Items")]
         public List<OrderItem> OrderItems { get; set; }
         [DataType(DataType.Date)]
+        [DisplayName("Order Time")]
         public DateTime OrderTime { get; set; } = DateTime.Now;
 
     }

@@ -23,11 +23,21 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Orders
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Index()
         {
-            var petstaurantContext = _context.Order.Include(o => o.Store).Include(o => o.User);
-            return View(await petstaurantContext.ToListAsync());
+            var ut = GetCurrentUserType();
+            var u = GetCurrentUserName();
+            if (ut == "Admin"){
+            var petstaurantContext = _context.Order.Include(o => o.Store).Include(o => o.User).OrderBy(o=> o.Id);
+                return View(await petstaurantContext.ToListAsync());
+            }
+            else
+            {
+                var petstaurantContextUser = _context.Order.Include(o => o.Store).Include(o => o.User).Where(o=> o.UserName ==u).OrderBy(o=>o.Id);
+                return View(await petstaurantContextUser.ToListAsync());
+            }
+            
         }
 
         // GET: Orders/Details/5
