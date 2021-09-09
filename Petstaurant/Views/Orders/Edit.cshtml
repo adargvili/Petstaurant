@@ -1,4 +1,4 @@
-﻿@model Petstaurant.Models.Order
+﻿@*@model Petstaurant.Models.Order
 
 @{
     ViewData["Title"] = "Edit";
@@ -44,16 +44,6 @@
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <select asp-for="UserName" class="form-control" asp-items="ViewBag.UserName"></select>
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderTime" class="control-label"></label>
-                <input asp-for="OrderTime" class="form-control" />
-                <span asp-validation-for="OrderTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -66,4 +56,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}*@
