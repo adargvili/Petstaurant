@@ -4,74 +4,134 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-warning">Orders List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreditCard)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Store)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderTime)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreditCard)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<br />
+@if (Context.User.IsInRole("Admin"))
+{
+    <form id="search-form" asp-action="Search">
+
+        <div class="row">
+            <div class="col-3">
+                <div class="p-1 input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">User Name</span>
+                    <input id="queryUserName" name="queryUserName" placeholder="Enter User Name" type="text" class="form-control" aria-label="User Name Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-1 input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Phone Number</span>
+                    <input id="phoneNumber" name="phoneNumber" placeholder="Enter Number" type="text" class="form-control" aria-label="Phone Number Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-1 input-group mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Postal Code</span>
+                    <input id="postalCode" name="postalCode" placeholder="Enter Postal Code" type="text" class="form-control" aria-label="Postal Code Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="p-1">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </form>
 }
-    </tbody>
-</table>
+    <br />
+    <table class="table table-dark table-striped table-hover">
+        <thead>
+            <tr>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreditCard)
+                    </th>
+                }
+                <th>
+                    @Html.DisplayNameFor(model => model.Store)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </th>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.User)
+                    </th>
+                }
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderTime)
+                </th>
+                <th>
+                    @Html.DisplayName("Order Number")
+                </th>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreditCard)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                @if (Context.User.IsInRole("Admin"))
+                {
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @section Scripts{
+        <script src="~/js/searchOrder.js"></script>
+    }

@@ -40,9 +40,10 @@
     transition: all 0.5s;
     z-index: 997;
     padding: 15px 0;
-    top: 40px;
-    font-weight:bold;
+    font-weight: bold;
 }
+
+
 
 
 
@@ -148,6 +149,7 @@ video{
     font-weight:bold;
     font-family: "Poppins", sans-serif;
     -webkit-text-stroke: 1px #000000;
+
 }
 
 

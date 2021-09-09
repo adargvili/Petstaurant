@@ -11,15 +11,22 @@
                 </p>}
 
 
-<form id="dish-filter-form" asp-action="Search">
 
-    <div class="row d-flex">
-        <div class="col-3">
-            <div class="p-1 input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Dish Name</span>
-                <input id="dishName" name="dishName" placeholder="Enter Dish Name" type="text" class="form-control" aria-label="Dish Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
-            </div>
-        </div>
+<div class="navbar navbar-expand-md navbar-light" style="background:rgba(12, 11, 9, 0.2);">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <form id="dish-filter-form" asp-action="Search">
+
+                <div class="row d-flex">
+                    <div class="col-3">
+                        <div class="p-1 input-group mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Dish Name</span>
+                            <input id="dishName" name="dishName" placeholder="Enter Dish Name" type="text" class="form-control" aria-label="Dish Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                        </div>
+                    </div>
 
         <div class="col-3">
             <div class="row row-cols-2">
@@ -151,45 +158,45 @@
 </table>
 }
 
-else
-{
-@foreach (var item in Model)
-{
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
 
 
-<div class="col-lg-3">
-    <div class="card text-center mb-3">
-        @if (item.Image != null)
-        {
-            string img = Convert.ToBase64String(item.Image);
-<img src="data:image/png;base64,@img" class="card-img-top" alt="..." />}
+                            <div class="col-lg-3 d-flex justify-content-center">
+                                <div class="card text-center mb-3">
+                                    @if (item.Image != null)
+                                    {
+                                        string img = Convert.ToBase64String(item.Image);
+                                        <img src="data:image/png;base64,@img" class="card-img-top" alt="..." />}
 
-        <div class="card-body">
-            <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
-            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-        </div>
-        <ul class="list-group list-group-flush card-items">
-            <li class="list-group-item"><h4>Main ingredient</h4> @Html.DisplayFor(modelItem => item.FoodGroup.Name)</li>
-            <li class="list-group-item"><h4>Price</h4> @Html.DisplayFor(modelItem => item.Price)</li>
+                                    <div class="card-body">
+                                        <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
+                                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                                    </div>
+                                    <ul class="list-group list-group-flush card-items">
+                                        <li class="list-group-item"><h4>Main ingredient</h4> @Html.DisplayFor(modelItem => item.FoodGroup.Name)</li>
+                                        <li class="list-group-item"><h4>Price</h4> @Html.DisplayFor(modelItem => item.Price)</li>
 
-            <li class="list-group-item st-ad">
-                <h4>Availability</h4>
-                @for (int i = 0; i < item.Store.Count; i++)
-                {
-
-
-@Html.DisplayFor(modelItem => item.Store[i].Address);
-if (i != item.Store.Count - 1)
-{
-
-@Html.Label("||");
-
-}
+                                        <li class="list-group-item st-ad">
+                                            <h4>Availability</h4>
+                                            @for (int i = 0; i < item.Store.Count; i++)
+                                            {
 
 
+                                                @Html.DisplayFor(modelItem => item.Store[i].Address);
+                                                if (i != item.Store.Count - 1)
+                                                {
 
-}
-            </li>
+                                                    @Html.Label("||");
+
+                                                }
+
+
+
+                                            }
+                                        </li>
 
         </ul>
         <div class="card-body">
@@ -205,7 +212,6 @@ if (i != item.Store.Count - 1)
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/cart.js"></script>
-    <script src="~/js/searchMenu.js"></script>
 }
 
 

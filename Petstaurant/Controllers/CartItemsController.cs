@@ -12,6 +12,7 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CartItemsController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -22,7 +23,6 @@ namespace Petstaurant.Controllers
         }
 
         // GET: CartItems
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var petstaurantContext = _context.CartItem.Include(c => c.Cart).Include(c => c.Dish);

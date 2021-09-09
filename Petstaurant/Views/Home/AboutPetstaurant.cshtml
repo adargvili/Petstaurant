@@ -3,31 +3,45 @@
 }
 
 <style>
-   
+
+    .container {
+        padding-top: 1% !important;
+        background: rgba(0,0,0, 0.3) !important;
+    }
     .aboutsyyle {
+        
         font-family: "Poppins", sans-serif;
         -webkit-text-stroke: 1px #000000;
-        line-height:1.6;
+        line-height: 1.6;
+        
     }
     
 
 
 </style>
 
-<div  class="container aboutsyyle">
-    <h1 class="display-5" style="font-weight:bold;">About Us...</h1>
-    <p class="fs-4">
-        There are an increase in dog-owners taking their pet's diets into their own hands.<br />
-        Yes, it is true that making wholesome home-cooked food for our dogs is great
-        because it gives us the control as to what goes into their diets.<br />
-        But the problem is that you don't have time to make this dishes.<br />
-        To help you with a diet that is not only delicious but also has enough nutrition for your pet,<br />
-        check out these healthy gourmet dishes that we have picked out for your best friend.<br /><br />
-        <br />
-        Bon Appétit.<br />
-    </p>
+<div  class="container">
+    <div class="row">
 
-    <button asp-controller="Home" asp-action="TheCrew" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke: 0 !important;">Meet Our Crew !</button>
+        <div class="col-sm-7  aboutsyyle">
+            <h1 class="display-8" style="font-weight:bold;">About Us...</h1>
+            <p class="fs-5">
+                There are an increase in dog-owners taking their pet's diets into their own hands.<br />
+                Yes, it is true that making wholesome home-cooked food for our pets is great
+                because it gives us the control as to what goes into their diets.<br />
+                But the problem is that you don't have time to make this dishes.<br />
+                To help you with a diet that is not only delicious but also has enough nutrition for your pet,<br />
+                check out these healthy gourmet dishes that we have picked out for your best friend.<br /><br />
+                Bon Appétit.
+            </p>
 
+            <a asp-controller="Home" asp-action="TheCrew" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke: 0 !important;">Meet Our Crew !</a>
+        </div>
+        <div class="col-sm-auto">
+        </div>
+        <div class="col-sm-4">
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FJerusalem&src=Y18ybnJ2OTM1dnFudjUxZTJxc3IwajFhMnY2Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=aXcuamV3aXNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23AD1457&color=%230B8043&showCalendars=0&showTitle=1&showNav=0&showPrint=0&showTabs=0&showTz=0&mode=MONTH&title=Petstarurant%20Calendar&showDate=0" style="border:solid 1px #777" width="450" height="380" frameborder="0" scrolling="no"></iframe>
+        </div>
 
+    </div>
 </div>
