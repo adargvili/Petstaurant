@@ -20,7 +20,6 @@
         }
 
         var encodedCities = encodeURIComponent(JSON.stringify(cities));
-        console.log(encodedCities);
 
         $('.toLoad').load('/Dishes/Search?dishName=' + dishName + "&cities=" + encodedCities + "&selectFoodType=" + selectFoodType);
     });

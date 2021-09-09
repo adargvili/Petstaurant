@@ -11,7 +11,7 @@ using Petstaurant.Models;
 
 namespace Petstaurant.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class StoresController : Controller
     {
         private readonly PetstaurantContext _context;
@@ -21,12 +21,14 @@ namespace Petstaurant.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Stores
         public async Task<IActionResult> Index()
         {
             return View(await _context.Store.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Stores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -45,6 +47,7 @@ namespace Petstaurant.Controllers
             return View(store);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Stores/Create
         public IActionResult Create()
         {
@@ -74,6 +77,7 @@ namespace Petstaurant.Controllers
         // POST: Stores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Country,Address,PostalCode")] Store store, int[] Dish)
@@ -99,6 +103,7 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Stores/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -119,8 +124,10 @@ namespace Petstaurant.Controllers
         // POST: Stores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Edit(int id, [Bind("Id,Country,Address,PostalCode")] Store store)
         {
             if (id != store.Id)
@@ -150,7 +157,7 @@ namespace Petstaurant.Controllers
             }
             return View(store);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Stores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -170,6 +177,7 @@ namespace Petstaurant.Controllers
         }
 
         // POST: Stores/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

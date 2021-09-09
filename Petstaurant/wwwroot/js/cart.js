@@ -107,30 +107,36 @@ $(document).ready(function () {
     $('.addToCart').on("click", function (e) {
         e.preventDefault();
         var diId = $(this).prop('id');
-        var th = this;
-        $.ajax({
-            type: 'POST',
-            url: '/Carts/AddDishToCart',
-            data: {
-                id: parseInt(diId),
-            },
-            success: function (data) {
-                if (!data) {
-                    alert("Can't add to cart");
+        var signed = $('#logged').val();
+        if (signed === 'false') {
+            $('#notLoggedIn').modal('show');
+        }
+        else {
+            var th = this;
+            $.ajax({
+                type: 'POST',
+                url: '/Carts/AddDishToCart',
+                data: {
+                    id: parseInt(diId),
+                },
+                success: function (data) {
+                    if (!data) {
+                        alert("Can't add to cart");
+                        return false;
+                    }
+                    document.getElementById(diId).textContent = "Added to cart!";
+                    setTimeout(() => {
+                        document.getElementById(diId).textContent = "Add to cart";
+                    }, 1500);
+                    return true;
+                },
+                error: function (data) {
                     return false;
-                }
-                document.getElementById(diId).textContent = "Added to cart!";
-                setTimeout(() => {
-                    document.getElementById(diId).textContent = "Add to cart";
-                }, 1500);
-                return true;
-            },
-            error: function (data) {
-                return false;
-            },
-            complete: function (data) {
-            },
-        });
+                },
+                complete: function (data) {
+                },
+            });
+        }
 
     });
 });

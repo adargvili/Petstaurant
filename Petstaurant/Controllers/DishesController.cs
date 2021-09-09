@@ -23,7 +23,6 @@ namespace Petstaurant.Controllers
         }
 
         // GET: Dishes
-        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Index()
         {
             var petstaurantContext = _context.Dish.Include(d => d.FoodGroup).Include(u=>u.Store);
@@ -193,7 +192,6 @@ namespace Petstaurant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Search(string dishName, string[] cities, string selectFoodType)
         {
             var q = from d in _context.Dish.Include(a => a.Store).Include(a=>a.FoodGroup)
@@ -219,6 +217,10 @@ namespace Petstaurant.Controllers
 
         private string GetCurrentUserName()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return null;
+            }
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
             var u = claims.First().Value;
@@ -228,6 +230,9 @@ namespace Petstaurant.Controllers
 
         private string GetCurrentUserType()
         {
+            if (!User.Identity.IsAuthenticated) {
+                return null;            
+            }
             var identity = (ClaimsIdentity)User.Identity;
             IEnumerable<Claim> claims = identity.Claims;
             var u = claims.Skip(1).First().Value;
