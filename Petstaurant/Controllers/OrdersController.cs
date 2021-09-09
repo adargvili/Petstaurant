@@ -295,13 +295,13 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> Search(string queryUserName, string phoneNumber, string postalCode)
         {
 
-            var q = from a in _context.Order
+            var q = from a in _context.Order.Include(o => o.Store).Include(o => o.User)
                     where ((a.PhoneNumber.Contains(phoneNumber)|| phoneNumber ==null) && (a.UserName.Contains(queryUserName) || queryUserName == null) &&
                             (a.PostalCode.Contains(postalCode) || postalCode == null))
-                    orderby a.UserName ascending
+                    orderby a.Id ascending
                     select a;
 
-            return PartialView("Search", await q.ToListAsync());
+            return PartialView(nameof(Search), await q.ToListAsync());
         }
     }
 }
