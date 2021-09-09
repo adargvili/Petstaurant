@@ -63,6 +63,17 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            List<Dish> dishes = new List<Dish>();
+            foreach(OrderItem o in order.OrderItems)
+            {
+                var d = await _context.Dish.FindAsync(o.DishId);
+                if (d != null)
+                {
+                    dishes.Add(d);
+                }
+
+            }
+            ViewData["dishes"] = dishes;
 
             return View(order);
         }
