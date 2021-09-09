@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Petstaurant.Models.Dish>
+
+@foreach (var item in Model)
+{
+
+
+<div class="col-lg-3">
+    <div class="card text-center mb-3">
+        @if (item.Image != null)
+        {
+            string img = Convert.ToBase64String(item.Image);
+<img src="data:image/png;base64,@img" class="card-img-top" alt="..." />}
+
+        <div class="card-body">
+            <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+        </div>
+        <ul class="list-group list-group-flush card-items">
+            <li class="list-group-item"><h4>Main ingredient</h4> @Html.DisplayFor(modelItem => item.FoodGroup.Name)</li>
+            <li class="list-group-item"><h4>Price</h4> @Html.DisplayFor(modelItem => item.Price)</li>
+
+            <li class="list-group-item st-ad">
+                <h4>Availability</h4>
+                @for (int i = 0; i < item.Store.Count; i++)
+                {
+
+
+@Html.DisplayFor(modelItem => item.Store[i].Address);
+if (i != item.Store.Count - 1)
+{
+
+@Html.Label("||");
+
+}
+
+
+
+}
+            </li>
+
+        </ul>
+        <div class="card-body">
+            <a id="@item.Id" asp-action="AddDishToCart" asp-controller="Carts" asp-route-id="@item.Id" class="addToCart btn btn-warning job" style="color:black; font-weight:bold;">Add to cart</a>
+        </div>
+    </div>
+</div>}
