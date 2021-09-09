@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -63,6 +64,30 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            if(t == "Customer")
+            { 
+            var ordersList =  new ArrayList(_context.Order.Where(o=> o.UserName== u).ToList());
+            foreach(Order o in ordersList)
+                {
+                    if(o.Id>id)
+                    {
+                    return NotFound();
+                    }
+                }
+            }
+
+
+            List<Dish> dishes = new List<Dish>();
+            foreach(OrderItem o in order.OrderItems)
+            {
+                var d = await _context.Dish.FindAsync(o.DishId);
+                if (d != null)
+                {
+                    dishes.Add(d);
+                }
+
+            }
+            ViewData["dishes"] = dishes;
 
             return View(order);
         }

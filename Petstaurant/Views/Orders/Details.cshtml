@@ -71,34 +71,52 @@
                     @Html.DisplayName("Quantity")
                 </th>
                 <th>
-                    @Html.DisplayName("Dish")
+                    @Html.DisplayName("Dish Name")
                 </th>
-                @*<th>
-                    @Html.DisplayName("Image")
-                </th>*@
+                <th>
+                    @Html.DisplayName("Dish Image")
+                </th>
             </tr>
         </thead>
         <tbody>
             @for (int i = 0; i < Model.OrderItems.Count; i++)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.OrderItems[i].Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.OrderItems[i].Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.OrderItems[i].DishId)
-                </td>
-                @*<td>
-                    @if (Model.OrderItems[i].Dish.Image != null)
-                    {
-                        string img = Convert.ToBase64String(Model.OrderItems[i].Dish.Image);
-                        <img src="data:image/png;base64,@img" width="50" height="50" />
-                      }
-                </td>*@
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.OrderItems[i].Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.OrderItems[i].Quantity)
+                    </td>
+                    <td>
+                        @foreach (Dish d in ViewBag.dishes)
+                        {
+                            @if (Model.OrderItems[i].DishId == d.Id)
+                            {
+                                @if (d.Name != null)
+                                {
+                                    @Html.DisplayName(d.Name)
+                                }
+                                break;
+                            }
+                        }
+                    </td>
+                    <td>
+                        @foreach (Dish d in ViewBag.dishes)
+                        {
+                            @if (Model.OrderItems[i].DishId == d.Id)
+                            {
+                                @if (d.Image != null)
+                                {
+                                    string img = Convert.ToBase64String(d.Image);
+                                    <img src="data:image/png;base64,@img" width="50" height="50" />
+                                }
+                                break;
+                            }
+                        }
+                    </td>
+
+                </tr>
             }
         </tbody>
     </table>
