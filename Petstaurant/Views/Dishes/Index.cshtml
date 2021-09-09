@@ -29,8 +29,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-auto">
-                        <div class="row row-cols-3">
+                    <div class="col-md-4">
+                        <div class="row row-cols-2">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="cities[]" value="Tel-Aviv" id="TLV-Check" style="background-color: #FFC107;" >
                                 <label class="form-check-label search-texts" for="flexCheckDefault">
@@ -71,7 +71,7 @@
                     </div>
                     <div class="col-md-1">
                         <div class="p-1">
-                            <div class="btn-toolbar d-grid gap-2 d-md-flex">
+                            <div class="container justify-content-center d-grid gap-1 d-md-flex">
                                 <input type="submit" value="Search" class="btn btn-warning btn-sm mr-2 mb-2" style="font-weight:500;" />
                                 <a type="button" style="font-weight:500;" class="btn btn-warning btn-sm mr-2 mb-2" asp-controller="Dishes" asp-action="Index">Clear</a>
                             </div>
@@ -89,6 +89,8 @@
 
     @if (Context.User.IsInRole("Admin"))
     {
+        string eye = "eye";
+       
         <table class="table">
             <thead>
                 <tr>
@@ -117,8 +119,11 @@
                 </tr>
             </thead>
             <tbody>
+
                 @foreach (var item in Model)
                 {
+
+                    eye += "a";
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
@@ -149,16 +154,18 @@
                             @if (item.Image != null)
                             {
                                 string img = Convert.ToBase64String(item.Image);
-                                <img src="data:image/png;base64,@img" width="50" height="50" />
+                                <img src="data:image/png;base64,@img" width="100" height="100" />
                             }
 
                         </td>
                         <td>
-                            <a style="color: #FFC107 !important;" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a style="color: #FFC107 !important;" data-bs-toggle="modal" data-bs-target="#detmodal" asp-route-id="@item.Id">Customer View</a> |
-                            <a style="color: #FFC107 !important;" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <div class="container justify-content-center d-grid gap-1 d-md-flex">
+                                <a class="fa bi bi-pen" asp-action="Edit" asp-route-id="@item.Id"></a>
+                                <a class="fa bi bi-eye" data-bs-toggle="modal" data-bs-target="#@eye"></a>
+                                <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+                            </div>
 
-                            <div class="modal fade" id="detmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black;">
+                            <div class="modal fade" id="@eye" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black;">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -203,12 +210,17 @@
                                                 </ul>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
+                         
+                            
+
                         </td>
 
                     </tr>
+
                 }
 
             </tbody>

@@ -5,11 +5,12 @@
 }
 
 <h1>Index</h1>
-<h3>Dear Admin, To make new location page, please contact your web developer</h3>
+
 
 <p>
     <a style="color: #FFC107 !important;" asp-action="Create">Create New</a>
 </p>
+<h3 style=" background: rgba(0,0,0, 0.3);">Dear Admin, To make new location page, please contact your web developer</h3>
 <table class="table">
     <thead>
         <tr>
@@ -38,9 +39,9 @@
                 @Html.DisplayFor(modelItem => item.PostalCode)
             </td>
             <td>
-                <a style="color: #FFC107 !important;" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a style="color: #FFC107 !important;" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a style="color: #FFC107 !important;" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="fa bi bi-pen" asp-action="Edit" asp-route-id="@item.Id"></a>
+                <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a> |
+                <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
             </td>
         </tr>
 }

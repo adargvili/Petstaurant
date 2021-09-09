@@ -17,21 +17,26 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+          
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a style="color: #FFC107 !important;" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a style="color: #FFC107 !important;" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a style="color: #FFC107 !important;" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+             
+                <td>
+                    <div class="container justify-content-end d-grid gap-1 d-md-flex">
+                        <a class="fa bi bi-pen" asp-action="Edit" asp-route-id="@item.Id"></a>
+                        <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a>
+                        <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
