@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -73,11 +74,27 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (MemoryStream ms = new MemoryStream())
+                if (dish.ImageFile == null)
                 {
-                    dish.ImageFile.CopyTo(ms);
-                    dish.Image = ms.ToArray();
+                    String path = "./wwwroot/pics/defaultpic.jpeg";
+                    using (var stream = System.IO.File.OpenRead(path))
+                    {
+                        dish.ImageFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            dish.ImageFile.CopyTo(ms);
+                            dish.Image = ms.ToArray();
+                        }
+                    }
                 }
+                else {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        dish.ImageFile.CopyTo(ms);
+                        dish.Image = ms.ToArray();
+                    }
+                }
+
                 var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
                 if (q == null)
                 {
