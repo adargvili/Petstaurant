@@ -47,7 +47,8 @@ h4, .h4{
 
 .card-img-top{
     background:black;
-    max-height:200px;
+    height:180px;
+    max-height:180px;
     
 
 }
