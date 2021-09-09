@@ -8,6 +8,7 @@
     <h1>Menu</h1>
     <p>
         <a type="button" style="font-weight:bold;" class="btn btn-warning btn-sm" asp-action="Create">Create New Dish</a>
+
     </p>}
 
 
@@ -31,25 +32,25 @@
                     <div class="col-md-auto">
                         <div class="row row-cols-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Tel-Aviv" id="TLV-Check" style="background-color: #FFC107;" checked>
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Tel-Aviv" id="TLV-Check" style="background-color: #FFC107;" >
                                 <label class="form-check-label search-texts" for="flexCheckDefault">
                                     Tel-Aviv
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Beer-Sheva" id="BS-Check" style="background-color: #FFC107;" checked>
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Beer-Sheva" id="BS-Check" style="background-color: #FFC107;">
                                 <label class="form-check-label search-texts" for="flexCheckDefault">
                                     Beer-Sheva
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Jerusalem" id="Jer-Check" style="background-color: #FFC107;" checked>
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Jerusalem" id="Jer-Check" style="background-color: #FFC107;">
                                 <label class="form-check-label search-texts" for="flexCheckDefault">
                                     Jerusalem
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Kiryat-Malachi" id="KM-Check" style="background-color: #FFC107;" checked>
+                                <input class="form-check-input" type="checkbox" name="cities[]" value="Kiryat-Malachi" id="KM-Check" style="background-color: #FFC107;">
                                 <label class="form-check-label search-texts" for="flexCheckDefault">
                                     Kiryat-Malachi
                                 </label>
@@ -70,7 +71,10 @@
                     </div>
                     <div class="col-md-1">
                         <div class="p-1">
-                            <input type="submit" value="Search" class="btn btn-warning" style="font-weight:bold;" />
+                            <div class="btn-toolbar d-grid gap-2 d-md-flex">
+                                <input type="submit" value="Search" class="btn btn-warning btn-sm mr-2 mb-2" style="font-weight:500;" />
+                                <a type="button" style="font-weight:500;" class="btn btn-warning btn-sm mr-2 mb-2" asp-controller="Dishes" asp-action="Index">Clear</a>
+                            </div>
                         </div>
                     </div>
                 </div>
