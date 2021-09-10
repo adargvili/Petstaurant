@@ -63,6 +63,11 @@ namespace Petstaurant.Controllers
                 var q = _context.FoodGroup.FirstOrDefault(u => u.Name == foodGroup.Name);
                 if (q == null)
                 {
+                    if (!foodGroup.Name.All(x => char.IsLetter(x) || x == ' ') || foodGroup.Name.StartsWith(" ") || foodGroup.Name.EndsWith(" ") || foodGroup.Name.Count(Char.IsWhiteSpace) > 3 || (foodGroup.Name.Count(Char.IsWhiteSpace) > foodGroup.Name.Split().Length - 1))
+                    {
+                        ViewData["Error"] = "Please enter a valid food group name";
+                        return View(foodGroup);
+                    }
                     _context.Add(foodGroup);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -107,6 +112,11 @@ namespace Petstaurant.Controllers
             {
                 try
                 {
+                    if (!foodGroup.Name.All(x => char.IsLetter(x) || x == ' ') || foodGroup.Name.StartsWith(" ") || foodGroup.Name.EndsWith(" ") || foodGroup.Name.Count(Char.IsWhiteSpace) > 3 || (foodGroup.Name.Count(Char.IsWhiteSpace) > foodGroup.Name.Split().Length - 1))
+                    {
+                        ViewData["Error"] = "Please enter a valid food group name";
+                        return View(foodGroup);
+                    }
                     _context.Update(foodGroup);
                     await _context.SaveChangesAsync();
                 }
