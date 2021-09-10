@@ -267,6 +267,10 @@ namespace Petstaurant.Controllers
                 return NotFound();
             }
 
+            if (GetCurrentUserName() != id) {
+                return View("AccessDenied");
+            }
+
             var user = await _context.User
                 .FirstOrDefaultAsync(m => m.UserName == id);
 
@@ -284,6 +288,11 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
+            if (GetCurrentUserName() != id)
+            {
+                return View("AccessDenied");
+            }
+
             var user = await _context.User.FindAsync(id);
             var cartToDelete = _context.Cart.FirstOrDefault(c => c.UserName == user.UserName);
 
