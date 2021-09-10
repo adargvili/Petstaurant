@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $('#dishValidation').on("submit", function (e) {
+    $('#foodGroupValidation').on("submit", function (e) {
         var ad = $('#name').val();
         var adEr = $('#nameError');
         var c = false;
