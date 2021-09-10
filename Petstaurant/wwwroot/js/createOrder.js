@@ -10,9 +10,9 @@
                     break;
             }
         }
-        if (c||ad.startsWith(" ") || ad.endsWith(" ") || isNaN(ad.slice(-1) || !(ad.indexOf(',') > -1) || parseInt(ad) || !(/\d/.test(ad)) || ad.search(/\s/) > 5 )) {
+        if (c || ad.startsWith(" ") || ad.endsWith(" ") || isNaN(ad.slice(-1) || ad.includes(",") || parseInt(ad) || !(/\d/.test(ad)) || ad.search(/\s/) > 5)) {
             e.preventDefault();
-            adEr.text('Israeli address format is required');
+            adEr.text('Israeli address format is required (Example: Israel Galili 5)');
         }
         c = false;
 

@@ -128,9 +128,9 @@ namespace Petstaurant.Controllers
                     }
                 }
 
-                if (c ||!char.IsDigit(order.Address.Last()) || order.Address.StartsWith(" ") || order.Address.EndsWith(" ") || order.Address.Count(f => f == ',')>1 || char.IsDigit(order.Address[0])|| !order.Address.Contains(" ")|| Regex.IsMatch(order.Address, @"\s{2,}")|| !order.Address.Any(char.IsDigit)|| order.Address.All(char.IsDigit)|| order.Address.Split().Length>5|| order.Address.Count(Char.IsWhiteSpace)>5)
+                if (c ||!char.IsDigit(order.Address.Last()) || order.Address.StartsWith(" ") || order.Address.EndsWith(" ") || order.Address.Contains(",") || char.IsDigit(order.Address[0])|| !order.Address.Contains(" ")|| Regex.IsMatch(order.Address, @"\s{2,}")|| !order.Address.Any(char.IsDigit)|| order.Address.All(char.IsDigit)|| order.Address.Split().Length>4|| order.Address.Count(Char.IsWhiteSpace)>4)
                 {
-                    ViewData["Error"] = "Israeli address format is required";
+                    ViewData["Error"] = "Israeli address format is required (Example: Israel Galili 5)";
                     return View(order);
                 }
                 c = false;
@@ -173,7 +173,7 @@ namespace Petstaurant.Controllers
                         }
                         if (check ==0)
                         {
-                            ViewData["Error"] = dish.Name + "dish is not available in your city; Please remove this dish from cart and try again";
+                            ViewData["Error"] = dish.Name + " dish is not available in your city; Please remove this dish from cart and try again";
                             return View(order);
                         }
                         OrderItem orderitem = new OrderItem();

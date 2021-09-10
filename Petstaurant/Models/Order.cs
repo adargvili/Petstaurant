@@ -25,7 +25,7 @@ namespace Petstaurant.Models
         [Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "You are allowed to use only 5-50 characters")]
         [RegularExpression(@"^[a-zA-Z0-9, ]*$", ErrorMessage =
-           "Israeli address format is required")]
+           "Israeli address format is required (Example: Israel Galili 5)")]
         public string Address { get; set; }
         [Required]
         [DisplayName("Postal Code")]
