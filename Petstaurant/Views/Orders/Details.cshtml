@@ -7,6 +7,7 @@
 {
     <h1 class="text-warning">Your order has been received!</h1>
     <h3 class="text-warning">Your order number is #@Model.Id</h3>
+    <h6 class="text-warning">Estimated Arrival Time: @Convert.ToDateTime(Model.OrderTime.AddHours(1)).ToString("dd/MM/yyyy hh:mm tt")</h6>
 }
 @if (Context.User.IsInRole("Admin"))
 {
@@ -48,7 +49,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="text-Bottom-Margin">Order Time</p>
-                                        <h6 class="text-color">@Html.DisplayFor(model => model.OrderTime) @Html.DisplayFor(model => model.OrderTime.TimeOfDay)</h6>
+                                        <h6 class="text-color"> @Convert.ToDateTime(Model.OrderTime).ToString("dd/MM/yyyy hh:mm tt")</h6>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +61,6 @@
     </div>
 </div>
 <div>
-
     <table class="table table-dark table-striped table-hover">
         <thead>
             <tr>
@@ -131,10 +131,10 @@
 }
 else
 {
-<div>
-    <a asp-action="Index" asp-controller="Orders" class="site-btn btn btn-warning job">Back</a>
-    <a asp-action="Index" asp-controller="Dishes" class="site-btn btn btn-warning job">Back to Menu</a>
-</div>
+    <div>
+        <a asp-action="Index" asp-controller="Orders" class="site-btn btn btn-warning job">Back</a>
+        <a asp-action="Index" asp-controller="Dishes" class="site-btn btn btn-warning job">Back to Menu</a>
+    </div>
 }
 
 
