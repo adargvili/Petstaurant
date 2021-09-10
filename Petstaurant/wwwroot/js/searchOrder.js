@@ -4,8 +4,8 @@
 
         var queryUserName = encodeURIComponent($('#queryUserName').val());
         var phoneNumber = encodeURIComponent($('#phoneNumber').val());
-        var postalCode = encodeURIComponent($('#postalCode').val());
+        var orderNumber = encodeURIComponent($('#orderNumber').val());
 
-        $('tbody').load('/Orders/Search?queryUserName=' + queryUserName + "&phoneNumber=" + phoneNumber + "&postalCode=" + postalCode);
+        $('tbody').load('/Orders/Search?queryUserName=' + queryUserName + "&phoneNumber=" + phoneNumber + "&orderNumber=" + orderNumber);
     });
 });

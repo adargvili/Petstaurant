@@ -32,8 +32,8 @@
             </div>
             <div class="col-3">
                 <div class="p-1 input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Postal Code</span>
-                    <input id="postalCode" name="postalCode" placeholder="Enter Postal Code" type="text" class="form-control" aria-label="Postal Code Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Order Number</span>
+                    <input id="orderNumber" name="orderNumber" placeholder="Enter Order Number" type="text" class="form-control" aria-label="Order Number Input" aria-describedby="inputGroup-sizing-sm" autocomplete="off">
                 </div>
             </div>
             <div class="col-3">
@@ -131,7 +131,6 @@
                 {
                     <td>
                         <div class="container justify-content-center d-grid gap-1 d-md-flex">
-
                             <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a>
                             <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
                         </div>

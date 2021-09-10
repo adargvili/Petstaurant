@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Petstaurant.Models.Dish>
 
+@if (Context.User.IsInRole("Admin"))
+{
+    string eye = "eye";
+
 <table class="table">
     <thead>
         <tr>
@@ -28,8 +32,11 @@
         </tr>
     </thead>
     <tbody>
+
         @foreach (var item in Model)
         {
+
+            eye += "a";
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.Name)
@@ -60,15 +67,71 @@ if (i != item.Store.Count - 1)
         @if (item.Image != null)
         {
             string img = Convert.ToBase64String(item.Image);
-<img src="data:image/png;base64,@img" width="50" height="50" />}
+<img src="data:image/png;base64,@img" width="100" height="100" />}
 
     </td>
     <td>
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        <div class="container justify-content-center d-grid gap-1 d-md-flex">
+            <a class="fa bi bi-pen" asp-action="Edit" asp-route-id="@item.Id"></a>
+            <a class="fa bi bi-eye" data-bs-toggle="modal" data-bs-target="#@eye"></a>
+            <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+        </div>
+
+        <div class="modal fade" id="@eye" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Customer Menu View</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!--Modal body-->
+                    <div class="modal-body d-flex justify-content-center">
+                        <div class="card text-center mb-3">
+                            @if (item.Image != null)
+                            {
+                                string img = Convert.ToBase64String(item.Image);
+        <img src="data:image/png;base64,@img" class="card-img-top" alt="..." />}
+
+                            <div class="card-body">
+                                <h3 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h3>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                            </div>
+                            <ul class="list-group list-group-flush card-items">
+                                <li class="list-group-item"><h4>Main ingredient</h4> @Html.DisplayFor(modelItem => item.FoodGroup.Name)</li>
+                                <li class="list-group-item"><h4>Price</h4> @Html.DisplayFor(modelItem => item.Price)</li>
+
+                                <li class="list-group-item st-ad">
+                                    <h4>Availability</h4>
+                                    @for (int i = 0; i < item.Store.Count; i++)
+                                    {
+
+
+                @Html.DisplayFor(modelItem => item.Store[i].Address);
+                if (i != item.Store.Count - 1)
+                {
+
+@Html.Label("||");
+
+}
+
+
+
+}
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
     </td>
-</tr>}
+
+</tr>                }
 
     </tbody>
-</table>
+</table>}

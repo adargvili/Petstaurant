@@ -25,9 +25,11 @@
                     @Html.DisplayFor(modelItem => item.UserType)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.UserName">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.UserName">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UserName">Delete</a>
+                    <div class="container justify-content-center d-grid gap-1 d-md-flex">
+                        <a class="fa bi bi-pen" asp-action="Edit" asp-route-id="@item.UserName"></a>
+                        <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.UserName"></a>
+                        <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.UserName"></a>
+                    </div>
                 </td>
             </tr>
         }

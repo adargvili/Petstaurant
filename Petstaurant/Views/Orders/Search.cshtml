@@ -1,36 +1,40 @@
 ﻿@model IEnumerable<Petstaurant.Models.Order>
 
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreditCard)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Store.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreditCard)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Store.Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PostalCode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PhoneNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalPrice)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.User.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.OrderTime)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+    </td>
+    <td>
+        <div class="container justify-content-center d-grid gap-1 d-md-flex">
+            <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a>
+            <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
+        </div>
+    </td>
+</tr>
 }
 

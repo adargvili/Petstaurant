@@ -275,12 +275,20 @@ namespace Petstaurant.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Search(string queryUserName, string phoneNumber, string postalCode)
+        public async Task<IActionResult> Search(string queryUserName, string phoneNumber, string orderNumber)
         {
+            int x;
+            if (orderNumber == null)
+            {
+                x = -1;
+            }
+            else {
+                x= int.Parse(orderNumber);
+            }
 
             var q = from a in _context.Order.Include(o => o.Store).Include(o => o.User)
                     where ((a.PhoneNumber.Contains(phoneNumber)|| phoneNumber ==null) && (a.UserName.Contains(queryUserName) || queryUserName == null) &&
-                            (a.PostalCode.Contains(postalCode) || postalCode == null))
+                            (a.Id.Equals(x) || orderNumber == null))
                     orderby a.Id ascending
                     select a;
 
