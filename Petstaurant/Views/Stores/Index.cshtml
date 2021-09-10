@@ -4,14 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    .table a {
+        color: #FFC107 !important;
+    }
+</style>
+
+<h1 class="text-warning">Stores List</h1>
 
 
 <p>
-    <a style="color: #FFC107 !important;" asp-action="Create">Create New</a>
+    <a type="button" style="font-weight:bold;" class="btn btn-warning btn-sm" asp-action="Create">Create New Store</a>
 </p>
-<h3 style=" background: rgba(0,0,0, 0.3);">Dear Admin, To make new location page, please contact your web developer</h3>
-<table class="table">
+<h3 class="text-warning" style=" background: rgba(0,0,0, 0.3);">Dear Admin, in order to add a new location page, please contact your web developer</h3>
+<table class="table table-dark table-striped table-hover">
     <thead>
         <tr>
             <th>

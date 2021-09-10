@@ -4,14 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+    .table a {
+        color: #FFC107 !important;
+    }
+</style>
 
-
-<h1>Index</h1>
+<h1 class="text-warning">Food Group List</h1>
 
 <p>
-    <a asp-action="Create" style="color: #FFC107 !important;">Create New</a>
+    <a type="button" style="font-weight:bold;" class="btn btn-warning btn-sm" asp-action="Create">Create New Food Group</a>
 </p>
-<table class="table">
+<table class="table table-dark table-striped table-hover">
     <thead>
         <tr>
             <th>
