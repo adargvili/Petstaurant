@@ -18,7 +18,7 @@
     }
 </style>
 
-
+<div id="openweathermap-widget-19"></div>
 <div class="container" id="city">
     <div class="row">
         <div class="col-md-7">
@@ -57,3 +57,16 @@
 
     </div>
 </div>
+
+<script>
+    window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+    window.myWidgetParam.push({ id: 19, cityid: '295629', appid: '5f30bc2ff1e80a40896b3c61189e694e', units: 'metric', containerid: 'openweathermap-widget-19', });
+    (function () {
+        var script = document.createElement('script');
+        script.async = true;
+        script.charset = "utf-8";
+        script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(script, s);
+    })();
+</script>

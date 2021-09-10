@@ -1,6 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@{ ViewData["Title"] = "Home Page"; }
 
 <head>
     <title>Simple Map</title>
@@ -18,7 +16,7 @@
     }
 </style>
 
-
+<div id="openweathermap-widget-19"></div>
 <div class="container" id="city">
     <div class="row">
         <div class="col-md-7">
@@ -30,7 +28,7 @@
                     You and Your pet can enjoy our best dishes.<br />
                     Our chef - Ratatouille,<br />
                     will love to make great meals for you!<br />
-                    </p>
+                </p>
 
                 <a asp-controller="Home" asp-action="TheCrew" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke:0 !important;">Meet Ratatouille!</a>
                 <a asp-controller="Dishes" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: bold; -webkit-text-stroke:0 !important;">Order Now!</a>
@@ -60,3 +58,16 @@
 
     </div>
 </div>
+
+<script>
+    window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];
+    window.myWidgetParam.push({ id: 19, cityid: '293396', appid: '5f30bc2ff1e80a40896b3c61189e694e', units: 'metric', containerid: 'openweathermap-widget-19', });
+    (function () {
+        var script = document.createElement('script');
+        script.async = true
+            ; script.charset = "utf-8";
+        script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(script, s);
+    })();
+</script>
