@@ -83,3 +83,7 @@ text-Bottom-Margin {
     color: #1DA1F2;
 }
 
+.myCircle:hover {
+    stroke: black;
+}
+

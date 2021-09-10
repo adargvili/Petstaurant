@@ -1,8 +1,6 @@
 ﻿@model Petstaurant.Models.User
 
-@{
-    ViewData["Title"] = "Details";
-}
+@{ ViewData["Title"] = "Details"; }
 
 <style>
     body {
@@ -22,8 +20,7 @@
                                 <h6>@Html.DisplayFor(model => model.Name)</h6>
                                 @if (ViewBag.UserAdmin == UserType.Admin)
                                 {
-                                    <p>@Html.DisplayFor(model => model.UserType)</p>
-                                }
+                    <p>@Html.DisplayFor(model => model.UserType)</p>}
                             </div>
                         </div>
                         <div class="col-sm-8">
@@ -55,13 +52,13 @@
                                         <li class="list-group-item"><a class="text-info" asp-action="Edit" asp-route-id="@Model.UserName">Edit Profile</a></li>
                                         @if (ViewBag.UserAdmin == UserType.Admin)
                                         {
-                                            <li class="list-group-item"><a class="text-info" asp-action="Index">Petstaurant Users List</a></li>
+                            <li class="list-group-item"><a class="text-info" asp-action="Index">Petstaurant Users List</a></li>
                                             <li class="list-group-item">
                                                 <a class="text-info" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvasExample">
                                                     Quick Tweet to PetStaurant's Account
                                                 </a>
                                             </li>
-                                        }
+}
                                     </ul>
                                 </div>
                             </div>
@@ -83,7 +80,8 @@
     <a asp-controller="Dishes" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Dishes</a>
     <a asp-controller="Users" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Users</a>
 </div>
-    }
+
+                <div id="my_dataviz" class="col-5"></div>}
 
 </div>
 
@@ -118,7 +116,10 @@
 @section StyleSheets {
     <link rel="stylesheet" href="~/css/profile.css" />
 }
-
+@if (ViewBag.UserAdmin == UserType.Admin)
+{
 @section Scripts {
     <script src="~/js/tweet.js"></script>
+    <script src="~/js/citiesIncome.js"></script>
+}
 }

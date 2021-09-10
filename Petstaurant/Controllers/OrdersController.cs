@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +28,7 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> Index()
         {
+
             var ut = GetCurrentUserType();
             var u = GetCurrentUserName();
             if (ut == "Admin"){
@@ -38,6 +40,7 @@ namespace Petstaurant.Controllers
                 var petstaurantContextUser = _context.Order.Include(o => o.Store).Include(o => o.User).Where(o=> o.UserName ==u).OrderBy(o=>o.Id);
                 return View(await petstaurantContextUser.ToListAsync());
             }
+            
             
         }
 
@@ -339,6 +342,30 @@ namespace Petstaurant.Controllers
                     select a;
 
             return PartialView(nameof(Search), await q.ToListAsync());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> OrderJsonDetails(string query)
+        {
+            var data = _context.Order
+                .Join(
+                _context.Store,
+                order => order.StoreId,
+                store => store.Id,
+                (order, store) => new
+                {
+                    storeId = store.Id,
+                    storeCity = store.City,
+                    orderPrice = order.TotalPrice
+                }
+                ).GroupBy(s => s.storeCity).Select( g => new { 
+                    city = g.Key,
+                    total = g.Sum(i=>i.orderPrice)
+                });
+
+
+
+            return Json(await data.ToListAsync());
         }
     }
 }
