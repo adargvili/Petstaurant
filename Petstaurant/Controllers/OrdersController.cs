@@ -120,15 +120,17 @@ namespace Petstaurant.Controllers
 
                 var oa = order.Address.Split();
                 bool c = false;
+                if (oa.Length > 4|| oa.Length<2)
+                    c = true;
                 foreach (string s in oa)
                 {
-                    if ((!s.Any(x => !char.IsLetter(x)) && s.Any(char.IsDigit))|| (s.Length<2&& !s.Any(char.IsDigit))) {
+                    if ((!s.Any(x => !char.IsLetter(x)) && s.Any(char.IsDigit))|| (s.Length==1&& !s.Any(char.IsDigit))) {
                         c = true;
                         break;
                     }
                 }
 
-                if (c ||!char.IsDigit(order.Address.Last()) || order.Address.StartsWith(" ") || order.Address.EndsWith(" ") || order.Address.Contains(",") || char.IsDigit(order.Address[0])|| !order.Address.Contains(" ")|| Regex.IsMatch(order.Address, @"\s{2,}")|| !order.Address.Any(char.IsDigit)|| order.Address.All(char.IsDigit)|| order.Address.Split().Length>4|| order.Address.Count(Char.IsWhiteSpace)>4)
+                if (c ||!char.IsDigit(order.Address.Last()) || order.Address.StartsWith(" ") || order.Address.EndsWith(" ") || order.Address.Contains(",") || char.IsDigit(order.Address[0])|| !order.Address.Contains(" ")|| Regex.IsMatch(order.Address, @"\s{2,}")|| !order.Address.Any(char.IsDigit)|| order.Address.All(char.IsDigit)|| order.Address.Count(Char.IsWhiteSpace)>4)
                 {
                     ViewData["Error"] = "Israeli address format is required (Example: Israel Galili 5)";
                     return View(order);
@@ -158,7 +160,7 @@ namespace Petstaurant.Controllers
                         var dish = _context.Dish.FirstOrDefault(p => p.Id == cartitem.DishId);
                         if (dish == null)
                         {
-                            ViewData["Error"] = "There is something wrong with one or more of your items; Please try again";
+                            ViewData["Error"] = "There is something wrong with one or more of your items; Please refresh your cart and try again";
                             return View(order);
                         }
                         var dishStores = _context.Dish.Where(c => c.Id == dish.Id).SelectMany(c => c.Store).ToList();

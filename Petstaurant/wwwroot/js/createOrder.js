@@ -4,13 +4,20 @@
         var adEr = $('#addressError');
         var c = false;
         var a = ad.split(" ");
-        for (i in a) {
+        if (a.length < 2 || a.length>4) {
+            c = true;
+        }
+        for (var i = 0; i < a.length; i++) {
             if (/^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$/.test(a[i])) {
                 c = true;
                     break;
             }
         }
-        if (c || ad.startsWith(" ") || ad.endsWith(" ") || isNaN(ad.slice(-1) || ad.includes(",") || parseInt(ad) || !(/\d/.test(ad)) || ad.search(/\s/) > 5)) {
+        if (parseInt(a[0]) || !parseInt(a[a.length - 1]) || (ad.search(/\s/) > a.length-1)) {
+            c = true;
+        }
+
+        if (c || ad.startsWith(" ") || ad.endsWith(" ") || isNaN(ad.slice(-1) || ad.includes(",") || !ad.includes(" ")|| parseInt(ad) || !(/\d/.test(ad)) || ad.search(/\s/) > 4)) {
             e.preventDefault();
             adEr.text('Israeli address format is required (Example: Israel Galili 5)');
         }
