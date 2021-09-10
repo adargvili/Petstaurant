@@ -56,6 +56,12 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (dish.Price==0)
+                {
+                    ViewData["Error"] = "Choose a postive price";
+                    return View(dish);
+                }
                 if (!dish.Name.All(x => char.IsLetter(x) || x == ' ' )|| dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ")|| dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace)>dish.Name.Split().Length-1))
                 {
                     ViewData["Error"] = "Please enter a valid dish name";
@@ -145,6 +151,11 @@ namespace Petstaurant.Controllers
 
             if (ModelState.IsValid)
             {
+                if (dish.Price == 0)
+                {
+                    ViewData["Error"] = "Choose a postive price";
+                    return View(dish);
+                }
                 if (!dish.Name.All(x => char.IsLetter(x) || x == ' ') || dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ") || dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace) > dish.Name.Split().Length - 1))
                 {
                     ViewData["Error"] = "Please enter a valid dish name";
@@ -185,7 +196,29 @@ namespace Petstaurant.Controllers
                             ViewData["Error"] = "You have to choose at least one store.";
                             return View(dish);
                         }
-                        _context.Update(dish);
+
+
+                    var cartItems = _context.CartItem.Where(c => c.DishId == id).ToList();
+
+                    foreach (CartItem ci in cartItems)
+                    {
+                        var c = _context.Cart.FirstOrDefault(p => p.Id == ci.CartId);
+                        if (ci.Price!=ci.Quantity*dish.Price)
+                        {
+                            c.TotalPrice -= ci.Price;
+                            ci.Price = ci.Quantity * dish.Price;
+                            c.TotalPrice += ci.Quantity * dish.Price;
+                            if (c.TotalPrice < 0)
+                            {
+                                c.TotalPrice = 0;
+                            }
+                            if (ci.Price < 0)
+                            {
+                                ci.Price = 0;
+                            }
+                        }
+                    }
+                    _context.Update(dish);
                         await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -232,14 +265,14 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dish = await _context.Dish.FindAsync(id);
-            var carts = _context.CartItem.Where(c => c.DishId == id).ToList();
+            var cartItems = _context.CartItem.Where(c => c.DishId == id).ToList();
 
-            foreach (CartItem ci in carts)
+            foreach (CartItem ci in cartItems)
             {
                 var c = _context.Cart.FirstOrDefault(p => p.Id == ci.CartId);
                 if (ci != null)
                 {
-                    c.TotalPrice -= dish.Price;
+                    c.TotalPrice -= dish.Price*ci.Quantity;
                     if (c.TotalPrice < 0)
                     {
                         c.TotalPrice = 0;
