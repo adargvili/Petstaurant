@@ -13,7 +13,7 @@ const svg = d3.select("#my_dataviz")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // Parse the Data
-d3.json("/Orders/OrderJsonDetails").then( function(data) {
+d3.json("/Orders/BestSellerStoreJsonDetails").then( function(data) {
 
     // X axis
     const x = d3.scaleBand()

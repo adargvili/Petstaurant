@@ -288,7 +288,7 @@ namespace Petstaurant.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> OrderJsonDetails(string query)
+        public async Task<IActionResult> BestSellerStoreJsonDetails()
         {
             var data = _context.Order
                 .Join(
@@ -308,6 +308,36 @@ namespace Petstaurant.Controllers
 
 
 
+            return Json(await data.ToListAsync());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> BestSellerDishJsonDetails()
+        {
+            var data = _context.Order
+                .Join(
+                _context.OrderItem,
+                order => order.Id,
+                orderItem => orderItem.OrderId,
+                (order, orderItem) => new
+                {
+                    dishId = orderItem.DishId,
+                    quantity = orderItem.Quantity,
+                }
+                ).Join(
+                _context.Dish,
+                combinedEntry => combinedEntry.dishId,
+                dish=>dish.Id,
+                (combinedEntry,dish)=> new
+                { 
+                  dishIdendity= dish.Id,
+                  orderQuantity = combinedEntry.quantity,
+                  dishName = dish.Name
+                }
+                ).GroupBy(d => d.dishName).Select(g => new {
+                    name = g.Key,
+                    quantity = g.Sum(i => i.orderQuantity)
+                });
             return Json(await data.ToListAsync());
         }
     }
