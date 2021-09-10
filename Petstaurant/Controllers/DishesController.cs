@@ -56,6 +56,12 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (dish.Price==0)
+                {
+                    ViewData["Error"] = "Choose a postive price";
+                    return View(dish);
+                }
                 if (!dish.Name.All(x => char.IsLetter(x) || x == ' ' )|| dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ")|| dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace)>dish.Name.Split().Length-1))
                 {
                     ViewData["Error"] = "Please enter a valid dish name";
@@ -145,6 +151,11 @@ namespace Petstaurant.Controllers
 
             if (ModelState.IsValid)
             {
+                if (dish.Price == 0)
+                {
+                    ViewData["Error"] = "Choose a postive price";
+                    return View(dish);
+                }
                 if (!dish.Name.All(x => char.IsLetter(x) || x == ' ') || dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ") || dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace) > dish.Name.Split().Length - 1))
                 {
                     ViewData["Error"] = "Please enter a valid dish name";
