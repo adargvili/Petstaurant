@@ -6,30 +6,32 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form id="dishValidation" asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input id="name" asp-for="Name" class="form-control" />
+                <span id="nameError" asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Store" class="control-label"></label>
-                <select asp-for="Store" class="form-control" asp-items="ViewBag.Store" multiple></select>
+                <select id="store" asp-for="Store" class="form-control" asp-items="ViewBag.Store" multiple></select>
+                <span id="storeError" asp-validation-for="Store" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FoodGroupId" class="control-label"></label>
-                <select asp-for="FoodGroupId" class="form-control" asp-items="ViewBag.FoodGroupId"></select>
+                <select id="foodgroup" asp-for="FoodGroupId" class="form-control" asp-items="ViewBag.FoodGroupId"></select>
+                <span id="foodgroupError" asp-validation-for="FoodGroupId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <input id="description" asp-for="Description" class="form-control" />
+                <span id="descriptionError" asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <input id="price" asp-for="Price" class="form-control" />
+                <span id="priceError" asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageFile" class="control-label"></label>
@@ -53,4 +55,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/multiselect.js"></script>
+    <script src="~/js/dish.js"></script>
 }

@@ -56,47 +56,52 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                if (dish.Price==0)
+                var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
+                if (q == null)
                 {
-                    ViewData["Error"] = "Choose a postive price";
-                    return View(dish);
-                }
-                if (!dish.Name.All(x => char.IsLetter(x) || x == ' ' )|| dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ")|| dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace)>dish.Name.Split().Length-1))
-                {
-                    ViewData["Error"] = "Please enter a valid dish name";
-                    return View(dish);
-                }
-
-                if (dish.Description.StartsWith(" ") || dish.Description.EndsWith(" ") || (dish.Description.Count(Char.IsWhiteSpace) > dish.Description.Split().Length - 1))
-                {
-                    ViewData["Error"] = "Please enter a valid description name";
-                    return View(dish);
-                }
-                if (dish.ImageFile == null)
-                {
-                    String path = "./wwwroot/pics/defaultpic.jpeg";
-                    using (var stream = System.IO.File.OpenRead(path))
+                    if (dish.Price == 0)
                     {
-                        dish.ImageFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+                        ViewData["Error"] = "Choose a postive price";
+                        return View(dish);
+                    }
+                    if (!dish.Name.All(x => char.IsLetter(x) || x == ' ') || dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ") || dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace) > dish.Name.Split().Length - 1))
+                    {
+                        ViewData["Error"] = "Please enter a valid dish name";
+                        return View(dish);
+                    }
+
+                    if (dish.Description.StartsWith(" ") || dish.Description.EndsWith(" ") || (dish.Description.Count(Char.IsWhiteSpace) > dish.Description.Split().Length - 1))
+                    {
+                        ViewData["Error"] = "Please enter a valid description name";
+                        return View(dish);
+                    }
+                    if (dish.ImageFile == null)
+                    {
+                        String path = "./wwwroot/pics/defaultpic.jpeg";
+                        using (var stream = System.IO.File.OpenRead(path))
+                        {
+                            dish.ImageFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                dish.ImageFile.CopyTo(ms);
+                                dish.Image = ms.ToArray();
+                            }
+                        }
+                    }
+                    else
+                    {
                         using (MemoryStream ms = new MemoryStream())
                         {
                             dish.ImageFile.CopyTo(ms);
                             dish.Image = ms.ToArray();
                         }
                     }
-                }
-                else {
-                    using (MemoryStream ms = new MemoryStream())
+                    var fg = _context.FoodGroup.FirstOrDefault(f => f.Id == dish.FoodGroupId);
+                    if (fg == null)
                     {
-                        dish.ImageFile.CopyTo(ms);
-                        dish.Image = ms.ToArray();
+                        ViewData["Error"] = "You have to choose Food Group.";
+                        return View(dish);
                     }
-                }
-
-                var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
-                if (q == null)
-                {
                     dish.Store = new List<Store>();
                     dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
                     if (dish.Store.Count==0)
@@ -178,7 +183,12 @@ namespace Petstaurant.Controllers
                     ViewData["Error"] = "Please enter a valid description name";
                     return View(dish);
                 }
-
+                var fg = _context.FoodGroup.FirstOrDefault(f => f.Id == dish.FoodGroupId);
+                if (fg == null)
+                {
+                    ViewData["Error"] = "You have to choose Food Group.";
+                    return View(dish);
+                }
                 try
                 {
                     if (flagForImage)

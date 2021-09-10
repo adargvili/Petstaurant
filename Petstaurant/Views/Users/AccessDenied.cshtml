@@ -4,6 +4,13 @@
     ViewData["Title"] = "AccessDenied";
 }
 
-<h1>You are not authorized to access this page.</h1>
 
-<a asp-action="Logout">Click here</a> to signin using a different user
+
+<div style=" background: rgba(0,0,0, 0.1);">
+    <div class="display-5">
+        <h1>We are sorry !</h1>
+        <h1>You are not authorized to access this page...</h1>
+    </div>
+
+    <a asp-action="Logout" style="color:#FFC107" class="fs-3">Click here</a> to signin using a different user
+</div>
