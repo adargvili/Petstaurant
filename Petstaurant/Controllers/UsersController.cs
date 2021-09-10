@@ -262,17 +262,19 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            if (GetCurrentUserName() != id) {
+            var user = await _context.User
+               .FirstOrDefaultAsync(m => m.UserName == id);
+
+            if (GetCurrentUserName() != id && user.UserType==UserType.Admin) {
                 return View("AccessDenied");
             }
 
-            var user = await _context.User
-                .FirstOrDefaultAsync(m => m.UserName == id);
 
             if (user == null)
             {
@@ -288,12 +290,13 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (GetCurrentUserName() != id)
+            var user = await _context.User.FindAsync(id);
+
+            if (GetCurrentUserName() != id && user.UserType == UserType.Admin)
             {
                 return View("AccessDenied");
             }
 
-            var user = await _context.User.FindAsync(id);
             var cartToDelete = _context.Cart.FirstOrDefault(c => c.UserName == user.UserName);
 
             _context.Cart.Remove(cartToDelete);
