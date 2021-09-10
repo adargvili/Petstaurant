@@ -15,7 +15,7 @@ namespace Petstaurant.Models
         [Required]
         [StringLength(30, MinimumLength = 2, ErrorMessage = "You are allowed to use only 2-30 characters")]
         [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
-            "Name should only contain word characters, hyphens, spaces and apostrophes")]
+            "Please enter a valid dish name")]
         public string Name { get; set; }
         [DisplayName("Food Group")]
         public int FoodGroupId { get; set; }
@@ -29,6 +29,7 @@ namespace Petstaurant.Models
         [DisplayName("Cart Items")]
         public List<CartItem> CartItems { get; set; }
         [DataType(DataType.Date)]
+        [DisplayName("Updated")]
         public DateTime Created { get; set; } = DateTime.Today;
         public byte[] Image { get; set; }
         [NotMapped]

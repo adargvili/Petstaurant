@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -37,25 +38,6 @@ namespace Petstaurant.Controllers
             return View(await petstaurantContext.ToListAsync());
         }
 
-        //// GET: Dishes/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var dish = await _context.Dish
-        //        .Include(d => d.FoodGroup)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (dish == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(dish);
-        //}
-
         // GET: Dishes/Create
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
@@ -74,6 +56,17 @@ namespace Petstaurant.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!dish.Name.All(x => char.IsLetter(x) || x == ' ' )|| dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ")|| dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace)>dish.Name.Split().Length-1))
+                {
+                    ViewData["Error"] = "Please enter a valid dish name";
+                    return View(dish);
+                }
+
+                if (dish.Description.StartsWith(" ") || dish.Description.EndsWith(" ") || (dish.Description.Count(Char.IsWhiteSpace) > dish.Description.Split().Length - 1))
+                {
+                    ViewData["Error"] = "Please enter a valid description name";
+                    return View(dish);
+                }
                 if (dish.ImageFile == null)
                 {
                     String path = "./wwwroot/pics/defaultpic.jpeg";
@@ -100,6 +93,11 @@ namespace Petstaurant.Controllers
                 {
                     dish.Store = new List<Store>();
                     dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
+                    if (dish.Store.Count==0)
+                    {
+                        ViewData["Error"] = "You have to choose at least one store.";
+                        return View(dish);
+                    }
                     _context.Add(dish);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -138,7 +136,7 @@ namespace Petstaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,Created,ImageFile")] Dish dish, int[] Store)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,ImageFile")] Dish dish, int[] Store)
         {
             if (id != dish.Id)
             {
@@ -147,6 +145,18 @@ namespace Petstaurant.Controllers
 
             if (ModelState.IsValid)
             {
+                if (!dish.Name.All(x => char.IsLetter(x) || x == ' ') || dish.Name.StartsWith(" ") || dish.Name.EndsWith(" ") || dish.Name.Count(Char.IsWhiteSpace) > 3 || (dish.Name.Count(Char.IsWhiteSpace) > dish.Name.Split().Length - 1))
+                {
+                    ViewData["Error"] = "Please enter a valid dish name";
+                    return View(dish);
+                }
+
+                if (dish.Description.StartsWith(" ") || dish.Description.EndsWith(" ") || (dish.Description.Count(Char.IsWhiteSpace) > dish.Description.Split().Length - 1))
+                {
+                    ViewData["Error"] = "Please enter a valid description name";
+                    return View(dish);
+                }
+
                 try
                 {
                     using (MemoryStream ms = new MemoryStream())
@@ -156,9 +166,27 @@ namespace Petstaurant.Controllers
                     }
                     //TODO: Edit stores and not only adding 
                     dish.Store = new List<Store>();
+                    //var dishStores = _context.Dish.Where(c => c.Id == dish.Id).SelectMany(c => c.Store).ToList();
+                    //List<int> integers = new List<int>();
+                    //foreach (Store st in dishStores)
+                    //{
+                    //integers.Add(st.Id);
+                    //}
+
+                    // foreach (var s in dishStores)
+                    // {
+                    //    dish.Store.Remove(s);
+                    //    s.Dish.Remove(dish);
+                    // }
+                    //var arr =  integers.Intersect(Store).ToList();
                     dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
-                    _context.Update(dish);
-                    await _context.SaveChangesAsync();
+                    if (dish.Store.Count == 0)
+                        {
+                            ViewData["Error"] = "You have to choose at least one store.";
+                            return View(dish);
+                        }
+                        _context.Update(dish);
+                        await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -204,6 +232,21 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dish = await _context.Dish.FindAsync(id);
+            var carts = _context.CartItem.Where(c => c.DishId == id).ToList();
+
+            foreach (CartItem ci in carts)
+            {
+                var c = _context.Cart.FirstOrDefault(p => p.Id == ci.CartId);
+                if (ci != null)
+                {
+                    c.TotalPrice -= dish.Price;
+                    if (c.TotalPrice < 0)
+                    {
+                        c.TotalPrice = 0;
+                    }
+                    _context.CartItem.Remove(ci);
+                }
+            }
             _context.Dish.Remove(dish);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
