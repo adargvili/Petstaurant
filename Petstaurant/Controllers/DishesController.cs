@@ -185,7 +185,29 @@ namespace Petstaurant.Controllers
                             ViewData["Error"] = "You have to choose at least one store.";
                             return View(dish);
                         }
-                        _context.Update(dish);
+
+
+                    var cartItems = _context.CartItem.Where(c => c.DishId == id).ToList();
+
+                    foreach (CartItem ci in cartItems)
+                    {
+                        var c = _context.Cart.FirstOrDefault(p => p.Id == ci.CartId);
+                        if (ci.Price!=ci.Quantity*dish.Price)
+                        {
+                            c.TotalPrice -= ci.Price;
+                            ci.Price = ci.Quantity * dish.Price;
+                            c.TotalPrice += ci.Quantity * dish.Price;
+                            if (c.TotalPrice < 0)
+                            {
+                                c.TotalPrice = 0;
+                            }
+                            if (ci.Price < 0)
+                            {
+                                ci.Price = 0;
+                            }
+                        }
+                    }
+                    _context.Update(dish);
                         await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -232,14 +254,14 @@ namespace Petstaurant.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dish = await _context.Dish.FindAsync(id);
-            var carts = _context.CartItem.Where(c => c.DishId == id).ToList();
+            var cartItems = _context.CartItem.Where(c => c.DishId == id).ToList();
 
-            foreach (CartItem ci in carts)
+            foreach (CartItem ci in cartItems)
             {
                 var c = _context.Cart.FirstOrDefault(p => p.Id == ci.CartId);
                 if (ci != null)
                 {
-                    c.TotalPrice -= dish.Price;
+                    c.TotalPrice -= dish.Price*ci.Quantity;
                     if (c.TotalPrice < 0)
                     {
                         c.TotalPrice = 0;
