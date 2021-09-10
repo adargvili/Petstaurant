@@ -81,9 +81,13 @@
                 <th>
                     @Html.DisplayName("Order Number")
                 </th>
-              
-                    <th></th>
-                
+
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    <th>     
+                    </th>
+                }
+
             </tr>
         </thead>
         <tbody>
@@ -132,14 +136,6 @@
                             <a class="fa bi bi-trash" asp-action="Delete" asp-route-id="@item.Id"></a>
                         </div>
 
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <div class="container justify-content-center d-grid gap-1 d-md-flex">
-                            <a class="fa bi bi-eye" asp-action="Details" asp-route-id="@item.Id"></a>
-                        </div>
                     </td>
                 }
             </tr>

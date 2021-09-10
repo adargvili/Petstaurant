@@ -22,11 +22,11 @@ namespace Petstaurant.Controllers
         }
 
         // GET: OrderItems
-        public async Task<IActionResult> Index()
-        {
-            var petstaurantContext = _context.OrderItem.Include(o => o.Dish).Include(o => o.Order);
-            return View(await petstaurantContext.ToListAsync());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var petstaurantContext = _context.OrderItem.Include(o => o.Dish).Include(o => o.Order);
+        //    return View(await petstaurantContext.ToListAsync());
+        //}
         private bool OrderItemExists(int id)
         {
             return _context.OrderItem.Any(e => e.Id == id);
