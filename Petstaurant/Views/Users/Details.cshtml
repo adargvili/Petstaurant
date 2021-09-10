@@ -80,7 +80,10 @@
     <a asp-controller="Dishes" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Dishes</a>
     <a asp-controller="Users" asp-action="Index" class="btn btn-outline-dark btn-warning" style="font-weight: 400; -webkit-text-stroke:0 !important;">Users</a>
 </div>
-              <div id="my_dataviz" class="col-5" style="background: rgba(0,0,0, 0.3);"></div>
+<div class="container justify-content-center d-grid gap-2 d-md-flex" style="background: rgba(0,0,0, 0.3);">
+    <div id="my_dataviz"></div>
+    <div id="my_dataviz2"></div>
+</div>
               
      }
 
@@ -122,5 +125,6 @@
 @section Scripts {
     <script src="~/js/tweet.js"></script>
     <script src="~/js/bestSellerStore.js"></script>
+    <script src="~/js/bestSellerDish.js"></script>
 }
 }
