@@ -144,13 +144,24 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,ImageFile")] Dish dish, int[] Store)
         {
+
             if (id != dish.Id)
             {
                 return NotFound();
             }
+            
+            Boolean flagForImage = true;
+            if (dish.ImageFile == null)
+            {
+                ModelState.Remove("Image");
+                ModelState.Remove("ImageFile");
+                dish.Image = _context.Dish.AsNoTracking().Where(d => d.Id == dish.Id).First().Image;
+                flagForImage = false;
+            }
 
             if (ModelState.IsValid)
             {
+
                 if (dish.Price == 0)
                 {
                     ViewData["Error"] = "Choose a postive price";
@@ -170,10 +181,13 @@ namespace Petstaurant.Controllers
 
                 try
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    if (flagForImage)
                     {
-                        dish.ImageFile.CopyTo(ms);
-                        dish.Image = ms.ToArray();
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            dish.ImageFile.CopyTo(ms);
+                            dish.Image = ms.ToArray();
+                        }
                     }
                     //TODO: Edit stores and not only adding 
                     dish.Store = new List<Store>();
@@ -218,7 +232,8 @@ namespace Petstaurant.Controllers
                             }
                         }
                     }
-                    _context.Update(dish);
+                        
+                        _context.Update(dish);
                         await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
