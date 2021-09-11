@@ -132,7 +132,7 @@ namespace Petstaurant.Controllers
                 await AddToTotalPrice(-cartitem.Price);
                 _context.CartItem.Remove(cartitem);
                 await _context.SaveChangesAsync();
-                double[] arrT = { 1, cartitem.Cart.TotalPrice };
+                double[] arrT = { 1, c.TotalPrice };
                 return arrT;
             }
             double[] arrF2 = { 0, c.TotalPrice };
