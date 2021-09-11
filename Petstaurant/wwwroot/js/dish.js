@@ -18,13 +18,13 @@
         var po = $('#priceError');
         if (parseInt(p) == 0) {
             e.preventDefault();
-            po.text('Choose a postive price');
+            po.text('Choose a positive price');
         }
 
         var de = $('#description').val();
         var deE = $('#descriptionError');
         var d = de.split(" ");
-        if (!de.match(/^[\w .,!?]+$/) || de.startsWith(" ") || de.endsWith(" ") || (de.search(/\S/) > d.length - 1)) {
+        if (!de.match(/^[\w .,!?']+$/) || de.startsWith(" ") || de.endsWith(" ") || (de.search(/\S/) > d.length - 1)) {
             e.preventDefault();
             deE.text('Please enter a valid description');
         }
