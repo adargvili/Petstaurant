@@ -206,6 +206,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
             return View(store);
         }
 
@@ -218,9 +219,9 @@ namespace Petstaurant.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Edit(int id, [Bind("Id,City,Address,PostalCode")] Store store)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,City,Address,PostalCode")] Store store, int[] Dish)
         {
-            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
+            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Models.Dish.Id), nameof(Models.Dish.Name));
             if (id != store.Id)
             {
                 return NotFound();
