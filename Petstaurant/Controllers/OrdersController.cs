@@ -112,7 +112,7 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create([Bind("Id,CreditCard,StoreId,Address,PostalCode,PhoneNumber,TotalPrice,UserName")] Order order)
         {
-
+            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.City));
             if (ModelState.IsValid)
             {
                 if (order.PostalCode.StartsWith("0"))

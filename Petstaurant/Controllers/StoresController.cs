@@ -148,6 +148,7 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,City,Address,PostalCode")] Store store, int[] Dish)
         {
+            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Models.Dish.Id), nameof(Models.Dish.Name));
             if (ModelState.IsValid)
             {
                 var q = _context.Store.FirstOrDefault(u => (store.City == u.City) && (store.Address == u.Address));
@@ -219,6 +220,7 @@ namespace Petstaurant.Controllers
 
         public async Task<IActionResult> Edit(int id, [Bind("Id,City,Address,PostalCode")] Store store)
         {
+            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
             if (id != store.Id)
             {
                 return NotFound();

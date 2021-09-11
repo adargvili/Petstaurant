@@ -54,6 +54,8 @@ namespace Petstaurant.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,FoodGroupId,Description,Price,ImageFile")] Dish dish, int[] Store)
         {
+            ViewData["Store"] = new MultiSelectList(_context.Store, nameof(Models.Store.Id), nameof(Models.Store.City));
+            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             if (ModelState.IsValid)
             {
                 var q = _context.Dish.FirstOrDefault(u => u.Name == dish.Name);
@@ -118,7 +120,6 @@ namespace Petstaurant.Controllers
                     ViewData["Error"] = "Unable to comply; cannot create the Dish.";
                 }
             }
-            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
         }
 
@@ -149,12 +150,12 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FoodGroupId,Description,Price,ImageFile")] Dish dish, int[] Store)
         {
-
             if (id != dish.Id)
             {
                 return NotFound();
             }
-            
+            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
+
             Boolean flagForImage = true;
             if (dish.ImageFile == null)
             {
@@ -205,14 +206,14 @@ namespace Petstaurant.Controllers
                     x.Store = new List<Store>();
                     await _context.SaveChangesAsync();
                     _context.Entry(x).State = EntityState.Detached;
-                    
+
                     dish.Store = new List<Store>();
                     dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
                     if (dish.Store.Count == 0)
-                        {
-                            ViewData["Error"] = "You have to choose at least one store.";
-                            return View(dish);
-                        }
+                    {
+                        ViewData["Error"] = "You have to choose at least one store.";
+                        return View(dish);
+                    }
 
 
                     var cartItems = _context.CartItem.Where(c => c.DishId == id).ToList();
@@ -235,9 +236,9 @@ namespace Petstaurant.Controllers
                             }
                         }
                     }
-                        
-                        _context.Update(dish);
-                        await _context.SaveChangesAsync();
+
+                    _context.Update(dish);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -252,7 +253,6 @@ namespace Petstaurant.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
         }
 
