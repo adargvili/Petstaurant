@@ -170,29 +170,3 @@ $(document).ready(function () {
 
     });
 });
-
-//checkout
-$(document).ready(function () {
-    $('.checkout').on("click", function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '/Carts/ClearCart',
-            data: {
-            },
-            success: function (data) {
-                if (parseInt(data[0]) == 0) {
-                    alert("There are no items in the cart");
-                    return false;
-                }
-                return false;
-            },
-            error: function (data) {
-                return false;
-            },
-            complete: function (data) {
-            },
-        });
-
-    });
-});
