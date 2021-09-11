@@ -18,7 +18,7 @@ $(document).ready(function () {
                 $(th).closest("tr").find('input').val(data[2].toString());
                 $(th).closest('tr').find(".ciPrice").text(data[0].toString() + "₪");;
                 document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() +"₪";
-                return true;
+                return false;
             },
             error: function (data) {
                 return false;
@@ -53,12 +53,12 @@ $(document).ready(function () {
                     var tr = $(th).closest("tr");
                     document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
                     tr.remove(); 
-                    return true;
+                    return false;
                 }
                 $(th).closest("tr").find('input').val(data[2].toString());
                 $(th).closest('tr').find(".ciPrice").text(data[0].toString() + "₪");
                 document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
-                return true;
+                return false;
             },
             error: function (data) {
                 return false;
@@ -89,7 +89,7 @@ $(document).ready(function () {
                 var tr = $(th).closest("tr");
                 document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
                 tr.remove();
-                return true;
+                return false;
             },
             error: function (data) {
                 return false;
@@ -128,7 +128,7 @@ $(document).ready(function () {
                     setTimeout(() => {
                         document.getElementById(diId).textContent = "Add to cart";
                     }, 1500);
-                    return true;
+                    return false;
                 },
                 error: function (data) {
                     return false;
@@ -159,7 +159,7 @@ $(document).ready(function () {
                 var tbl = document.getElementById("tblId");
                 tbl.removeChild(tbl.getElementsByTagName("tbody")[0]);
                 document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
-                return true;
+                return false;
             },
             error: function (data) {
                 return false;
