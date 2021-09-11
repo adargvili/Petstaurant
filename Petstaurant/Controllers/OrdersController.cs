@@ -99,7 +99,7 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Customer")]
         public IActionResult Create()
         {
-            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address));
+            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.City));
             ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName));
             return View();
         }
@@ -197,7 +197,7 @@ namespace Petstaurant.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details), new { @id = order.Id});
             }
-            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address), order.StoreId);
+            ViewData["StoreId"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.City), order.StoreId);
             ViewData["UserName"] = new SelectList(_context.User, nameof(Models.User.UserName), nameof(Models.User.UserName), order.UserName);
             return View(order);
         }
