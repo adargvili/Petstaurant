@@ -33,6 +33,16 @@ d3.json("/Orders/BestSellerStoreJsonDetails").then( function(data) {
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
+    svg.append("g")
+        .attr("class", "axis axis--y")
+        .append("text")
+        .attr("class", "axis-title")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .attr("fill", "#ffffff")
+        .text("Total Income ₪");
 
     // Bars
     svg.selectAll("mybar")
