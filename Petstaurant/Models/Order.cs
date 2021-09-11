@@ -18,7 +18,7 @@ namespace Petstaurant.Models
            "Credit card format is required")]
         [DataType(DataType.CreditCard)]
         public string CreditCard { get; set; }
-        [DisplayName("City")]
+        [DisplayName("Store")]
         public int StoreId { get; set; }
         public Store Store { get; set; }
 

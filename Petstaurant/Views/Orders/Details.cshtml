@@ -7,7 +7,7 @@
 {
     <h1 class="text-warning">Your order has been received!</h1>
     <h3 class="text-warning">Your order number is #@Model.Id</h3>
-    <h6 class="text-warning">Estimated Arrival Time: @Convert.ToDateTime(Model.OrderTime.AddHours(1)).ToString("dd/MM/yyyy hh:mm tt")</h6>
+    <h6 class="text-warning">Order pick-up time: @Convert.ToDateTime(Model.OrderTime.AddMinutes(30)).ToString("dd/MM/yyyy hh:mm tt")</h6>
 }
 @if (Context.User.IsInRole("Admin"))
 {
