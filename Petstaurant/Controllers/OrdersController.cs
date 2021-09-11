@@ -199,7 +199,7 @@ namespace Petstaurant.Controllers
 
                     if (dishes.Count==1)
                     {
-                        ViewData["Error"] = dishes[0] + " dish is not available in your city; Please remove this dish from cart and try again";
+                        ViewData["Error"] = dishes[0] + " dish is not available in "+store.City+ " Please remove this dish from cart and try again";
                         return View(order);
                     }
                     else {
@@ -211,7 +211,7 @@ namespace Petstaurant.Controllers
                             }
                             
                         }
-                        ViewData["Error"] = s + " dishes are not available in your city; Please remove this dishes from cart and try again";
+                        ViewData["Error"] = s + " dishes are not available in " + store.City + " Please remove this dishes from cart and try again";
                         return View(order);
                     }
                 }
