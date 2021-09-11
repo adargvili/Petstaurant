@@ -254,6 +254,15 @@ namespace Petstaurant.Controllers
                         return View(store);
                     }
                     c = false;
+
+                    var x = _context.Store.Where(s => s.Id == store.Id).Include(d => d.Dish).First();
+                    x.Dish = new List<Dish>();
+                    await _context.SaveChangesAsync();
+                    _context.Entry(x).State = EntityState.Detached;
+
+                    store.Dish = new List<Dish>();
+                    store.Dish.AddRange(_context.Dish.Where(x => Dish.Contains(x.Id)));
+
                     _context.Update(store);
                     await _context.SaveChangesAsync();
                 }

@@ -8,7 +8,6 @@
     <h1>Menu</h1>
     <p>
         <a type="button" style="font-weight:bold;" class="btn btn-warning btn-sm" asp-action="Create">Create New Dish</a>
-
     </p>}
 
 
@@ -31,41 +30,25 @@
 
                     <div class="col-md-4">
                         <div class="row row-cols-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Tel-Aviv" id="TLV-Check" style="background-color: #FFC107;" checked>
-                                <label class="form-check-label search-texts" for="flexCheckDefault">
-                                    Tel-Aviv
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Beer-Sheva" id="BS-Check" style="background-color: #FFC107;"checked>
-                                <label class="form-check-label search-texts" for="flexCheckDefault">
-                                    Beer-Sheva
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Jerusalem" id="Jer-Check" style="background-color: #FFC107;"checked>
-                                <label class="form-check-label search-texts" for="flexCheckDefault">
-                                    Jerusalem
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="cities[]" value="Kiryat-Malachi" id="KM-Check" style="background-color: #FFC107;" checked>
-                                <label class="form-check-label search-texts" for="flexCheckDefault">
-                                    Kiryat-Malachi
-                                </label>
-                            </div>
+                                @foreach (Store s in ViewBag.StoreList)
+                                    {
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="cities[]" value="@s.City" id="@s.City" style="background-color: #FFC107;" checked>
+                                        <label class="form-check-label search-texts" for="flexCheckDefault">
+                                            @s.City
+                                        </label>
+                                    </div>
+                                    }
                         </div>
                     </div>
                     <div class="col-md-auto">
                         <div class="p-1">
                             <select class="form-select" id="selectFoodType" name="selectFoodType" aria-label=".form-select-sm example">
                                 <option value=@null selected>Food Group</option>
-                                <option value="Poultry">Poultry</option>
-                                <option value="Fish">Fish</option>
-                                <option value="Beef">Beef</option>
-                                <option value="Vegetarian">Vegetarian</option>
-                                <option value="Dessert">Dessert</option>
+                                    @foreach (FoodGroup g in ViewBag.FoodGroupList)
+                                    {
+                                        <option value="@g.Name">@g.Name</option>
+                                    }
                             </select>
                         </div>
                     </div>

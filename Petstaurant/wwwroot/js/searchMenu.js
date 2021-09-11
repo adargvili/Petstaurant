@@ -6,18 +6,11 @@
         var selectFoodType = encodeURIComponent($('#selectFoodType').val());
         var cities = [];
 
-        if ($('#TLV-Check').is(':checked')) {
-            cities.push("Tel-Aviv");
-        }
-        if ($('#BS-Check').is(':checked')) {
-            cities.push("Beer-Sheva");
-        }
-        if ($('#Jer-Check').is(':checked')) {
-            cities.push("Jerusalem");
-        }
-        if ($('#KM-Check').is(':checked')) {
-            cities.push("Kiryat-Malachi");
-        }
+        $('.form-check-input').each(function (index, element) {
+            if ($(element).is(':checked')) {
+                cities.push($(element).val());
+            }
+        });
 
         var encodedCities = encodeURIComponent(JSON.stringify(cities));
 

@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -34,7 +34,8 @@ namespace Petstaurant.Controllers
             {
                 ViewData["UserAdmin"] = UserType.Admin;
             }
-
+            ViewData["StoreList"] = new ArrayList(_context.Store.ToList());
+            ViewData["FoodGroupList"] = new ArrayList(_context.FoodGroup.ToList());
             return View(await petstaurantContext.ToListAsync());
         }
 
