@@ -170,3 +170,15 @@ $(document).ready(function () {
 
     });
 });
+
+
+    //Checkout
+    $(document).ready(function () {
+        $('.checkout').on("click", function (e) {
+            var to = document.getElementById("toPrice").innerHTML
+            if (to == "Subtotal: 0₪") {
+                alert("There are no items in the cart");
+                e.preventDefault();
+            }
+        });
+    });

@@ -165,6 +165,22 @@ namespace Petstaurant.Controllers
             return arrT;
         }
 
+        [Authorize(Roles = "Customer")]
+
+        public async Task<int> ToCheckout()
+        {
+            var u = GetCurrentUserName();
+            var c = _context.Cart.FirstOrDefault(p => p.UserName == u);
+
+            if (c.TotalPrice==0)
+            {
+                return 0;
+            }
+            return 1;
+
+
+        }
+
 
         [Authorize(Roles = "Customer")]
         public async Task<double[]> AddOne(int id)
