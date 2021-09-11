@@ -41,7 +41,7 @@ d3.json("/Orders/BestSellerDishJsonDetails").then(function (data) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .attr("fill", "#ffffff")
-        .text("Total Orders");
+        .text("Total Number Of Orders");
 
     // Bars
     svg2.selectAll("mybar")
