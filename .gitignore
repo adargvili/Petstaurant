@@ -5,6 +5,15 @@
 
 #Configurations Files:
 Migrations/
+appsettings.json
+
+#Api-Files:
+UsersController.cs
+BshevaCity.cshtml
+JerusalemCity.cshtml
+Kmalachi.cshtml
+TLVcity.cshtml
+AboutPetstaurant.cshtml
 
 # User-specific files
 *.rsuser
