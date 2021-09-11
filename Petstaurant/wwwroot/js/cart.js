@@ -17,7 +17,7 @@ $(document).ready(function () {
                 }
                 $(th).closest("tr").find('input').val(data[2].toString());
                 $(th).closest('tr').find(".ciPrice").text(data[0].toString() + "₪");;
-                document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() +"₪";
+                document.getElementById("toPrice").innerHTML = "Subtotal: " + data[1].toString() +"₪";
                 return false;
             },
             error: function (data) {
@@ -51,13 +51,13 @@ $(document).ready(function () {
                 }
                 if (parseInt(data[0])==0) {
                     var tr = $(th).closest("tr");
-                    document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
+                    document.getElementById("toPrice").innerHTML = "Subtotal: " + data[1].toString() + "₪";
                     tr.remove(); 
                     return false;
                 }
                 $(th).closest("tr").find('input').val(data[2].toString());
                 $(th).closest('tr').find(".ciPrice").text(data[0].toString() + "₪");
-                document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
+                document.getElementById("toPrice").innerHTML = "Subtotal: " + data[1].toString() + "₪";
                 return false;
             },
             error: function (data) {
@@ -87,7 +87,7 @@ $(document).ready(function () {
                     return false;
                 }
                 var tr = $(th).closest("tr");
-                document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
+                document.getElementById("toPrice").innerHTML = "Subtotal: " + data[1].toString() + "₪";
                 tr.remove();
                 return false;
             },
@@ -158,7 +158,7 @@ $(document).ready(function () {
                 }
                 var tbl = document.getElementById("tblId");
                 tbl.removeChild(tbl.getElementsByTagName("tbody")[0]);
-                document.getElementById("toPrice").innerHTML = "Total Price: " + data[1].toString() + "₪";
+                document.getElementById("toPrice").innerHTML = "Subtotal: " + data[1].toString() + "₪";
                 return false;
             },
             error: function (data) {
@@ -170,3 +170,15 @@ $(document).ready(function () {
 
     });
 });
+
+
+    //Checkout
+    $(document).ready(function () {
+        $('.checkout').on("click", function (e) {
+            var to = document.getElementById("toPrice").innerHTML
+            if (to == "Subtotal: 0₪") {
+                alert("There are no items in the cart");
+                e.preventDefault();
+            }
+        });
+    });
