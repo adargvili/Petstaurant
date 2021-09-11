@@ -133,7 +133,7 @@ namespace Petstaurant.Controllers
                     }
                 }
 
-                if (c ||!char.IsDigit(order.Address.Last()) || order.Address.StartsWith(" ") || order.Address.EndsWith(" ") || order.Address.Contains(",") || char.IsDigit(order.Address[0])|| !order.Address.Contains(" ")|| Regex.IsMatch(order.Address, @"\s{2,}")|| !order.Address.Any(char.IsDigit)|| order.Address.All(char.IsDigit)|| order.Address.Count(Char.IsWhiteSpace)>4)
+                if (c || order.Address.StartsWith(" ") || order.Address.EndsWith(" ") || order.Address.Contains(",") || char.IsDigit(order.Address[0]) || Regex.IsMatch(order.Address, @"\s{2,}") || order.Address.All(char.IsDigit) || order.Address.Count(Char.IsWhiteSpace) > 4)
                 {
                     ViewData["Error"] = "Israeli address format is required (Example: Israel Galili 5)";
                     return View(order);

@@ -10,17 +10,19 @@ namespace Petstaurant.Models
     public class Store
     {
         public int Id { get; set; }
-        [RegularExpression(@"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$", ErrorMessage =
-           "City name should only contain word characters, hyphens, spaces and apostrophes")]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = "You are allowed to use only 2-30 characters")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "You are allowed to use only 2-20 characters")]
+        [RegularExpression(@"[a-zA-Z]+(?:[ '-][a-zA-Z]+)*", ErrorMessage =
+           "Please choose a valid city name")]
         public string City { get; set; }
         [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$", ErrorMessage =
-           "Please do not use specialized sybmols in the address")]
+           "Israeli address format is required (Example: Israel Galili 5)")]
         [StringLength(30, MinimumLength = 4, ErrorMessage = "You are allowed to use only 4-30 characters")]
         public string Address { get; set; }
         [Required]
+        [RegularExpression(@"^\d{7}$", ErrorMessage =
+           "Israeli postal code format is required")]
         [DisplayName("Postal Code")]
-        [StringLength(30, MinimumLength = 4, ErrorMessage = "You are allowed to use only 4-30 characters")]
+        [StringLength(7, MinimumLength = 7, ErrorMessage = "You are allowed to use only 7 digits")]
         [DataType(DataType.PostalCode)]
         public string PostalCode { get; set; }
         [DisplayName("Dishes")]

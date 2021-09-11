@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -152,6 +153,29 @@ namespace Petstaurant.Controllers
                 var q = _context.Store.FirstOrDefault(u => (store.City == u.City) && (store.Address == u.Address));
                 if (q == null)
                 {
+                    if (store.PostalCode.StartsWith("0"))
+                    {
+                        ViewData["Error"] = "Israeli postal code format is required";
+                        return View(store);
+                    }
+                    var oa = store.Address.Split();
+                    bool c = false;
+                    if (oa.Length > 4 || oa.Length < 2)
+                        c = true;
+                    foreach (string s in oa)
+                    {
+                        if ((!s.Any(x => !char.IsLetter(x)) && s.Any(char.IsDigit)) || (s.Length == 1 && !s.Any(char.IsDigit)))
+                        {
+                            c = true;
+                            break;
+                        }
+                    }
+                    if (c || store.Address.StartsWith(" ") || store.Address.EndsWith(" ") || store.Address.Contains(",") || char.IsDigit(store.Address[0]) || Regex.IsMatch(store.Address, @"\s{2,}") || store.Address.All(char.IsDigit) || store.Address.Count(Char.IsWhiteSpace) > 4)
+                    {
+                        ViewData["Error"] = "Israeli address format is required (Example: Israel Galili 5)";
+                        return View(store);
+                    }
+                    c = false;
                     store.Dish = new List<Dish>();
                     store.Dish.AddRange(_context.Dish.Where(x => Dish.Contains(x.Id)));
                     _context.Add(store);
@@ -204,6 +228,29 @@ namespace Petstaurant.Controllers
             {
                 try
                 {
+                    if (store.PostalCode.StartsWith("0"))
+                    {
+                        ViewData["Error"] = "Israeli postal code format is required";
+                        return View(store);
+                    }
+                    var oa = store.Address.Split();
+                    bool c = false;
+                    if (oa.Length > 4 || oa.Length < 2)
+                        c = true;
+                    foreach (string s in oa)
+                    {
+                        if ((!s.Any(x => !char.IsLetter(x)) && s.Any(char.IsDigit)) || (s.Length == 1 && !s.Any(char.IsDigit)))
+                        {
+                            c = true;
+                            break;
+                        }
+                    }
+                    if (c || store.Address.StartsWith(" ") || store.Address.EndsWith(" ") || store.Address.Contains(",") || char.IsDigit(store.Address[0]) || Regex.IsMatch(store.Address, @"\s{2,}") || store.Address.All(char.IsDigit) || store.Address.Count(Char.IsWhiteSpace) > 4)
+                    {
+                        ViewData["Error"] = "Israeli address format is required (Example: Israel Galili 5)";
+                        return View(store);
+                    }
+                    c = false;
                     _context.Update(store);
                     await _context.SaveChangesAsync();
                 }
