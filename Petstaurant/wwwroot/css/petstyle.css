@@ -11,9 +11,7 @@
 a {
     color: #FFC107;
 }
-.navbar-brand:hover{
-    color:white !important;
-}
+
 .container {
     padding-top: 2%;
     padding-bottom: 2%;
@@ -24,6 +22,7 @@ a {
     background: rgba(12, 11, 9, 0.6);
    
 }
+
 
 .btn-outline-warning{
     font-weight: bold;
@@ -61,16 +60,22 @@ a {
     font-family: "Poppins", sans-serif;
 }
 
+.navbar-brand:hover {
+    color: #bd8e04 !important;
+}
+
+
+
+
 /*Dropdown*/
 .dropdown-toggle {
     color: black;
-    font-weight:bold;
-    margin-top:8px;
+    font-weight: bold;
+    margin-top: 8px;
     display: inline-block;
     border: 1px solid #000;
     text-align: center;
     background: #FFC107;
- 
 }
 
 

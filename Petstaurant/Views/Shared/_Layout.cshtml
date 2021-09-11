@@ -78,7 +78,7 @@
                     </button>
                                     @if (Context.User.IsInRole("Customer"))
                                     {
-                    <button asp-controller="Carts" asp-action="Details" class="btn btn-outline-warning">Shopping Cart</button>
+                    <button asp-controller="Carts" asp-action="Details" class="btn btn-outline-warning bi bi-cart" style="width:50px;font-weight:bold;"></button>
                                         <button asp-controller="Orders" asp-action="Index" class="btn btn-outline-warning">My Orders</button>}
                                                     @if (Context.User.IsInRole("Admin"))
                                                     {
