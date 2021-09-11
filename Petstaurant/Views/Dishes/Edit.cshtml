@@ -47,6 +47,9 @@
         </form>
     </div>
 </div>
+@if (ViewBag.Error != null)
+{
+    <div class="text-danger">@ViewBag.Error</div>}
 
 <div>
     <a style="color: #FFC107 !important;" asp-action="Index">Back to List</a>
