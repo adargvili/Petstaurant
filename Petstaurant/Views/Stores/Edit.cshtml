@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Store</h1>
+<h1 class="text-warning">Edit Store</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -47,4 +47,5 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/store.js"></script>
+    <script src="~/js/multiselect.js"></script>
 }
