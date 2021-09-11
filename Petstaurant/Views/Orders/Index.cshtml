@@ -48,12 +48,6 @@
     <table class="table table-dark table-striped table-hover">
         <thead>
             <tr>
-                @if (Context.User.IsInRole("Admin"))
-                {
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreditCard)
-                    </th>
-                }
                 <th>
                     @Html.DisplayNameFor(model => model.Store)
                 </th>
@@ -94,12 +88,6 @@
             @foreach (var item in Model)
             {
             <tr>
-                @if (Context.User.IsInRole("Admin"))
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreditCard)
-                    </td>
-                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Store.City)
                 </td>
