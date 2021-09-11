@@ -191,6 +191,7 @@ namespace Petstaurant.Controllers
                 }
                 try
                 {
+
                     if (flagForImage)
                     {
                         using (MemoryStream ms = new MemoryStream())
@@ -199,21 +200,13 @@ namespace Petstaurant.Controllers
                             dish.Image = ms.ToArray();
                         }
                     }
-                    //TODO: Edit stores and not only adding 
-                    dish.Store = new List<Store>();
-                    //var dishStores = _context.Dish.Where(c => c.Id == dish.Id).SelectMany(c => c.Store).ToList();
-                    //List<int> integers = new List<int>();
-                    //foreach (Store st in dishStores)
-                    //{
-                    //integers.Add(st.Id);
-                    //}
 
-                    // foreach (var s in dishStores)
-                    // {
-                    //    dish.Store.Remove(s);
-                    //    s.Dish.Remove(dish);
-                    // }
-                    //var arr =  integers.Intersect(Store).ToList();
+                    var x = _context.Dish.Where(d => d.Id == dish.Id).Include(s => s.Store).First();
+                    x.Store = new List<Store>();
+                    await _context.SaveChangesAsync();
+                    _context.Entry(x).State = EntityState.Detached;
+                    
+                    dish.Store = new List<Store>();
                     dish.Store.AddRange(_context.Store.Where(x => Store.Contains(x.Id)));
                     if (dish.Store.Count == 0)
                         {
