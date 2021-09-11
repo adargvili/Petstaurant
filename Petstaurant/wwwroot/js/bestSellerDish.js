@@ -32,6 +32,16 @@ d3.json("/Orders/BestSellerDishJsonDetails").then(function (data) {
         .range([height, 0]);
     svg2.append("g")
         .call(d3.axisLeft(y));
+    svg2.append("g")
+        .attr("class", "axis axis--y")
+        .append("text")
+        .attr("class", "axis-title")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .attr("fill", "#ffffff")
+        .text("Total Orders");
 
     // Bars
     svg2.selectAll("mybar")

@@ -42,7 +42,7 @@ namespace Petstaurant.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            ViewData["Store"] = new MultiSelectList(_context.Store, nameof(Store.Id), nameof(Store.Address));
+            ViewData["Store"] = new MultiSelectList(_context.Store, nameof(Store.Id), nameof(Store.City));
             ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name));
             return View();
         }
@@ -136,7 +136,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
-            ViewData["Store"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.Address));
+            ViewData["Store"] = new SelectList(_context.Store, nameof(Store.Id), nameof(Store.City));
             ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
             return View(dish);
         }
