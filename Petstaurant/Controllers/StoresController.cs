@@ -57,20 +57,85 @@ namespace Petstaurant.Controllers
 
         public IActionResult TLVcity()
         {
+            var store = _context.Store.First(s => s.City.Equals("Tel-Aviv"));
+            var split = store.Address.Split(" ");
+            var builder ="";
+            for (int i = 0; i < split.Length; i++)
+            {
+                builder+=split[i];
+                builder+="+";
+            }
+            builder = builder.Substring(0, builder.Length - 1);
+            builder+=",";
+
+            var city = store.City.Split("-");
+            builder += city[0];
+            builder += "+";
+            builder += city[1];
+
+            ViewData["StoreAddress"] = builder;
             return View();
         }
 
         public IActionResult JerusalemCity()
         {
+            var store = _context.Store.First(s => s.City.Equals("Jerusalem"));
+            var split = store.Address.Split(" ");
+            var builder = "";
+            for (int i = 0; i < split.Length; i++)
+            {
+                builder += split[i];
+                builder += "+";
+            }
+            builder = builder.Substring(0, builder.Length - 1);
+            builder += ",";
+            builder += store.City;
+
+            ViewData["StoreAddress"] = builder;
             return View();
         }
 
         public IActionResult Kmalachi()
         {
+            var store = _context.Store.First(s => s.City.Equals("Kiryat-Malachi"));
+            var split = store.Address.Split(" ");
+            var builder = "";
+            for (int i = 0; i < split.Length; i++)
+            {
+                builder += split[i];
+                builder += "+";
+            }
+            builder = builder.Substring(0, builder.Length - 1);
+            builder += ",";
+
+            var city = store.City.Split("-");
+            builder += city[0];
+            builder += "+";
+            builder += city[1];
+
+
+            ViewData["StoreAddress"] = builder;
             return View();
         }
         public IActionResult BshevaCity()
         {
+            var store = _context.Store.First(s => s.City.Equals("Beer-Sheva"));
+            var split = store.Address.Split(" ");
+            var builder = "";
+            for (int i = 0; i < split.Length; i++)
+            {
+                builder += split[i];
+                builder += "+";
+            }
+            builder = builder.Substring(0, builder.Length - 1);
+            builder += ",";
+
+            var city = store.City.Split("-");
+            builder += city[0];
+            builder += "+";
+            builder += city[1];
+
+            ViewData["StoreAddress"] = builder;
             return View();
         }
 

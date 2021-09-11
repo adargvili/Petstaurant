@@ -1,6 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Petstaurant.Models.Store
+@{ ViewData["Title"] = "Home Page"; }
 
 <head>
     <title>Simple Map</title>
@@ -44,14 +43,12 @@
             <div class="mapdes float-end">
                 <p class="fs-5 text-center" style="-webkit-text-stroke: 1px #000000;">Our Kitchen at MENTA Gas Station</p>
                 <section>
-                    <iframe width="400" height="300" style="border: 1px solid black;" frameborder="1" src="https://www.bing.com/maps/embed?h=400&w=500&cp=31.727564249215654~34.75073840138755&lvl=18&typ=d&sty=h&src=SHELL&FORM=MBEDV8" scrolling="no">
+                    <iframe width="400"
+                            height="300"
+                            frameborder="0" style="border:solid"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD9csZq6qnB_tyJV0GWhN3m2An0r7f97Gg&q=@ViewBag.StoreAddress">
                     </iframe>
                 </section>
-                <div style="white-space: nowrap; text-align: center; width: 400px; padding: 6px 0;">
-                    <a class="btn btn-outline-dark btn-warning btn-sm" style="font-weight: bold;" id="largeMapLink" target="_blank" href="https://www.bing.com/maps?cp=32.073660664462615~34.79246964321723&amp;sty=h&amp;lvl=16&amp;FORM=MBEDLD">View Larger Map</a> &nbsp; | &nbsp;
-
-                    <a class="btn btn-outline-dark btn-warning btn-sm" style="font-weight: bold;" id="dirMapLink" target="_blank" href="https://www.bing.com/maps/directions?cp=32.073660664462615~34.79246964321723&amp;sty=h&amp;lvl=16&amp;rtp=~pos.32.073660664462615_34.79246964321723____&amp;FORM=MBEDLD">Get Directions</a>
-                </div>
             </div>
         </div>
 
