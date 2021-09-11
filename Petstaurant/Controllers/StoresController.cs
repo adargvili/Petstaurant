@@ -52,7 +52,7 @@ namespace Petstaurant.Controllers
         // GET: Stores/Create
         public IActionResult Create()
         {
-            ViewData["Dish"] = new SelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
+            ViewData["Dish"] = new MultiSelectList(_context.Dish, nameof(Dish.Id), nameof(Dish.Name));
             return View();
         }
 
