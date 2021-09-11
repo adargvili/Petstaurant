@@ -18,8 +18,6 @@ namespace Petstaurant.Data
 
         public DbSet<Petstaurant.Models.CartItem> CartItem { get; set; }
 
-        public DbSet<Petstaurant.Models.ContactBox> ContactBox { get; set; }
-
         public DbSet<Petstaurant.Models.Dish> Dish { get; set; }
 
         public DbSet<Petstaurant.Models.FoodGroup> FoodGroup { get; set; }
