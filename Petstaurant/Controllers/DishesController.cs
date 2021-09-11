@@ -155,6 +155,7 @@ namespace Petstaurant.Controllers
             {
                 return NotFound();
             }
+            ViewData["Store"] = new SelectList(_context.Store, nameof(Models.Store.Id), nameof(Models.Store.City));
             ViewData["FoodGroupId"] = new SelectList(_context.FoodGroup, nameof(FoodGroup.Id), nameof(FoodGroup.Name), dish.FoodGroupId);
 
             Boolean flagForImage = true;

@@ -156,6 +156,9 @@ namespace Petstaurant.Controllers
                 }
                 order.UserName = u;
                 order.TotalPrice = cart.TotalPrice;
+                List<String> dishes;
+                dishes = new List<String>();
+                var check =0;
                 foreach (CartItem cartitem in cartitems)
                 {
                     if (cartitem != null)
@@ -167,19 +170,18 @@ namespace Petstaurant.Controllers
                             return View(order);
                         }
                         var dishStores = _context.Dish.Where(c => c.Id == dish.Id).SelectMany(c => c.Store).ToList();
-                        var check = 0;
+                        check = 0;
                         foreach(Store s in dishStores)
                         {
                             if(s.Id == order.StoreId)
                             {
-                                check = 1;
+                                check=1;
                                 break;
                             }
                         }
                         if (check ==0)
                         {
-                            ViewData["Error"] = dish.Name + " dish is not available in your city; Please remove this dish from cart and try again";
-                            return View(order);
+                            dishes.Add(dish.Name);
                         }
                         OrderItem orderitem = new OrderItem();
                         orderitem.DishId = cartitem.DishId;
@@ -190,6 +192,27 @@ namespace Petstaurant.Controllers
                             order.OrderItems = new List<OrderItem>();
                         }
                         order.OrderItems.Add(orderitem);
+                    }
+                }
+                if (dishes.Count()!=0){
+                    String s = "";
+
+                    if (dishes.Count==1)
+                    {
+                        ViewData["Error"] = dishes[0] + " dish is not available in "+store.City+ " Please remove this dish from cart and try again";
+                        return View(order);
+                    }
+                    else {
+                        for (int i = 0; i < dishes.Count; i++)
+                        {
+                            s += dishes[i];
+                            if (i < dishes.Count-1) {
+                                s += ", ";
+                            }
+                            
+                        }
+                        ViewData["Error"] = s + " dishes are not available in " + store.City + " Please remove this dishes from cart and try again";
+                        return View(order);
                     }
                 }
                 _context.Add(order);
