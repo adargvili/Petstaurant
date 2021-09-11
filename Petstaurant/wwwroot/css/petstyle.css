@@ -95,6 +95,14 @@ a {
 
 
 /* Social */
+.navbar-brand {
+    transition: width 1s;
+}
+ .navbar-brand:hover {
+        width: 220px;
+      
+    }
+
 .fa {
     margin-left:30px;
     padding: 15px;
@@ -103,11 +111,13 @@ a {
     font-size:22px !important;
     text-decoration: none;
     color:white;
+   
 }
 
 
     .fa:hover {
         opacity: 0.7;
+
     }
 
 .fa-facebook {
